@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using PropiedadHorizontal.Api.Helpers;
+using PropiedadHorizontal.Data.Context;
 
 namespace PropiedadHorizontal.Api
 {
@@ -26,6 +22,12 @@ namespace PropiedadHorizontal.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // Entity Framework Configuration
+            services.AddDbContext<PropiedadHorizontalContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal")));
+
+            SwaggerHelper.ConfigureService(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +43,14 @@ namespace PropiedadHorizontal.Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web API V1");
+                c.RoutePrefix = "";
+            });
 
             app.UseEndpoints(endpoints =>
             {
