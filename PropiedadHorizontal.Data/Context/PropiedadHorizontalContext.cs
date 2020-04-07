@@ -3,7 +3,7 @@ using PropiedadHorizontal.Data.Models;
 
 namespace PropiedadHorizontal.Data.Context
 {
-    public partial class PropiedadHorizontalContext : DbContext
+    public partial class PropiedadHorizontalContext : DbContext, IBaseContext
     {
         public PropiedadHorizontalContext()
         {
@@ -73,7 +73,7 @@ namespace PropiedadHorizontal.Data.Context
 
                 entity.Property(e => e.IdMunicipio).HasColumnType("numeric(18, 0)");
 
-                entity.Property(e => e.Logo).HasColumnType("image");
+                entity.Property(e => e.Logo).HasColumnType("varchar(200)");
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()
@@ -84,7 +84,7 @@ namespace PropiedadHorizontal.Data.Context
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.IdMunicipioNavigation)
+                entity.HasOne(d => d.Municipio)
                     .WithMany(p => p.PropiedadesHorizontales)
                     .HasForeignKey(d => d.IdMunicipio)
                     .HasConstraintName("FK_Municipios_PropHorizontal");

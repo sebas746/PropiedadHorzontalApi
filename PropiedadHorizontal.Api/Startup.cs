@@ -5,7 +5,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PropiedadHorizontal.Api.Helpers;
+using PropiedadHorizontal.Business.Services;
+using PropiedadHorizontal.Business.Services.Interfaces;
 using PropiedadHorizontal.Data.Context;
+using PropiedadHorizontal.Data.Repositories;
+using PropiedadHorizontal.Data.Repositories.Interfaces;
 
 namespace PropiedadHorizontal.Api
 {
@@ -28,6 +32,7 @@ namespace PropiedadHorizontal.Api
                 options => options.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal")));
 
             SwaggerHelper.ConfigureService(services);
+            DependencyInjectionHelper.ConfigureDependencies(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

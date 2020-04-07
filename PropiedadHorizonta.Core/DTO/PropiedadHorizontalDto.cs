@@ -1,7 +1,7 @@
 ﻿
-namespace PropiedadHorizontal.Data.Models
+namespace PropiedadHorizontal.Core.DTO
 {
-    public partial class PropiedadesHorizontales
+    public class PropiedadHorizontalDto
     {
         public string Nit { get; set; }
         public string Nombre { get; set; }
@@ -9,8 +9,6 @@ namespace PropiedadHorizontal.Data.Models
         public string Telefono { get; set; }
         public string Email { get; set; }
         public string Logo { get; set; }
-        public decimal? IdMunicipio { get; set; }
-
-        public virtual Municipios Municipio { get; set; }
+        public string NombreMunicipio { get; set; }
     }
 }
