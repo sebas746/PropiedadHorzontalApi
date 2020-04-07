@@ -5,11 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PropiedadHorizontal.Api.Helpers;
-using PropiedadHorizontal.Business.Services;
-using PropiedadHorizontal.Business.Services.Interfaces;
 using PropiedadHorizontal.Data.Context;
-using PropiedadHorizontal.Data.Repositories;
-using PropiedadHorizontal.Data.Repositories.Interfaces;
 
 namespace PropiedadHorizontal.Api
 {

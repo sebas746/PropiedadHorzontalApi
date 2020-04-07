@@ -9,6 +9,8 @@ namespace PropiedadHorizontal.Api.Helpers
 {
     public class DependencyInjectionHelper
     {
+        protected DependencyInjectionHelper() { }
+
         public static void ConfigureDependencies(IServiceCollection services)
         {
             //Dependency Injection
