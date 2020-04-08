@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PropiedadHorizonta.Core\PropiedadHorizontal.Core.csproj" />
     <ProjectReference Include="..\PropiedadHorizontal.Data\PropiedadHorizontal.Data.csproj" />
   </ItemGroup>

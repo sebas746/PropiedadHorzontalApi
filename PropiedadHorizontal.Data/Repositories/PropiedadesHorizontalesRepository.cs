@@ -11,7 +11,7 @@ namespace PropiedadHorizontal.Data.Repositories
 {
     public class PropiedadesHorizontalesRepository : GenericRepository<PropiedadesHorizontales>, IPropiedadesHorizontalesRepository
     {
-        private readonly Expression<Func<PropiedadesHorizontales, bool>> EmptyFilter = ph => ph.Nit != "";
+        private readonly Expression<Func<PropiedadesHorizontales, bool>> EmptyFilter = ph => ph.NitPropiedadHorizontal != "";
         public PropiedadesHorizontalesRepository(IBaseContext context) : base(context)
         {
         }
@@ -29,6 +29,7 @@ namespace PropiedadHorizontal.Data.Repositories
         {
             var sorter = Utils.Utils.OrderByFunc<PropiedadesHorizontales>(currentSort, string.IsNullOrEmpty(sortOrder)
                                                                                || sortOrder.Equals("desc", StringComparison.CurrentCultureIgnoreCase));
+
             var sorterList = new List<Func<IQueryable<PropiedadesHorizontales>, IOrderedQueryable<PropiedadesHorizontales>>>();
             if (currentSort != null && !currentSort.Equals("Nombre"))
             {
@@ -41,14 +42,14 @@ namespace PropiedadHorizontal.Data.Repositories
 
             var includes = new Expression<Func<PropiedadesHorizontales, object>>[] { ph => ph.Municipio };
 
-            var drivers = GetPaginated(skip, take,
+            var propiedades = GetPaginated(skip, take,
                                       !string.IsNullOrEmpty(searchString) ?
-                                      (dr => dr.Nit != "" &&
+                                      (dr => dr.NitPropiedadHorizontal != "" &&
                                              (dr.Email.Contains(searchString, StringComparison.CurrentCultureIgnoreCase) ||
                                               dr.Nombre.Contains(searchString, StringComparison.CurrentCultureIgnoreCase)))
                                       : EmptyFilter,
                                       sorterList, includes);
-            return drivers;
+            return propiedades;
         }
     }
 }

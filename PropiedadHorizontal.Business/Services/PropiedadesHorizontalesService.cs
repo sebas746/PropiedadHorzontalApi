@@ -30,7 +30,7 @@ namespace PropiedadHorizontal.Business.Services
                                 Direccion = ph.Direccion,
                                 Email = ph.Email,
                                 Logo = ph.Logo,
-                                Nit = ph.Nit,
+                                NitPropiedadHorizontal = ph.NitPropiedadHorizontal,
                                 Nombre = ph.Nombre,
                                 NombreMunicipio = ph.Municipio == null ? "" : ph.Municipio.Nombre,
                                 Telefono = ph.Telefono
@@ -46,7 +46,7 @@ namespace PropiedadHorizontal.Business.Services
 
             catch
             {
-                return null;
+                throw;
             }
         }
     }

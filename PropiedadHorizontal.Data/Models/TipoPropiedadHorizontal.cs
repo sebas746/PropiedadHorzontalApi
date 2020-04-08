@@ -3,18 +3,17 @@ using System.Collections.Generic;
 
 namespace PropiedadHorizontal.Data.Models
 {
-    public partial class Municipios
+    public partial class TipoPropiedadHorizontal
     {
-        public Municipios()
+        public TipoPropiedadHorizontal()
         {
             PropiedadesHorizontales = new HashSet<PropiedadesHorizontales>();
         }
 
-        public long IdMunicipio { get; set; }
+        public int IdTipoPropiedadHorizontal { get; set; }
         public string Nombre { get; set; }
-        public int? IdDepartamento { get; set; }
+        public string Descripcion { get; set; }
 
-        public virtual Departamentos IdDepartamentoNavigation { get; set; }
         public virtual ICollection<PropiedadesHorizontales> PropiedadesHorizontales { get; set; }
     }
 }

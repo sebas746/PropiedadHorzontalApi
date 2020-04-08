@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PropiedadHorizontal.Api.Helpers;
 using PropiedadHorizontal.Data.Context;
+using AutoMapper;
+using PropiedadHorizontal.Api.Mapping;
 
 namespace PropiedadHorizontal.Api
 {
@@ -29,6 +31,9 @@ namespace PropiedadHorizontal.Api
 
             SwaggerHelper.ConfigureService(services);
             DependencyInjectionHelper.ConfigureDependencies(services);
+
+
+            services.AddAutoMapper(typeof(AutoMapping));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

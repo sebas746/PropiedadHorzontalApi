@@ -10,7 +10,7 @@ namespace PropiedadHorizontal.Data.Models
             Municipios = new HashSet<Municipios>();
         }
 
-        public decimal IdDepartamento { get; set; }
+        public int IdDepartamento { get; set; }
         public string Nombre { get; set; }
 
         public virtual ICollection<Municipios> Municipios { get; set; }

@@ -3,7 +3,7 @@ namespace PropiedadHorizontal.Core.DTO
 {
     public class PropiedadHorizontalDto
     {
-        public string Nit { get; set; }
+        public string NitPropiedadHorizontal { get; set; }
         public string Nombre { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }

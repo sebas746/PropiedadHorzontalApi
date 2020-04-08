@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PropiedadHorizontal.Data\PropiedadHorizontal.Data.csproj" />
+  </ItemGroup>
+
 </Project>

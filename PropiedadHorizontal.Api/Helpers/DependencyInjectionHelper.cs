@@ -18,6 +18,8 @@ namespace PropiedadHorizontal.Api.Helpers
             services.AddScoped<IBaseContext, PropiedadHorizontalContext>();
             services.AddScoped<IPropiedadesHorizontalesRepository, PropiedadesHorizontalesRepository>();
             services.AddScoped<IPropiedadesHorizontalesService, PropiedadesHorizontalesService>();
+            services.AddScoped<ICopropiedadesRepository, CopropiedadesRepository>();
+            services.AddScoped<ICopropiedadesService, CopropiedadesService>();
         }
     }
 }
