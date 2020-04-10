@@ -25,30 +25,19 @@ namespace PropiedadHorizontal.Api.Controllers
         /// <param name="skipRows"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        [Route("GetCopropiedades/{tenantId}")]
+        [Route("GetCopropiedades")]
         [HttpGet]
-        public ActionResult<PaginationResponse<CopropiedadesDto>> GetPropiedadesHorizontales(string sortOrder,
-            string currentSort, string searchString, int skipRows, int pageSize)
+        public ActionResult<PaginationResponse<CopropiedadesDto>> GetCopropiedades([FromQuery]PaginationDto pagination)
         {
-            sortOrder = sortOrder ?? "asc";
-            currentSort = GetValidateSortNameColumns(currentSort);
-            var copropiedades = _copropiedadesService.GetAllCopropiedades(skipRows, pageSize, searchString,
-                sortOrder, currentSort);
-            var count = copropiedades.Count();
-            var data = new PaginationResponse<CopropiedadesDto>
-            {
-                TotalCount = count,
+            pagination.SortOrder = pagination.SortOrder ?? "asc";
+            
+            var copropiedades = _copropiedadesService.GetAllCopropiedades(pagination);
+            var data = new PaginationResponse<CopropiedadesDto>(pagination, copropiedades.Count())
+            {   
                 Content = copropiedades
             };
 
             return Ok(data);
-        }
-
-        private static string GetValidateSortNameColumns(string currentSort)
-        {
-            currentSort = currentSort ?? "NombreCopropiedad";
-
-            return currentSort;
         }
     }
 }

@@ -13,4 +13,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PropiedadHorizonta.Core\PropiedadHorizontal.Core.csproj" />
+  </ItemGroup>
+
 </Project>

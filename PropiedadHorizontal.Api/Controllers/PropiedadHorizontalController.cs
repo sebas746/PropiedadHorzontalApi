@@ -27,17 +27,15 @@ namespace PropiedadHorizontal.Api.Controllers
         /// <returns></returns>
         [Route("GetPropiedadesHorizontales/{tenantId}")]
         [HttpGet]
-        public ActionResult<PaginationResponse<PropiedadHorizontalDto>> GetPropiedadesHorizontales(string sortOrder,
-            string currentSort, string searchString, int skipRows, int pageSize)
+        public ActionResult<PaginationResponse<PropiedadHorizontalDto>> GetPropiedadesHorizontales(PaginationDto pagination)
         {
-            sortOrder = sortOrder ?? "asc";
-            currentSort = GetValidateSortNameColumns(currentSort);
-            var propiedades = _propiedadesHorizontalesService.GetAllPropiedadesHorizontales(skipRows, pageSize, searchString, 
+            var sortOrder = pagination.SortOrder ?? "asc";
+            var currentSort = pagination.OrderBy;
+            var propiedades = _propiedadesHorizontalesService.GetAllPropiedadesHorizontales(0, pagination.PageSize, pagination.Filter, 
                 sortOrder, currentSort);
             var count = propiedades.Count();
-            var data = new PaginationResponse<PropiedadHorizontalDto>
-            {
-                TotalCount = count,
+            var data = new PaginationResponse<PropiedadHorizontalDto>(pagination, count)
+            {   
                 Content = propiedades
             };
 

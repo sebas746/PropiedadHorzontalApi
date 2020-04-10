@@ -1,4 +1,5 @@
-﻿using PropiedadHorizontal.Data.Context;
+﻿using PropiedadHorizontal.Core.DTO;
+using PropiedadHorizontal.Data.Context;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
 using System;
@@ -16,13 +17,14 @@ namespace PropiedadHorizontal.Data.Repositories
         }
 
         ///<see cref="ICopropiedadesRepository.GetAllPropiedadesHorizontales(int, int, string, string, string)"/>
-        public IEnumerable<Copropiedades> GetAllCopropiedades(int skip, int take, string searchString, string sortOrder, string currentSort)
+        public IEnumerable<Copropiedades> GetAllCopropiedades(PaginationDto pagination)
         {
-            var sorter = Utils.Utils.OrderByFunc<Copropiedades>(currentSort, string.IsNullOrEmpty(sortOrder)
-                                                                               || sortOrder.Equals("desc", StringComparison.CurrentCultureIgnoreCase));
-
+            var sorter = Utils.Utils.OrderByFunc<Copropiedades>(pagination.OrderBy, string.IsNullOrEmpty(pagination.SortOrder)
+                                                                               || pagination.SortOrder.Equals("desc", StringComparison.CurrentCultureIgnoreCase));
+            
             var sorterList = new List<Func<IQueryable<Copropiedades>, IOrderedQueryable<Copropiedades>>>();
-            if (currentSort != null && !currentSort.Equals("NombreCopropiedad"))
+
+            if (pagination.OrderBy != null && !pagination.OrderBy.Equals("NombreCopropiedad"))
             {
                 //Default second sorter
                 var defaultSorter = Utils.Utils.OrderByFunc<Copropiedades>("IdCopropiedad");
@@ -31,12 +33,15 @@ namespace PropiedadHorizontal.Data.Repositories
 
             sorterList.Add(sorter);
 
-            var includes = new Expression<Func<Copropiedades, object>>[] { co => co.PropiedadHorizontal, co => co.TipoCopropiedad };
+            var skip = (pagination.PageNumber - 1) * pagination.PageSize;
+            var take = pagination.PageSize;
+
+            var includes = new Expression<Func<Copropiedades, object>>[] { co => co.PropiedadHorizontal, co => co.TipoCopropiedad, co => co.Copropietario };
 
             var copropiedades = GetPaginated(skip, take,
-                                      !string.IsNullOrEmpty(searchString) ?
+                                      !string.IsNullOrEmpty(pagination.Filter) ?
                                       (co => co.IdCopropiedad != 0 &&
-                                             (co.NombreCopropiedad.Contains(searchString, StringComparison.CurrentCultureIgnoreCase)))
+                                             (co.NombreCopropiedad.Contains(pagination.Filter, StringComparison.CurrentCultureIgnoreCase)))
                                       : EmptyFilter,
                                       sorterList, includes);
             return copropiedades;

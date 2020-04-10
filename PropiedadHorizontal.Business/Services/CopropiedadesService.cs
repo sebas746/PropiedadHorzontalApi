@@ -22,16 +22,16 @@ namespace PropiedadHorizontal.Business.Services
             _mapper = mapper;
         }
 
-        public IEnumerable<CopropiedadesDto> GetAllCopropiedades(int skip, int take, string searchString, string sortOrder, string currentSort)
+        public IEnumerable<CopropiedadesDto> GetAllCopropiedades(PaginationDto pagination)
         {
             try
             {
-                if (!GenericUtils<Copropiedades>.IsValidProperty(currentSort, false))
+                if (!GenericUtils<Copropiedades>.IsValidProperty(pagination.OrderBy, false))
                 {
-                    currentSort = "NombreCopropiedad";
+                    pagination.OrderBy = "NombreCopropiedad";
                 }
 
-                var copropiedades = _copropiedadesRepository.GetAllCopropiedades(skip, take, searchString, sortOrder, currentSort);
+                var copropiedades = _copropiedadesRepository.GetAllCopropiedades(pagination);
 
                  return _mapper.Map<List<CopropiedadesDto>>(copropiedades);
             }
