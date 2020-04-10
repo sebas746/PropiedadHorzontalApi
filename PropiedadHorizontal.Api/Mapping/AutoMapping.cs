@@ -12,10 +12,11 @@ namespace PropiedadHorizontal.Api.Mapping
         /// </summary>
         public AutoMapping()
         {
-            CreateMap<Copropiedades, CopropiedadesDto>();
-            CreateMap<CopropiedadesDto, Copropiedades>();
+            CreateMap<Copropiedades, CopropiedadesDto>()
+                .ForMember(co => co.NombrePropiedadHorizontal, map => map.MapFrom(m => m.PropiedadHorizontal.NombrePropiedadHorizontal))
+                .ForMember(co => co.DescripcionTipoCopropiedad, map => map.MapFrom(m => m.TipoCopropiedad.DescripcionTipoCopropiedad));
+
             CreateMap<PropiedadesHorizontales, PropiedadHorizontalDto>();
-            CreateMap<PropiedadHorizontalDto, PropiedadesHorizontales>();
         }
     }
 }

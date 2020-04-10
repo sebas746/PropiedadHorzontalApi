@@ -16,5 +16,12 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         /// <param name="currentSort">Sorter</param>
         /// <returns></returns>
         IEnumerable<Copropiedades> GetAllCopropiedades(int skip, int take, string searchString, string sortOrder, string currentSort);
+
+        /// <summary>
+        /// Create a new Copropiedad.
+        /// </summary>
+        /// <param name="copropiedad"></param>
+        /// <returns></returns>
+        Copropiedades InsertCopropiedad(Copropiedades copropiedad);
     }
 }

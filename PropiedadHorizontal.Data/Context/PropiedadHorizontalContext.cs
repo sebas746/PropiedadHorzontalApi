@@ -146,7 +146,7 @@ namespace PropiedadHorizontal.Data.Context
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Nombre)
+                entity.Property(e => e.NombreCopropiedad)
                     .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
@@ -265,7 +265,7 @@ namespace PropiedadHorizontal.Data.Context
                     .HasMaxLength(500)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Nombre)
+                entity.Property(e => e.NombrePropiedadHorizontal)
                     .IsRequired()
                     .HasMaxLength(200)
                     .IsUnicode(false);
@@ -343,12 +343,12 @@ namespace PropiedadHorizontal.Data.Context
 
                 entity.Property(e => e.IdTipoCopropiedad).ValueGeneratedNever();
 
-                entity.Property(e => e.Descripción)
+                entity.Property(e => e.DescripcionTipoCopropiedad)
                     .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Nombre)
+                entity.Property(e => e.NombreTipoCopropiedad)
                     .IsRequired()
                     .HasMaxLength(10)
                     .IsUnicode(false);

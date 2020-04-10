@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace PropiedadHorizontal.Data.Models
 {
@@ -11,8 +10,8 @@ namespace PropiedadHorizontal.Data.Models
         }
 
         public int IdTipoCopropiedad { get; set; }
-        public string Nombre { get; set; }
-        public string Descripción { get; set; }
+        public string NombreTipoCopropiedad { get; set; }
+        public string DescripcionTipoCopropiedad { get; set; }
 
         public virtual ICollection<Copropiedades> Copropiedades { get; set; }
     }

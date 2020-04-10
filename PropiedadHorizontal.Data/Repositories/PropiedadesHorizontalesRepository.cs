@@ -20,7 +20,7 @@ namespace PropiedadHorizontal.Data.Repositories
         public IEnumerable<PropiedadesHorizontales> GetPropiedadesHorizontalesByNombres(int skip, int take, string[] propiedadesHorizontalesNombres)
         {
             var defaultSorter = Utils.Utils.OrderByFunc<PropiedadesHorizontales>("Nombre");
-            var propiedadesHorizontales = GetQueryable(skip, take, ph => propiedadesHorizontalesNombres.Contains(ph.Nombre.ToString()), defaultSorter);
+            var propiedadesHorizontales = GetQueryable(skip, take, ph => propiedadesHorizontalesNombres.Contains(ph.NombrePropiedadHorizontal.ToString()), defaultSorter);
             return propiedadesHorizontales;
         }
 
@@ -31,7 +31,7 @@ namespace PropiedadHorizontal.Data.Repositories
                                                                                || sortOrder.Equals("desc", StringComparison.CurrentCultureIgnoreCase));
 
             var sorterList = new List<Func<IQueryable<PropiedadesHorizontales>, IOrderedQueryable<PropiedadesHorizontales>>>();
-            if (currentSort != null && !currentSort.Equals("Nombre"))
+            if (currentSort != null && !currentSort.Equals("NombrePropiedadHorizontal"))
             {
                 //Default second sorter
                 var defaultSorter = Utils.Utils.OrderByFunc<PropiedadesHorizontales>("Nit");
@@ -46,7 +46,7 @@ namespace PropiedadHorizontal.Data.Repositories
                                       !string.IsNullOrEmpty(searchString) ?
                                       (dr => dr.NitPropiedadHorizontal != "" &&
                                              (dr.Email.Contains(searchString, StringComparison.CurrentCultureIgnoreCase) ||
-                                              dr.Nombre.Contains(searchString, StringComparison.CurrentCultureIgnoreCase)))
+                                              dr.NombrePropiedadHorizontal.Contains(searchString, StringComparison.CurrentCultureIgnoreCase)))
                                       : EmptyFilter,
                                       sorterList, includes);
             return propiedades;

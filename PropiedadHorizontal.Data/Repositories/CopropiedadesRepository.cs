@@ -10,7 +10,7 @@ namespace PropiedadHorizontal.Data.Repositories
 {
     public class CopropiedadesRepository : GenericRepository<Copropiedades>, ICopropiedadesRepository
     {
-        private readonly Expression<Func<Copropiedades, bool>> EmptyFilter = ph => ph.Nombre != "";
+        private readonly Expression<Func<Copropiedades, bool>> EmptyFilter = ph => ph.NombreCopropiedad != "";
         public CopropiedadesRepository(IBaseContext context) : base(context)
         {
         }
@@ -22,7 +22,7 @@ namespace PropiedadHorizontal.Data.Repositories
                                                                                || sortOrder.Equals("desc", StringComparison.CurrentCultureIgnoreCase));
 
             var sorterList = new List<Func<IQueryable<Copropiedades>, IOrderedQueryable<Copropiedades>>>();
-            if (currentSort != null && !currentSort.ToUpper().Equals("NOMBRE"))
+            if (currentSort != null && !currentSort.Equals("NombreCopropiedad"))
             {
                 //Default second sorter
                 var defaultSorter = Utils.Utils.OrderByFunc<Copropiedades>("IdCopropiedad");
@@ -31,15 +31,23 @@ namespace PropiedadHorizontal.Data.Repositories
 
             sorterList.Add(sorter);
 
-            var includes = new Expression<Func<Copropiedades, object>>[] {  };
+            var includes = new Expression<Func<Copropiedades, object>>[] { co => co.PropiedadHorizontal, co => co.TipoCopropiedad };
 
             var copropiedades = GetPaginated(skip, take,
                                       !string.IsNullOrEmpty(searchString) ?
                                       (co => co.IdCopropiedad != 0 &&
-                                             (co.Nombre.Contains(searchString, StringComparison.CurrentCultureIgnoreCase)))
+                                             (co.NombreCopropiedad.Contains(searchString, StringComparison.CurrentCultureIgnoreCase)))
                                       : EmptyFilter,
                                       sorterList, includes);
             return copropiedades;
+        }
+
+        ///<see cref="ICopropiedadesRepository.InsertCopropiedad(Copropiedades)"/>
+        public Copropiedades InsertCopropiedad(Copropiedades copropiedad)
+        {
+            base.Insert(copropiedad);
+            _context.SaveChanges();
+            return copropiedad;
         }
     }
 }

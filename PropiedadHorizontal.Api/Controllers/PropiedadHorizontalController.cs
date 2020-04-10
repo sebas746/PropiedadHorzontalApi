@@ -46,7 +46,7 @@ namespace PropiedadHorizontal.Api.Controllers
 
         private static string GetValidateSortNameColumns(string currentSort)
         {
-            currentSort = currentSort ?? "Nombre";
+            currentSort = currentSort ?? "NombrePropiedadHorizontal";
 
             return currentSort;
         }

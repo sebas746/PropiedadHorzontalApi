@@ -1,7 +1,10 @@
 ﻿
 using PropiedadHorizontal.Business.Services.Interfaces;
+using PropiedadHorizontal.Business.Utils;
 using PropiedadHorizontal.Core.DTO;
+using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,6 +23,11 @@ namespace PropiedadHorizontal.Business.Services
         {
             try
             {
+                if(!GenericUtils<PropiedadesHorizontales>.IsValidProperty(currentSort, false))
+                {
+                    currentSort = "NombrePropiedadHorizontal";
+                }
+
                 var propiedades = _propiedadesHorizontalesRepository.GetAllPropiedadesHorizontales(skip, take, searchString, sortOrder, currentSort);
 
                 if (propiedades != null)
@@ -31,7 +39,7 @@ namespace PropiedadHorizontal.Business.Services
                                 Email = ph.Email,
                                 Logo = ph.Logo,
                                 NitPropiedadHorizontal = ph.NitPropiedadHorizontal,
-                                Nombre = ph.Nombre,
+                                NombrePropiedadHorizontal = ph.NombrePropiedadHorizontal,
                                 NombreMunicipio = ph.Municipio == null ? "" : ph.Municipio.Nombre,
                                 Telefono = ph.Telefono
                             }
