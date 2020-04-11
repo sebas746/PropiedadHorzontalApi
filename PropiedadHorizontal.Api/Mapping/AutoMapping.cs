@@ -18,6 +18,7 @@ namespace PropiedadHorizontal.Api.Mapping
                 .ForMember(co => co.NombrePropietario, map => map.MapFrom(m => $"{m.Copropietario.Nombres} {m.Copropietario.Apellidos}" ));
 
             CreateMap<PropiedadesHorizontales, PropiedadHorizontalDto>();
+            CreateMap<TipoDocumentos, TipoDocumentosDto>();
         }
     }
 }

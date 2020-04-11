@@ -361,7 +361,7 @@ namespace PropiedadHorizontal.Data.Context
 
                 entity.Property(e => e.IdTipoDocumento).ValueGeneratedNever();
 
-                entity.Property(e => e.Descripción)
+                entity.Property(e => e.Descripcion)
                     .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);

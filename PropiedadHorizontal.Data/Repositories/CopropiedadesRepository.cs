@@ -1,4 +1,5 @@
-﻿using PropiedadHorizontal.Core.DTO;
+﻿using Microsoft.EntityFrameworkCore;
+using PropiedadHorizontal.Core.DTO;
 using PropiedadHorizontal.Data.Context;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
@@ -16,7 +17,7 @@ namespace PropiedadHorizontal.Data.Repositories
         {
         }
 
-        ///<see cref="ICopropiedadesRepository.GetAllPropiedadesHorizontales(int, int, string, string, string)"/>
+        ///<see cref="ICopropiedadesRepository.GetAllCopropiedades(PaginationDto)"/>
         public IEnumerable<Copropiedades> GetAllCopropiedades(PaginationDto pagination)
         {
             var sorter = Utils.Utils.OrderByFunc<Copropiedades>(pagination.OrderBy, string.IsNullOrEmpty(pagination.SortOrder)
@@ -53,6 +54,29 @@ namespace PropiedadHorizontal.Data.Repositories
             base.Insert(copropiedad);
             _context.SaveChanges();
             return copropiedad;
+        }
+
+        ///<see cref="ICopropiedadesRepository.GetCopropiedadById(int)"/>
+        public Copropiedades GetCopropiedadById(int copropiedadId)
+        {
+            var includes = new Expression<Func<Copropiedades, object>>[] { co => co.PropiedadHorizontal, co => co.TipoCopropiedad, co => co.Copropietario };
+            return Get(co => co.IdCopropiedad.Equals(copropiedadId), includes: includes).FirstOrDefault();
+        }
+
+        ///<see cref="ICopropiedadesRepository.UpdateCopropiedad(Copropiedades)"/>
+        public Copropiedades UpdateCopropiedad(Copropiedades copropiedad)
+        {
+            base.Update(copropiedad);
+            _context.SaveChanges();
+            return copropiedad;
+        }
+
+        ///<see cref="ICopropiedadesRepository.DeleteCopropiedad(int)"/>
+        public bool DeleteCopropiedad(int copropiedadId)
+        {
+            base.Delete(copropiedadId);
+            _context.SaveChanges();
+            return true;
         }
     }
 }

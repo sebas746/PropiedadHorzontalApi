@@ -40,5 +40,76 @@ namespace PropiedadHorizontal.Api.Controllers
 
             return Ok(data);
         }
+
+        /// <summary>
+        /// Get a copropiedad by id.
+        /// </summary>
+        /// <param name="copropiedadId">Copropiedad id.</param>
+        /// <returns>Copropiedad DTO object.</returns>
+        [HttpGet]
+        [Route("GetCopropiedadById/{copropiedadId}")]
+        public ActionResult<CopropiedadesDto> GetCopropiedadById(int copropiedadId)
+        {
+            if(copropiedadId > 0)
+            {
+                return _copropiedadesService.GetCopropiedadById(copropiedadId);
+            }
+            return BadRequest(ModelState);
+        }
+
+        /// <summary>
+        /// Create a new copropiedad.
+        /// </summary>
+        /// <param name="copropiedadDto">Copropiedad DTO object.</param>
+        /// <returns>Copropiedad DTO object created.</returns>
+        [Route("Create/{tenantId}")]
+        [HttpPost]
+        public ActionResult<CopropiedadesDto> CreateCopropiedad(CopropiedadesDto copropiedadDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            if(copropiedadDto != null)
+            {
+                return _copropiedadesService.CreateCopropiedad(copropiedadDto);
+            }
+            return BadRequest(ModelState);
+        }
+
+        /// <summary>
+        /// Update a copropiedad.
+        /// </summary>
+        /// <param name="copropiedadDto">Copropiedad DTO object.</param>
+        /// <returns>Copropiedad DTO updated object.</returns>
+        [Route("Update/{tenantId}")]
+        [HttpPut]
+        public ActionResult<CopropiedadesDto> UpdateCopropiedad(CopropiedadesDto copropiedadDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (copropiedadDto != null)
+            {
+                return _copropiedadesService.UpdateCopropiedad(copropiedadDto);
+            }
+            return BadRequest(ModelState);
+        }
+
+        /// <summary>
+        /// Deletes a copropiedad.
+        /// </summary>
+        /// <param name="copropiedadId">Copropiedad id.</param>
+        /// <returns>
+        /// True: If copropiedad was deleted.
+        /// False: If copropiedad was NOT deleted.
+        /// </returns>
+        [Route("Delete/{tenantId}")]
+        [HttpDelete]
+        public ActionResult<bool> DeleteCopropiedad(int copropiedadId)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (copropiedadId > 0)
+            {
+                return _copropiedadesService.DeleteCopropiedad(copropiedadId);
+            }
+            return BadRequest(ModelState);
+        }
     }
 }

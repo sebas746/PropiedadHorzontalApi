@@ -20,5 +20,29 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         /// <param name="copropiedad"></param>
         /// <returns></returns>
         Copropiedades InsertCopropiedad(Copropiedades copropiedad);
+
+        /// <summary>
+        /// Get a copropiedad by id.
+        /// </summary>
+        /// <param name="copropiedadId">Copropiedad id.</param>
+        /// <returns></returns>
+        Copropiedades GetCopropiedadById(int copropiedadId);
+
+        /// <summary>
+        /// Deletes a copropiedad.
+        /// </summary>
+        /// <param name="copropiedadId">Copropiedad id.</param>
+        /// <returns>
+        /// True: If copropiedad was deleted.
+        /// False: If copropiedad was NOT deleted.
+        /// </returns>
+        bool DeleteCopropiedad(int copropiedadId);
+
+        /// <summary>
+        /// Update a copropiedad.
+        /// </summary>
+        /// <param name="copropiedad">Copropiedad id.</param>
+        /// <returns>Copropiedad updated object.</returns>
+        Copropiedades UpdateCopropiedad(Copropiedades copropiedad);
     }
 }

@@ -56,6 +56,10 @@ namespace PropiedadHorizontal.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/error");
+            }
 
             app.UseCors("CorsPolicy");
 

@@ -15,7 +15,7 @@ namespace PropiedadHorizontal.Data.Models
 
         public int IdTipoDocumento { get; set; }
         public string Nombre { get; set; }
-        public string Descripción { get; set; }
+        public string Descripcion { get; set; }
 
         public virtual ICollection<Administradores> Administradores { get; set; }
         public virtual ICollection<Arrendatarios> Arrendatarios { get; set; }
