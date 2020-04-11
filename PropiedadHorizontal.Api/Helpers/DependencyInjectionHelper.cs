@@ -22,6 +22,8 @@ namespace PropiedadHorizontal.Api.Helpers
             services.AddScoped<ICopropiedadesService, CopropiedadesService>();
             services.AddScoped<ITipoDocumentosRepository, TipoDocumentosRepository>();
             services.AddScoped<ITipoDocumentosService, TipoDocumentosService>();
+            services.AddScoped<ITipoCopropiedadesRepository, TipoCopropiedadesRepository>();
+            services.AddScoped<ITipoCopropiedadesService, TipoCopropiedadesService>();
         }
     }
 }

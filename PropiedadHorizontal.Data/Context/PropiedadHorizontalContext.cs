@@ -23,7 +23,7 @@ namespace PropiedadHorizontal.Data.Context
         public virtual DbSet<Municipios> Municipios { get; set; }
         public virtual DbSet<PropiedadesHorizontales> PropiedadesHorizontales { get; set; }
         public virtual DbSet<Proveedores> Proveedores { get; set; }
-        public virtual DbSet<TipoCopropiedad> TipoCopropiedad { get; set; }
+        public virtual DbSet<TipoCopropiedades> TipoCopropiedades { get; set; }
         public virtual DbSet<TipoDocumentos> TipoDocumentos { get; set; }
         public virtual DbSet<TipoPropiedadHorizontal> TipoPropiedadHorizontal { get; set; }
         public virtual DbSet<TipoServicio> TipoServicio { get; set; }
@@ -336,7 +336,7 @@ namespace PropiedadHorizontal.Data.Context
                     .HasConstraintName("FK_PropiedadesHorizontales_Proveedores");
             });
 
-            modelBuilder.Entity<TipoCopropiedad>(entity =>
+            modelBuilder.Entity<TipoCopropiedades>(entity =>
             {
                 entity.HasKey(e => e.IdTipoCopropiedad)
                     .HasName("PK__TipoCopr__BB62A14D75200F0E");

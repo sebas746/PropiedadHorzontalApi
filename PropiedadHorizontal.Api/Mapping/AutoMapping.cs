@@ -19,6 +19,7 @@ namespace PropiedadHorizontal.Api.Mapping
 
             CreateMap<PropiedadesHorizontales, PropiedadHorizontalDto>();
             CreateMap<TipoDocumentos, TipoDocumentosDto>();
+            CreateMap<TipoCopropiedades, TipoCopropiedadesDto>();
         }
     }
 }

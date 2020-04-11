@@ -14,7 +14,7 @@ namespace PropiedadHorizontal.Data.Models
 
         public virtual Arrendatarios Arrendatario { get; set; }
         public virtual Copropietarios Copropietario { get; set; }
-        public virtual TipoCopropiedad TipoCopropiedad { get; set; }
+        public virtual TipoCopropiedades TipoCopropiedad { get; set; }
         public virtual PropiedadesHorizontales PropiedadHorizontal { get; set; }
     }
 }

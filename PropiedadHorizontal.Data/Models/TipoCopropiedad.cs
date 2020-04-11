@@ -2,9 +2,9 @@
 
 namespace PropiedadHorizontal.Data.Models
 {
-    public partial class TipoCopropiedad
+    public partial class TipoCopropiedades
     {
-        public TipoCopropiedad()
+        public TipoCopropiedades()
         {
             Copropiedades = new HashSet<Copropiedades>();
         }
