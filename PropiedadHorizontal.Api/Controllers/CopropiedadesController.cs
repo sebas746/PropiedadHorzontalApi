@@ -17,15 +17,16 @@ namespace PropiedadHorizontal.Api.Controllers
         }
 
         /// <summary>
-        /// Get Vehicle List
+        /// Get a list of copropiedades
         /// </summary>
-        /// <param name="sortOrder"></param>
-        /// <param name="currentSort"></param>
-        /// <param name="searchString"></param>
-        /// <param name="skipRows"></param>
-        /// <param name="pageSize"></param>
+        /// <param name="pagination">Pagination object.
+        /// PageNumber: Page number.
+        /// PageSize: Page size.
+        /// OrderBy: Column name to order.
+        /// SortOrder: asc or desc.
+        /// Filter: Filter to search.
+        /// </param>
         /// <returns></returns>
-        [Route("GetCopropiedades")]
         [HttpGet]
         public ActionResult<PaginationResponse<CopropiedadesDto>> GetCopropiedades([FromQuery]PaginationDto pagination)
         {

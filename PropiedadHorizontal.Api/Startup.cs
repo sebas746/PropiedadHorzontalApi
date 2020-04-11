@@ -8,6 +8,7 @@ using PropiedadHorizontal.Api.Helpers;
 using PropiedadHorizontal.Data.Context;
 using AutoMapper;
 using PropiedadHorizontal.Api.Mapping;
+using System.Text.Json;
 
 namespace PropiedadHorizontal.Api
 {
@@ -29,7 +30,19 @@ namespace PropiedadHorizontal.Api
             services.AddDbContext<PropiedadHorizontalContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal")));
 
+            // Add framework services.
+            services.AddControllersWithViews()
+                .AddJsonOptions(options =>
+                {
+                    // set this option to TRUE to indent the JSON output
+                    options.JsonSerializerOptions.WriteIndented = true;
+                    // set this option to NULL to use PascalCase instead of
+                    // camelCase (default)
+                    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                });
+
             SwaggerHelper.ConfigureService(services);
+            CorsHelper.ConfigureService(services);
             DependencyInjectionHelper.ConfigureDependencies(services);
 
 
@@ -43,6 +56,8 @@ namespace PropiedadHorizontal.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
 

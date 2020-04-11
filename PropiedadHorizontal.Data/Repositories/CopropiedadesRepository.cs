@@ -33,7 +33,7 @@ namespace PropiedadHorizontal.Data.Repositories
 
             sorterList.Add(sorter);
 
-            var skip = (pagination.PageNumber - 1) * pagination.PageSize;
+            var skip = (pagination.PageNumber) * pagination.PageSize;
             var take = pagination.PageSize;
 
             var includes = new Expression<Func<Copropiedades, object>>[] { co => co.PropiedadHorizontal, co => co.TipoCopropiedad, co => co.Copropietario };
