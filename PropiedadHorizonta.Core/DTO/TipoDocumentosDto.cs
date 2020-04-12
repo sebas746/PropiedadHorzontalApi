@@ -4,7 +4,7 @@ namespace PropiedadHorizontal.Core.DTO
     public class TipoDocumentosDto
     {
         public int IdTipoDocumento { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
+        public string NombreTipoDocumento { get; set; }
+        public string DescripcionTipoDocumento { get; set; }
     }
 }

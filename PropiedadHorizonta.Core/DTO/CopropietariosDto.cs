@@ -1,24 +1,17 @@
 ﻿using System.Collections.Generic;
 
-namespace PropiedadHorizontal.Data.Models
+namespace PropiedadHorizontal.Core.DTO
 {
-    public partial class Copropietarios
+    public class CopropietariosDto
     {
-        public Copropietarios()
-        {
-            Copropiedades = new HashSet<Copropiedades>();
-        }
-
         public string IdDocumentoCopropietario { get; set; }
         public int IdTipoDocumentoCopropietario { get; set; }
         public string NombresCopropietario { get; set; }
         public string ApellidosCopropietario { get; set; }
         public string CelularCopropietario { get; set; }
         public string EmailCopropietario { get; set; }
-        public bool? EsResidenteCopropietario { get; set; }
         public string GeneroCopropietario { get; set; }
-
-        public virtual TipoDocumentos TipoDocumento { get; set; }
-        public virtual ICollection<Copropiedades> Copropiedades { get; set; }
+        public bool? EsResidenteCopropietario { get; set; }
+        public ICollection<CopropiedadesDto> Copropiedades { get; set; }
     }
 }
