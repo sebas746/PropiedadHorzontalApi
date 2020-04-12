@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PropiedadHorizontal.Core.DTO;
+﻿using PropiedadHorizontal.Core.DTO;
 using PropiedadHorizontal.Data.Context;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
@@ -13,8 +12,10 @@ namespace PropiedadHorizontal.Data.Repositories
     public class CopropiedadesRepository : GenericRepository<Copropiedades>, ICopropiedadesRepository
     {
         private readonly Expression<Func<Copropiedades, bool>> EmptyFilter = ph => ph.NombreCopropiedad != "";
-        public CopropiedadesRepository(IBaseContext context) : base(context)
+        private readonly PropiedadHorizontalContext _generalContext;
+        public CopropiedadesRepository(IBaseContext context, PropiedadHorizontalContext generalContext) : base(context)
         {
+            _generalContext = generalContext;
         }
 
         ///<see cref="ICopropiedadesRepository.GetAllCopropiedades(PaginationDto)"/>
@@ -77,6 +78,11 @@ namespace PropiedadHorizontal.Data.Repositories
             base.Delete(copropiedadId);
             _context.SaveChanges();
             return true;
+        }
+
+        public bool ExistsCopropiedadNombre(string copropiedadNombre)
+        {
+            return _generalContext.Copropiedades.Any(co => co.NombreCopropiedad.Equals(copropiedadNombre));
         }
     }
 }

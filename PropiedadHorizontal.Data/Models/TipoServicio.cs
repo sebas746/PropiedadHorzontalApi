@@ -11,8 +11,8 @@ namespace PropiedadHorizontal.Data.Models
         }
 
         public int IdTipoServicio { get; set; }
-        public string NombreServicio { get; set; }
-        public string Descripcion { get; set; }
+        public string NombreTipoServicio { get; set; }
+        public string DescripcionTipoServicio { get; set; }
 
         public virtual ICollection<Proveedores> Proveedores { get; set; }
     }

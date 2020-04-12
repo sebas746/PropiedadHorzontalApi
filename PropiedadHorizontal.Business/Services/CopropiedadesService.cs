@@ -8,7 +8,6 @@ using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PropiedadHorizontal.Business.Services
 {
@@ -94,6 +93,19 @@ namespace PropiedadHorizontal.Business.Services
             try
             {
                 return _copropiedadesRepository.DeleteCopropiedad(copropiedadId);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        ///<see cref="ICopropiedadesService.ExistsCopropiedadNombre(string)"/>
+        public bool ExistsCopropiedadNombre(string copropiedadNombre)
+        {
+            try
+            {
+                return _copropiedadesRepository.ExistsCopropiedadNombre(copropiedadNombre);
             }
             catch
             {

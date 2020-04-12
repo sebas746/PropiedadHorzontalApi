@@ -11,7 +11,7 @@ namespace PropiedadHorizontal.Data.Models
         }
 
         public long IdMunicipio { get; set; }
-        public string Nombre { get; set; }
+        public string NombreMunicipio { get; set; }
         public int? IdDepartamento { get; set; }
 
         public virtual Departamentos IdDepartamentoNavigation { get; set; }

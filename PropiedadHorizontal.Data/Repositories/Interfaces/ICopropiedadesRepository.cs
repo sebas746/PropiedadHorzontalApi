@@ -44,5 +44,7 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         /// <param name="copropiedad">Copropiedad id.</param>
         /// <returns>Copropiedad updated object.</returns>
         Copropiedades UpdateCopropiedad(Copropiedades copropiedad);
+
+        bool ExistsCopropiedadNombre(string copropiedadNombre);
     }
 }

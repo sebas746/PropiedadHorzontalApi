@@ -45,7 +45,7 @@ namespace PropiedadHorizontal.Data.Repositories
             var propiedades = GetPaginated(skip, take,
                                       !string.IsNullOrEmpty(searchString) ?
                                       (dr => dr.NitPropiedadHorizontal != "" &&
-                                             (dr.Email.Contains(searchString, StringComparison.CurrentCultureIgnoreCase) ||
+                                             (dr.EmailPropiedadHorizontal.Contains(searchString, StringComparison.CurrentCultureIgnoreCase) ||
                                               dr.NombrePropiedadHorizontal.Contains(searchString, StringComparison.CurrentCultureIgnoreCase)))
                                       : EmptyFilter,
                                       sorterList, includes);

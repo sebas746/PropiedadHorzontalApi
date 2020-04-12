@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace PropiedadHorizontal.Data.Models
 {
@@ -11,13 +10,14 @@ namespace PropiedadHorizontal.Data.Models
         }
 
         public string IdDocumentoCopropietario { get; set; }
-        public int IdTipoDocumento { get; set; }
-        public string Nombres { get; set; }
-        public string Apellidos { get; set; }
-        public string Celular { get; set; }
-        public string Email { get; set; }
+        public int IdTipoDocumentoCopropietario { get; set; }
+        public string NombreCopropietario { get; set; }
+        public string ApellidoCopropietario { get; set; }
+        public string CelularCopropietario { get; set; }
+        public string EmailCopropietario { get; set; }
+        public bool? EsOcupante { get; set; }
 
-        public virtual TipoDocumentos IdTipoDocumentoNavigation { get; set; }
+        public virtual TipoDocumentos TipoDocumento { get; set; }
         public virtual ICollection<Copropiedades> Copropiedades { get; set; }
     }
 }

@@ -44,6 +44,7 @@ namespace PropiedadHorizontal.Business.Services.Interfaces
         /// </returns>
         bool DeleteCopropiedad(int copropiedadId);
 
+        bool ExistsCopropiedadNombre(string copropiedadNombre);
 
     }
 }

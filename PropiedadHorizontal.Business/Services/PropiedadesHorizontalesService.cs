@@ -35,13 +35,13 @@ namespace PropiedadHorizontal.Business.Services
                     var propiedadesDTO = propiedades.Select(
                             ph => new PropiedadHorizontalDto
                             {
-                                Direccion = ph.Direccion,
-                                Email = ph.Email,
-                                Logo = ph.Logo,
+                                Direccion = ph.DireccionPropiedadHorizontal,
+                                Email = ph.EmailPropiedadHorizontal,
+                                Logo = ph.LogoPropiedadHorizontal,
                                 NitPropiedadHorizontal = ph.NitPropiedadHorizontal,
                                 NombrePropiedadHorizontal = ph.NombrePropiedadHorizontal,
-                                NombreMunicipio = ph.Municipio == null ? "" : ph.Municipio.Nombre,
-                                Telefono = ph.Telefono
+                                NombreMunicipio = ph.Municipio == null ? "" : ph.Municipio.NombreMunicipio,
+                                Telefono = ph.TelefonoPropiedadHorizontal
                             }
 
                         );

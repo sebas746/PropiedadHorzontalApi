@@ -5,16 +5,16 @@ namespace PropiedadHorizontal.Data.Models
 {
     public partial class Proveedores
     {
-        public string IdProveedor { get; set; }
-        public string Nombre { get; set; }
-        public string Telefono { get; set; }
-        public string Email { get; set; }
-        public int IdTipoServicio { get; set; }
+        public int IdProveedor { get; set; }
+        public string NombreProveedor { get; set; }
+        public string TelefonoProveedor { get; set; }
+        public string EmailProveedor { get; set; }
+        public int IdTipoServicioProveedor { get; set; }
         public string NitPropiedadHorizontal { get; set; }
-        public int? IdTipoDocumento { get; set; }
+        public int? IdTipoDocumentoProveedor { get; set; }
 
-        public virtual TipoDocumentos IdTipoDocumentoNavigation { get; set; }
-        public virtual TipoServicio IdTipoServicioNavigation { get; set; }
+        public virtual TipoDocumentos IdTipoDocumentoProveedorNavigation { get; set; }
+        public virtual TipoServicio IdTipoServicioProveedorNavigation { get; set; }
         public virtual PropiedadesHorizontales NitPropiedadHorizontalNavigation { get; set; }
     }
 }

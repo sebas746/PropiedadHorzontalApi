@@ -8,18 +8,20 @@ namespace PropiedadHorizontal.Data.Models
         public TipoDocumentos()
         {
             Administradores = new HashSet<Administradores>();
-            Arrendatarios = new HashSet<Arrendatarios>();
+            Contadores = new HashSet<Contadores>();
             Copropietarios = new HashSet<Copropietarios>();
+            Ocupantes = new HashSet<Ocupantes>();
             Proveedores = new HashSet<Proveedores>();
         }
 
         public int IdTipoDocumento { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
+        public string NombreTipoDocumento { get; set; }
+        public string DescripcionTipoDocumento { get; set; }
 
         public virtual ICollection<Administradores> Administradores { get; set; }
-        public virtual ICollection<Arrendatarios> Arrendatarios { get; set; }
+        public virtual ICollection<Contadores> Contadores { get; set; }
         public virtual ICollection<Copropietarios> Copropietarios { get; set; }
+        public virtual ICollection<Ocupantes> Ocupantes { get; set; }
         public virtual ICollection<Proveedores> Proveedores { get; set; }
     }
 }

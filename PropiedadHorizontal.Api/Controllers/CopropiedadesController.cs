@@ -111,5 +111,12 @@ namespace PropiedadHorizontal.Api.Controllers
             }
             return BadRequest(ModelState);
         }
+
+        [HttpPost]
+        [Route("IsDuplicatedCopropiedad")]
+        public bool IsDuplicatedNombreCopropiedad(string copropiedadNombre)
+        {
+            return _copropiedadesService.ExistsCopropiedadNombre(copropiedadNombre);
+        }
     }
 }
