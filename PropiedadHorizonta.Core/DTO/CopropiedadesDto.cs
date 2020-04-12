@@ -6,7 +6,7 @@ namespace PropiedadHorizontal.Core.DTO
         public long IdCopropiedad { get; set; }
         public string NombreCopropiedad { get; set; }
         public string NitPropiedadHorizontal { get; set; }
-        public decimal? IndiceCopropiedad { get; set; }
+        public decimal? CoeficienteCopropiedad { get; set; }
         public decimal? AreaCopropiedad { get; set; }
         public string IdDocumentoCopropietario { get; set; }
         public string NombreCopropietario { get; set; }

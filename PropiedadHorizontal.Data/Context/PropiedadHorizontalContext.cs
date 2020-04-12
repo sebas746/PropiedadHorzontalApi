@@ -138,7 +138,7 @@ namespace PropiedadHorizontal.Data.Context
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.IndiceCopropiedad).HasColumnType("decimal(8, 5)");
+                entity.Property(e => e.CoeficienteCopropiedad).HasColumnType("decimal(8, 5)");
 
                 entity.Property(e => e.NitPropiedadHorizontal)
                     .IsRequired()

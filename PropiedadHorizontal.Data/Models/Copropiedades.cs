@@ -5,7 +5,7 @@ namespace PropiedadHorizontal.Data.Models
     {
         public long IdCopropiedad { get; set; }
         public string NombreCopropiedad { get; set; }
-        public decimal IndiceCopropiedad { get; set; }
+        public decimal CoeficienteCopropiedad { get; set; }
         public decimal AreaCopropiedad { get; set; }
         public string NitPropiedadHorizontal { get; set; }
         public string IdDocumentoCopropietario { get; set; }
