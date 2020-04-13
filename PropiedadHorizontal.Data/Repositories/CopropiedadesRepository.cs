@@ -26,7 +26,7 @@ namespace PropiedadHorizontal.Data.Repositories
             
             var sorterList = new List<Func<IQueryable<Copropiedades>, IOrderedQueryable<Copropiedades>>>();
 
-            if (pagination.OrderBy != null && !pagination.OrderBy.Equals("NombreCopropiedad"))
+            if (pagination.OrderBy.ToUpper() != null && !pagination.OrderBy.Equals("NOMBRECOPROPIEDAD"))
             {
                 //Default second sorter
                 var defaultSorter = Utils.Utils.OrderByFunc<Copropiedades>("IdCopropiedad");

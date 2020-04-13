@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace PropiedadHorizontal.Data.Models
 {
@@ -17,6 +18,7 @@ namespace PropiedadHorizontal.Data.Models
         public string EmailCopropietario { get; set; }
         public bool? EsResidenteCopropietario { get; set; }
         public string GeneroCopropietario { get; set; }
+        public DateTime? FechaNacimientoCopropietario { get; set; }
 
         public virtual TipoDocumentos TipoDocumento { get; set; }
         public virtual ICollection<Copropiedades> Copropiedades { get; set; }

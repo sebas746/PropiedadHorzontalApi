@@ -21,12 +21,14 @@ namespace PropiedadHorizontal.Data.Context
         public virtual DbSet<Copropietarios> Copropietarios { get; set; }
         public virtual DbSet<Departamentos> Departamentos { get; set; }
         public virtual DbSet<Municipios> Municipios { get; set; }
-        public virtual DbSet<Ocupantes> Ocupantes { get; set; }
         public virtual DbSet<PropiedadesHorizontales> PropiedadesHorizontales { get; set; }
         public virtual DbSet<Proveedores> Proveedores { get; set; }
+        public virtual DbSet<Residentes> Residentes { get; set; }
         public virtual DbSet<TipoCopropiedades> TipoCopropiedades { get; set; }
         public virtual DbSet<TipoDocumentos> TipoDocumentos { get; set; }
         public virtual DbSet<TipoServicio> TipoServicio { get; set; }
+        public virtual DbSet<TiposAgrupamiento> TiposAgrupamiento { get; set; }
+        public virtual DbSet<TiposCuentasBancarias> TiposCuentasBancarias { get; set; }
         public virtual DbSet<TiposPropiedadesHorizontales> TiposPropiedadesHorizontales { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -130,15 +132,21 @@ namespace PropiedadHorizontal.Data.Context
 
                 entity.Property(e => e.AreaCopropiedad).HasColumnType("decimal(8, 3)");
 
+                entity.Property(e => e.CodigoParqueaderoCopropiedad)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CoeficienteCopropiedad).HasColumnType("decimal(8, 5)");
+
+                entity.Property(e => e.CuotaAdministracionCopropiedad).HasColumnType("decimal(11, 2)");
+
                 entity.Property(e => e.IdDocumentoCopropietario)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.IdDocumentoOcupante)
+                entity.Property(e => e.IdDocumentoResidente)
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.Property(e => e.CoeficienteCopropiedad).HasColumnType("decimal(8, 5)");
 
                 entity.Property(e => e.NitPropiedadHorizontal)
                     .IsRequired()
@@ -155,10 +163,10 @@ namespace PropiedadHorizontal.Data.Context
                     .HasForeignKey(d => d.IdDocumentoCopropietario)
                     .HasConstraintName("FK_Copropietarios_Copropiedades");
 
-                entity.HasOne(d => d.Ocupante)
+                entity.HasOne(d => d.Residente)
                     .WithMany(p => p.Copropiedades)
-                    .HasForeignKey(d => d.IdDocumentoOcupante)
-                    .HasConstraintName("FK_Ocupantes_Copropiedades");
+                    .HasForeignKey(d => d.IdDocumentoResidente)
+                    .HasConstraintName("FK_Residentes_Copropiedades");
 
                 entity.HasOne(d => d.TipoCopropiedad)
                     .WithMany(p => p.Copropiedades)
@@ -195,6 +203,12 @@ namespace PropiedadHorizontal.Data.Context
                 entity.Property(e => e.EmailCopropietario)
                     .IsRequired()
                     .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaNacimientoCopropietario).HasColumnType("date");
+
+                entity.Property(e => e.GeneroCopropietario)
+                    .HasMaxLength(5)
                     .IsUnicode(false);
 
                 entity.Property(e => e.NombresCopropietario)
@@ -239,41 +253,6 @@ namespace PropiedadHorizontal.Data.Context
                     .HasConstraintName("FK_Departamentos_Municipios");
             });
 
-            modelBuilder.Entity<Ocupantes>(entity =>
-            {
-                entity.HasKey(e => e.IdDocumentoOcupante);
-
-                entity.Property(e => e.IdDocumentoOcupante)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ApellidoOcupante)
-                    .IsRequired()
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.CelularOcupante)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.EmailOcupante)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.NombreOcupante)
-                    .IsRequired()
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.IdTipoDocumentoOcupanteNavigation)
-                    .WithMany(p => p.Ocupantes)
-                    .HasForeignKey(d => d.IdTipoDocumentoOcupante)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_TipoDocumentos_Ocupantes");
-            });
-
             modelBuilder.Entity<PropiedadesHorizontales>(entity =>
             {
                 entity.HasKey(e => e.NitPropiedadHorizontal);
@@ -308,9 +287,17 @@ namespace PropiedadHorizontal.Data.Context
                     .HasMaxLength(500)
                     .IsUnicode(false);
 
+                entity.Property(e => e.NombreBancoPropiedadHorizontal)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.NombrePropiedadHorizontal)
                     .IsRequired()
                     .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NumeroCuentaPropiedadHorizontal)
+                    .HasMaxLength(30)
                     .IsUnicode(false);
 
                 entity.Property(e => e.TelefonoPropiedadHorizontal)
@@ -331,6 +318,11 @@ namespace PropiedadHorizontal.Data.Context
                     .WithMany(p => p.PropiedadesHorizontales)
                     .HasForeignKey(d => d.IdMunicipio)
                     .HasConstraintName("FK_Municipios_PropiedadesHorizontales");
+
+                entity.HasOne(d => d.TipoCuentaBancaria)
+                    .WithMany(p => p.PropiedadesHorizontales)
+                    .HasForeignKey(d => d.IdTipoCuentaPropiedadHorizontal)
+                    .HasConstraintName("FK_PropiedadesHorizontales_TiposCuentasBancarias");
 
                 entity.HasOne(d => d.TipoPropiedadHorizontal)
                     .WithMany(p => p.PropiedadesHorizontales)
@@ -353,15 +345,28 @@ namespace PropiedadHorizontal.Data.Context
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.NombreBancoProveedor)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.NombreProveedor)
                     .IsRequired()
                     .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NumeroCuentaProveedor)
+                    .HasMaxLength(30)
                     .IsUnicode(false);
 
                 entity.Property(e => e.TelefonoProveedor)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.IdTipoCuentaProveedorNavigation)
+                    .WithMany(p => p.Proveedores)
+                    .HasForeignKey(d => d.IdTipoCuentaProveedor)
+                    .HasConstraintName("FK_TipoCuentaBancaria_Proveedores");
 
                 entity.HasOne(d => d.IdTipoDocumentoProveedorNavigation)
                     .WithMany(p => p.Proveedores)
@@ -379,6 +384,42 @@ namespace PropiedadHorizontal.Data.Context
                     .HasForeignKey(d => d.NitPropiedadHorizontal)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PropiedadesHorizontales_Proveedores");
+            });
+
+            modelBuilder.Entity<Residentes>(entity =>
+            {
+                entity.HasKey(e => e.IdDocumentoResidente)
+                    .HasName("PK_Residente");
+
+                entity.Property(e => e.IdDocumentoResidente)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ApellidoResidente)
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CelularResidente)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EmailResidente)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombreResidente)
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdTipoDocumentoResidenteNavigation)
+                    .WithMany(p => p.Residentes)
+                    .HasForeignKey(d => d.IdTipoDocumentoResidente)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_TipoDocumentos_Residente");
             });
 
             modelBuilder.Entity<TipoCopropiedades>(entity =>
@@ -430,6 +471,36 @@ namespace PropiedadHorizontal.Data.Context
                 entity.Property(e => e.NombreTipoServicio)
                     .IsRequired()
                     .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TiposAgrupamiento>(entity =>
+            {
+                entity.HasKey(e => e.TipoAgrupamiento)
+                    .HasName("PK__TiposAgr__1FF98F66F1FD5B4B");
+
+                entity.Property(e => e.TipoAgrupamiento)
+                    .HasMaxLength(5)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Descripcion)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TiposCuentasBancarias>(entity =>
+            {
+                entity.HasKey(e => e.IdTipoCuentaBancaria)
+                    .HasName("PK_TipoCuentaBancaria");
+
+                entity.Property(e => e.IdTipoCuentaBancaria).ValueGeneratedNever();
+
+                entity.Property(e => e.DescripcionTipoCuentaBancaria)
+                    .HasMaxLength(1)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NombreTipoCuentaBancaria)
+                    .HasMaxLength(1)
                     .IsUnicode(false);
             });
 

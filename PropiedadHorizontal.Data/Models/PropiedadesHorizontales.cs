@@ -26,10 +26,14 @@ namespace PropiedadHorizontal.Data.Models
         public decimal? AreaPrivadaConstruidaPropiedadHorizontal { get; set; }
         public decimal? AreaTotalCesionPropiedadHorizontal { get; set; }
         public bool? IsActive { get; set; }
+        public string NombreBancoPropiedadHorizontal { get; set; }
+        public int? IdTipoCuentaPropiedadHorizontal { get; set; }
+        public string NumeroCuentaPropiedadHorizontal { get; set; }
 
         public virtual Administradores IdDocumentoAdministradorNavigation { get; set; }
         public virtual Contadores IdDocumentoContadorNavigation { get; set; }
         public virtual Municipios Municipio { get; set; }
+        public virtual TiposCuentasBancarias TipoCuentaBancaria { get; set; }
         public virtual TiposPropiedadesHorizontales TipoPropiedadHorizontal { get; set; }
         public virtual ICollection<AreasComunes> AreasComunes { get; set; }
         public virtual ICollection<Copropiedades> Copropiedades { get; set; }

@@ -13,14 +13,31 @@ namespace PropiedadHorizontal.Api.Mapping
         public AutoMapping()
         {
             CreateMap<Copropiedades, CopropiedadesDto>()
-                .ForMember(co => co.NombrePropiedadHorizontal, map => map.MapFrom(m => m.PropiedadHorizontal.NombrePropiedadHorizontal))
-                .ForMember(co => co.DescripcionTipoCopropiedad, map => map.MapFrom(m => m.TipoCopropiedad.DescripcionTipoCopropiedad))
-                .ForMember(co => co.NombrePropietario, map => map.MapFrom(m => $"{m.Copropietario.NombresCopropietario} {m.Copropietario.ApellidosCopropietario}" ));
+                .IgnoreAllSourcePropertiesWithAnInaccessibleSetter()
+                .ForMember(co => co.IdCopropiedad, map => map.MapFrom(m => m.IdCopropiedad))
+                .ForMember(co => co.Copropietario, map => map.MapFrom(m => m.Copropietario))
+                .ForMember(co => co.IdDocumentoCopropietario, map => map.MapFrom(m => m.IdDocumentoCopropietario))
+                .ForMember(co => co.NitPropiedadHorizontal, map => map.MapFrom(m => m.NitPropiedadHorizontal))
+                .ForMember(co => co.CoeficienteCopropiedad, map => map.MapFrom(m => m.CoeficienteCopropiedad))
+                .ForMember(co => co.AreaCopropiedad, map => map.MapFrom(m => m.AreaCopropiedad))
+                .ForMember(co => co.IdDocumentoCopropietario, map => map.MapFrom(m => m.IdDocumentoCopropietario))
+                .ForMember(co => co.IdTipoCopropiedad, map => map.MapFrom(m => m.IdTipoCopropiedad))
+                .ForMember(co => co.IdDocumentoResidente, map => map.MapFrom(m => m.IdDocumentoResidente))
+                .ForMember(co => co.IdDocumentoResidente, map => map.MapFrom(m => m.IdDocumentoResidente));
+
+            CreateMap<CopropiedadesDto, Copropiedades>()
+                .ForMember(co => co.Copropietario, map => map.MapFrom(m => m.Copropietario))
+                .ForMember(co => co.Copropietario, map => map.Ignore())
+                .ForMember(co => co.Residente, map => map.Ignore())
+                .ForMember(co => co.TipoCopropiedad, map => map.Ignore())
+                .ForMember(co => co.PropiedadHorizontal, map => map.Ignore());
+
 
             CreateMap<PropiedadesHorizontales, PropiedadHorizontalDto>();
             CreateMap<TipoDocumentos, TipoDocumentosDto>();
             CreateMap<TipoCopropiedades, TipoCopropiedadesDto>();
             CreateMap<Copropietarios, CopropietariosDto>();
+
         }
     }
 }

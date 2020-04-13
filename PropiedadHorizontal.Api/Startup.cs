@@ -32,14 +32,18 @@ namespace PropiedadHorizontal.Api
 
             // Add framework services.
             services.AddControllersWithViews()
-                .AddJsonOptions(options =>
-                {
-                    // set this option to TRUE to indent the JSON output
-                    options.JsonSerializerOptions.WriteIndented = true;
-                    // set this option to NULL to use PascalCase instead of
-                    // camelCase (default)
-                    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-                });
+                .AddNewtonsoftJson(
+                options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    );
+            //.AddJsonOptions(options =>
+            //{
+            //    // set this option to TRUE to indent the JSON output
+            //    options.JsonSerializerOptions.WriteIndented = true;
+            //    // set this option to NULL to use PascalCase instead of
+            //    // camelCase (default)
+            //    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            //    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            //});
 
             SwaggerHelper.ConfigureService(services);
             CorsHelper.ConfigureService(services);

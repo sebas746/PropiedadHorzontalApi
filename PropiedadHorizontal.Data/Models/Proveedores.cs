@@ -12,7 +12,11 @@ namespace PropiedadHorizontal.Data.Models
         public int IdTipoServicioProveedor { get; set; }
         public string NitPropiedadHorizontal { get; set; }
         public int? IdTipoDocumentoProveedor { get; set; }
+        public string NombreBancoProveedor { get; set; }
+        public int? IdTipoCuentaProveedor { get; set; }
+        public string NumeroCuentaProveedor { get; set; }
 
+        public virtual TiposCuentasBancarias IdTipoCuentaProveedorNavigation { get; set; }
         public virtual TipoDocumentos IdTipoDocumentoProveedorNavigation { get; set; }
         public virtual TipoServicio IdTipoServicioProveedorNavigation { get; set; }
         public virtual PropiedadesHorizontales NitPropiedadHorizontalNavigation { get; set; }

@@ -52,8 +52,15 @@ namespace PropiedadHorizontal.Api.Controllers
         {
             if(copropiedadId > 0)
             {
-                return _copropiedadesService.GetCopropiedadById(copropiedadId);
+                var copropiedad = _copropiedadesService.GetCopropiedadById(copropiedadId);
+
+                if(copropiedad == null)
+                {
+                    return NotFound();
+                }
+                return Ok(copropiedad);
             }
+
             return BadRequest(ModelState);
         }
 

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PropiedadHorizontal.Api</name>
+    </assembly>
+    <members>
+        <member name="M:PropiedadHorizontal.Api.Controllers.CopropiedadesController.GetCopropiedades(PropiedadHorizontal.Core.DTO.PaginationDto)">
+            <summary>
+            Get a list of copropiedades
+            </summary>
+            <param name="pagination">Pagination object.
+            PageNumber: Page number.
+            PageSize: Page size.
+            OrderBy: Column name to order.
+            SortOrder: asc or desc.
+            Filter: Filter to search.
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.CopropiedadesController.GetCopropiedadById(System.Int32)">
+            <summary>
+            Get a copropiedad by id.
+            </summary>
+            <param name="copropiedadId">Copropiedad id.</param>
+            <returns>Copropiedad DTO object.</returns>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.CopropiedadesController.CreateCopropiedad(PropiedadHorizontal.Core.DTO.CopropiedadesDto)">
+            <summary>
+            Create a new copropiedad.
+            </summary>
+            <param name="copropiedadDto">Copropiedad DTO object.</param>
+            <returns>Copropiedad DTO object created.</returns>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.CopropiedadesController.UpdateCopropiedad(PropiedadHorizontal.Core.DTO.CopropiedadesDto)">
+            <summary>
+            Update a copropiedad.
+            </summary>
+            <param name="copropiedadDto">Copropiedad DTO object.</param>
+            <returns>Copropiedad DTO updated object.</returns>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.CopropiedadesController.DeleteCopropiedad(System.Int32)">
+            <summary>
+            Deletes a copropiedad.
+            </summary>
+            <param name="copropiedadId">Copropiedad id.</param>
+            <returns>
+            True: If copropiedad was deleted.
+            False: If copropiedad was NOT deleted.
+            </returns>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.PropiedadHorizontalController.GetPropiedadesHorizontales(PropiedadHorizontal.Core.DTO.PaginationDto)">
+            <summary>
+            Get Vehicle List
+            </summary>
+            <param name="sortOrder"></param>
+            <param name="currentSort"></param>
+            <param name="searchString"></param>
+            <param name="skipRows"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Mapping.AutoMapping.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+    </members>
+</doc>
