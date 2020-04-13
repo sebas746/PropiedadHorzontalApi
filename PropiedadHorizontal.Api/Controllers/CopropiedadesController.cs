@@ -62,7 +62,7 @@ namespace PropiedadHorizontal.Api.Controllers
         /// </summary>
         /// <param name="copropiedadDto">Copropiedad DTO object.</param>
         /// <returns>Copropiedad DTO object created.</returns>
-        [Route("Create/{tenantId}")]
+        [Route("CreateCopropiedad")]
         [HttpPost]
         public ActionResult<CopropiedadesDto> CreateCopropiedad(CopropiedadesDto copropiedadDto)
         {

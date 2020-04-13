@@ -3,7 +3,7 @@ namespace PropiedadHorizontal.Core.DTO
 {
     public class CopropiedadesDto
     {
-        public long IdCopropiedad { get; set; }
+        public long? IdCopropiedad { get; set; }
         public string NombreCopropiedad { get; set; }
         public string NitPropiedadHorizontal { get; set; }
         public decimal? CoeficienteCopropiedad { get; set; }
