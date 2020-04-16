@@ -48,6 +48,14 @@
             False: If copropiedad was NOT deleted.
             </returns>
         </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.CopropiedadesController.IsDuplicatedNombreCopropiedad(System.String,System.Int32)">
+            <summary>
+            Verify is a copropiedad name is duplicated.
+            </summary>
+            <param name="copropiedadNombre">Copropiedad name.</param>
+            <param name="idCopropiedad">Id copropiedad in case one is being edited.</param>
+            <returns></returns>
+        </member>
         <member name="M:PropiedadHorizontal.Api.Controllers.PropiedadHorizontalController.GetPropiedadesHorizontales(PropiedadHorizontal.Core.DTO.PaginationDto)">
             <summary>
             Get Vehicle List

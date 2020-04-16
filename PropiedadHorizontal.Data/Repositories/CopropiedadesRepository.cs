@@ -80,9 +80,9 @@ namespace PropiedadHorizontal.Data.Repositories
             return true;
         }
 
-        public bool ExistsCopropiedadNombre(string copropiedadNombre)
+        public bool ExistsCopropiedadNombre(string copropiedadNombre, int idCopropiedad)
         {
-            return _generalContext.Copropiedades.Any(co => co.NombreCopropiedad.Equals(copropiedadNombre));
+            return _generalContext.Copropiedades.Any(co => co.NombreCopropiedad.Equals(copropiedadNombre) && co.IdCopropiedad != idCopropiedad);
         }
     }
 }

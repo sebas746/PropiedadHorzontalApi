@@ -87,7 +87,7 @@ namespace PropiedadHorizontal.Api.Controllers
         /// </summary>
         /// <param name="copropiedadDto">Copropiedad DTO object.</param>
         /// <returns>Copropiedad DTO updated object.</returns>
-        [Route("Update/{tenantId}")]
+        [Route("Update")]
         [HttpPut]
         public ActionResult<CopropiedadesDto> UpdateCopropiedad(CopropiedadesDto copropiedadDto)
         {
@@ -119,11 +119,17 @@ namespace PropiedadHorizontal.Api.Controllers
             return BadRequest(ModelState);
         }
 
+        /// <summary>
+        /// Verify is a copropiedad name is duplicated.
+        /// </summary>
+        /// <param name="copropiedadNombre">Copropiedad name.</param>
+        /// <param name="idCopropiedad">Id copropiedad in case one is being edited.</param>
+        /// <returns></returns>
         [HttpPost]
         [Route("IsDuplicatedCopropiedad")]
-        public bool IsDuplicatedNombreCopropiedad(string copropiedadNombre)
+        public bool IsDuplicatedNombreCopropiedad(string copropiedadNombre, int idCopropiedad)
         {
-            return _copropiedadesService.ExistsCopropiedadNombre(copropiedadNombre);
+            return _copropiedadesService.ExistsCopropiedadNombre(copropiedadNombre, idCopropiedad);
         }
     }
 }

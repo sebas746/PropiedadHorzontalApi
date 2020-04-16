@@ -109,12 +109,12 @@ namespace PropiedadHorizontal.Business.Services
             }
         }
 
-        ///<see cref="ICopropiedadesService.ExistsCopropiedadNombre(string)"/>
-        public bool ExistsCopropiedadNombre(string copropiedadNombre)
+        ///<see cref="ICopropiedadesService.ExistsCopropiedadNombre(string, int)"/>
+        public bool ExistsCopropiedadNombre(string copropiedadNombre, int idCopropiedad)
         {
             try
             {
-                return _copropiedadesRepository.ExistsCopropiedadNombre(copropiedadNombre);
+                return _copropiedadesRepository.ExistsCopropiedadNombre(copropiedadNombre, idCopropiedad);
             }
             catch
             {
