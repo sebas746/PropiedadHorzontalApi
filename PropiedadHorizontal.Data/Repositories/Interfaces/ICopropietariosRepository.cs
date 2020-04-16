@@ -22,5 +22,12 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         /// false: if NOT exists.
         /// </returns>
         bool ExistsCopropietario(string idDocumentoCopropietario);
+
+        /// <summary>
+        /// Insert a new copropietario
+        /// </summary>
+        /// <param name="copropietario">Copropietario model object.</param>
+        /// <returns></returns>
+        Copropietarios InsertCopropietario(Copropietarios copropietario);
     }
 }

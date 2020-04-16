@@ -17,6 +17,14 @@ namespace PropiedadHorizontal.Data.Repositories
             _generalContext = generalContext;
         }
 
+        ///<see cref="ICopropietariosRepository.InsertCopropietario(Copropietarios)"/>
+        public Copropietarios InsertCopropietario(Copropietarios copropietario)
+        {
+            base.Insert(copropietario);
+            _context.SaveChanges();
+            return copropietario;
+        }
+
         ///<see cref="ICopropietariosRepository.GetCopropietarioById(string)"/>
         public Copropietarios GetCopropietarioById(string idDocumentoCopropietario)
         {

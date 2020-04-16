@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
 namespace PropiedadHorizontal.Data.Models
 {
     public partial class Copropiedades

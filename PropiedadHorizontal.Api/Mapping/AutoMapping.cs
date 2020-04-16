@@ -27,7 +27,6 @@ namespace PropiedadHorizontal.Api.Mapping
 
             CreateMap<CopropiedadesDto, Copropiedades>()
                 .ForMember(co => co.Copropietario, map => map.MapFrom(m => m.Copropietario))
-                .ForMember(co => co.Copropietario, map => map.Ignore())
                 .ForMember(co => co.Residente, map => map.Ignore())
                 .ForMember(co => co.TipoCopropiedad, map => map.Ignore())
                 .ForMember(co => co.PropiedadHorizontal, map => map.Ignore());
@@ -37,6 +36,7 @@ namespace PropiedadHorizontal.Api.Mapping
             CreateMap<TipoDocumentos, TipoDocumentosDto>();
             CreateMap<TipoCopropiedades, TipoCopropiedadesDto>();
             CreateMap<Copropietarios, CopropietariosDto>();
+            CreateMap<CopropietariosDto, Copropietarios>();
 
         }
     }
