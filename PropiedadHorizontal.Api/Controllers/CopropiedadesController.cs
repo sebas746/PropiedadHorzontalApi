@@ -30,8 +30,11 @@ namespace PropiedadHorizontal.Api.Controllers
         [HttpGet]
         public ActionResult<PaginationResponse<CopropiedadesDto>> GetCopropiedades([FromQuery]PaginationDto pagination)
         {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
             pagination.SortOrder = pagination.SortOrder ?? "asc";
-            
+            pagination.OrderBy = pagination.OrderBy ?? "NombreCopropiedad";
+
             var copropiedades = _copropiedadesService.GetAllCopropiedades(pagination);
             var data = new PaginationResponse<CopropiedadesDto>(pagination, copropiedades.Count())
             {   

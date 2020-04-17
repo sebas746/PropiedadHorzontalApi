@@ -24,28 +24,16 @@ namespace PropiedadHorizontal.Data.Repositories
             var sorter = Utils.Utils.OrderByFunc<Copropiedades>(pagination.OrderBy, string.IsNullOrEmpty(pagination.SortOrder)
                                                                                || pagination.SortOrder.Equals("desc", StringComparison.CurrentCultureIgnoreCase));
             
-            var sorterList = new List<Func<IQueryable<Copropiedades>, IOrderedQueryable<Copropiedades>>>();
-
-            if (pagination.OrderBy.ToUpper() != null && !pagination.OrderBy.Equals("NOMBRECOPROPIEDAD"))
-            {
-                //Default second sorter
-                var defaultSorter = Utils.Utils.OrderByFunc<Copropiedades>("IdCopropiedad");
-                sorterList.Add(defaultSorter);
-            }
-
-            sorterList.Add(sorter);
-
-            var skip = (pagination.PageNumber) * pagination.PageSize;
             var take = pagination.PageSize;
 
             var includes = new Expression<Func<Copropiedades, object>>[] { co => co.PropiedadHorizontal, co => co.TipoCopropiedad, co => co.Copropietario };
 
-            var copropiedades = GetPaginated(skip, take,
+            var copropiedades = GetPaginated(pagination.Skip, take,
                                       !string.IsNullOrEmpty(pagination.Filter) ?
                                       (co => co.IdCopropiedad != 0 &&
                                              (co.NombreCopropiedad.Contains(pagination.Filter, StringComparison.CurrentCultureIgnoreCase)))
                                       : EmptyFilter,
-                                      sorterList, includes);
+                                      sorter, includes);
             return copropiedades;
         }
 
