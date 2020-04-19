@@ -69,6 +69,13 @@
             </param>
             <returns></returns>
         </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.CopropietariosController.UpdateCopropiedad(PropiedadHorizontal.Core.DTO.CopropietariosDto)">
+            <summary>
+            Update a copropietario.
+            </summary>
+            <param name="copropietarioDto">Copropietario DTO object.</param>
+            <returns>Copropietario DTO updated object.</returns>
+        </member>
         <member name="M:PropiedadHorizontal.Api.Controllers.PropiedadHorizontalController.GetPropiedadesHorizontales(PropiedadHorizontal.Core.DTO.PaginationDto)">
             <summary>
             Get Vehicle List

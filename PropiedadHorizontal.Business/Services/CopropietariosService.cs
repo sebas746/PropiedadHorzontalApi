@@ -13,14 +13,14 @@ namespace PropiedadHorizontal.Business.Services
     public class CopropietariosService : ICopropietariosService
     {
         private readonly ICopropietariosRepository _copropietariosRepository;
-        private readonly ITipoCopropiedadesRepository _tipoCopropiedadesRepository;
+        private readonly ICopropiedadesRepository _copropiedadesRepository;
         private readonly IMapper _mapper;
        
 
-        public CopropietariosService(ICopropietariosRepository copropietariosRepository, IMapper mapper, ITipoCopropiedadesRepository tipoCopropiedadesRepository)
+        public CopropietariosService(ICopropietariosRepository copropietariosRepository, IMapper mapper, ICopropiedadesRepository copropiedadesRepository)
         {   
             _copropietariosRepository = copropietariosRepository;
-            _tipoCopropiedadesRepository = tipoCopropiedadesRepository;
+            _copropiedadesRepository = copropiedadesRepository;
             _mapper = mapper;
         }
 
@@ -34,8 +34,12 @@ namespace PropiedadHorizontal.Business.Services
                 }
 
                 var copropietarios = _copropietariosRepository.GetAllCopropietarios(pagination);
-                
 
+                foreach(var copropietario in copropietarios)
+                {
+                    copropietario.Copropiedades = _copropiedadesRepository.GetAllCopropiedadesCopropietario(copropietario.IdDocumentoCopropietario);
+                }
+                
                 return _mapper.Map<List<CopropietariosDto>>(copropietarios);
             }
 
@@ -56,6 +60,21 @@ namespace PropiedadHorizontal.Business.Services
             catch (Exception exc)
             {
                 throw new Exception(exc.Message);
+            }
+        }
+
+        
+        public CopropietariosDto UpdateCopropiedad(CopropietariosDto copropietarioDto)
+        {
+            try
+            {
+                var copropietario = _mapper.Map<Copropietarios>(copropietarioDto);
+                var resultDto = _mapper.Map<CopropietariosDto>(_copropietariosRepository.UpdateCopropietario(copropietario));
+                return resultDto;
+            }
+            catch
+            {
+                throw;
             }
         }
 

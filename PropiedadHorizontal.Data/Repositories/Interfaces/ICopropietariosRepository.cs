@@ -23,6 +23,20 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         Copropietarios GetCopropietarioById(string idDocumentoCopropietario);
 
         /// <summary>
+        /// Update an existent copropietario.
+        /// </summary>
+        /// <param name="copropietario">Copropietario object.</param>
+        /// <returns></returns>
+        Copropietarios UpdateCopropietario(Copropietarios copropietario);
+
+        /// <summary>
+        /// Delete an existent copropietario.
+        /// </summary>
+        /// <param name="idDocumentocopropiedatario"></param>
+        /// <returns></returns>
+        bool DeleteCopropietario(string idDocumentocopropiedatario);
+
+        /// <summary>
         /// Check if exists a copropietario.
         /// </summary>
         /// <param name="idDocumentoCopropietario">Id documento.</param>

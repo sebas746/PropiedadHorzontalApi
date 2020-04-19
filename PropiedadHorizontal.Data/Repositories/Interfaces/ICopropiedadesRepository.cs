@@ -15,6 +15,13 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         IEnumerable<Copropiedades> GetAllCopropiedades(PaginationDto pagination);
 
         /// <summary>
+        /// Get all copropiedades from a copropietario.
+        /// </summary>
+        /// <param name="idDocumentoCopropietario">Id documento copropietario.</param>
+        /// <returns></returns>
+        ICollection<Copropiedades> GetAllCopropiedadesCopropietario(string idDocumentoCopropietario);
+
+        /// <summary>
         /// Create a new Copropiedad.
         /// </summary>
         /// <param name="copropiedad"></param>

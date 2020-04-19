@@ -27,7 +27,7 @@ namespace PropiedadHorizontal.Data.Repositories
 
             var take = pagination.PageSize;
 
-            var includes = new Expression<Func<Copropietarios, object>>[] { co => co.Copropiedades, co => co.TipoDocumento, co => co.Copropiedades.Select(co => co.TipoCopropiedad) };
+            var includes = new Expression<Func<Copropietarios, object>>[] { co => co.Copropiedades, co => co.TipoDocumento };
 
             var copropietarios = GetPaginated(pagination.Skip, take,
                                       !string.IsNullOrEmpty(pagination.Filter) ?
@@ -46,6 +46,22 @@ namespace PropiedadHorizontal.Data.Repositories
             base.Insert(copropietario);
             _context.SaveChanges();
             return copropietario;
+        }
+
+        ///<see cref="ICopropietariosRepository.UpdateCopropietario(Copropietarios)"/>
+        public Copropietarios UpdateCopropietario(Copropietarios copropietario)
+        {
+            base.Update(copropietario);
+            _context.SaveChanges();
+            return copropietario;
+        }
+
+        ///<see cref="ICopropietariosRepository.DeleteCopropietario(string)"/>
+        public bool DeleteCopropietario(string idDocumentocopropiedatario)
+        {
+            base.Delete(idDocumentocopropiedatario);
+            _context.SaveChanges();
+            return true;
         }
 
         ///<see cref="ICopropietariosRepository.GetCopropietarioById(string)"/>

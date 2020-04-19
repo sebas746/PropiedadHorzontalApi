@@ -7,6 +7,7 @@ namespace PropiedadHorizontal.Business.Services.Interfaces
     {
         IEnumerable<CopropietariosDto> GetAllCopropietarios(PaginationDto pagination);
         CopropietariosDto GetCopropietarioById(string idDocumentoCopropietario);
+        CopropietariosDto UpdateCopropiedad(CopropietariosDto copropietarioDto);
         bool ExistsCopropietario(string idDocumentoCopropietario);
     }
 }

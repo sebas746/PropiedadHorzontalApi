@@ -1,4 +1,5 @@
-﻿using PropiedadHorizontal.Core.DTO;
+﻿using Microsoft.EntityFrameworkCore;
+using PropiedadHorizontal.Core.DTO;
 using PropiedadHorizontal.Data.Context;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
@@ -37,6 +38,12 @@ namespace PropiedadHorizontal.Data.Repositories
                                       : EmptyFilter,
                                       sorter, includes);
             return copropiedades;
+        }
+
+        ///<see cref="ICopropiedadesRepository.GetAllCopropiedadesCopropietario(string)"/>
+        public ICollection<Copropiedades> GetAllCopropiedadesCopropietario(string idDocumentoCopropietario)
+        {
+            return _generalContext.Copropiedades.Include(co => co.TipoCopropiedad).Where(co => co.IdDocumentoCopropietario.Equals(idDocumentoCopropietario)).ToList();
         }
 
         ///<see cref="ICopropiedadesRepository.InsertCopropiedad(Copropiedades)"/>

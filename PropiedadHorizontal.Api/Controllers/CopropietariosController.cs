@@ -51,6 +51,23 @@ namespace PropiedadHorizontal.Api.Controllers
             return _copropietariosService.GetCopropietarioById(numeroDocumento);
         }
 
+        /// <summary>
+        /// Update a copropietario.
+        /// </summary>
+        /// <param name="copropietarioDto">Copropietario DTO object.</param>
+        /// <returns>Copropietario DTO updated object.</returns>
+        [Route("Update")]
+        [HttpPut]
+        public ActionResult<CopropietariosDto> UpdateCopropiedad(CopropietariosDto copropietarioDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (copropietarioDto != null)
+            {
+                return _copropietariosService.UpdateCopropiedad(copropietarioDto);
+            }
+            return BadRequest(ModelState);
+        }
+
         [HttpGet]
         [Route("ExistsCopropietario/{numeroDocumento}")]
         public bool ExistsCopropietario(string numeroDocumento)
