@@ -7,5 +7,7 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
     {
 
         IEnumerable<TipoCopropiedades> GetAllTipoCopropiedades();
+
+        TipoCopropiedades GetTipoCopropiedadesById(int idTipoCopropiedad);
     }
 }

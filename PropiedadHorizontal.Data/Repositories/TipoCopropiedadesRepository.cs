@@ -15,5 +15,10 @@ namespace PropiedadHorizontal.Data.Repositories
         {
             return GetAll();
         }
+
+        public TipoCopropiedades GetTipoCopropiedadesById(int idTipoCopropiedad)
+        {
+            return GetByID(idTipoCopropiedad);
+        }
     }
 }

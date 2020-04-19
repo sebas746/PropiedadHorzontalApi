@@ -130,12 +130,6 @@ namespace PropiedadHorizontal.Data.Repositories
             return GetQueryable(skip, take, filter, orderBy, includes).ToList();
         }
 
-        public IList<TEntity> GetPaginated(int skip, int take, Expression<Func<TEntity, bool>> filter = null
-            , IList<Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>> ordersBy = null, params Expression<Func<TEntity, object>>[] includes)
-        {
-            return GetQueryable(skip, take, filter, ordersBy, includes).ToList();
-        }
-
         public virtual void Insert(TEntity entity)
         {
             _dbSet.Add(AddCreationData(entity));

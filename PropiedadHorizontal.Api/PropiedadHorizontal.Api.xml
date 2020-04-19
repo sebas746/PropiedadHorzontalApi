@@ -56,6 +56,19 @@
             <param name="idCopropiedad">Id copropiedad in case one is being edited.</param>
             <returns></returns>
         </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.CopropietariosController.GetCopropietarios(PropiedadHorizontal.Core.DTO.PaginationDto)">
+            <summary>
+            Get a list of copropietarios
+            </summary>
+            <param name="pagination">Pagination object.
+            PageNumber: Page number.
+            PageSize: Page size.
+            OrderBy: Column name to order.
+            SortOrder: asc or desc.
+            Filter: Filter to search.
+            </param>
+            <returns></returns>
+        </member>
         <member name="M:PropiedadHorizontal.Api.Controllers.PropiedadHorizontalController.GetPropiedadesHorizontales(PropiedadHorizontal.Core.DTO.PaginationDto)">
             <summary>
             Get Vehicle List

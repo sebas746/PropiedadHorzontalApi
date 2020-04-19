@@ -31,7 +31,9 @@ namespace PropiedadHorizontal.Data.Repositories
             var copropiedades = GetPaginated(pagination.Skip, take,
                                       !string.IsNullOrEmpty(pagination.Filter) ?
                                       (co => co.IdCopropiedad != 0 &&
-                                             (co.NombreCopropiedad.Contains(pagination.Filter, StringComparison.CurrentCultureIgnoreCase)))
+                                            (co.TipoCopropiedad.DescripcionTipoCopropiedad.Contains(pagination.Filter)) ||
+                                            (co.Copropietario.NombresCopropietario + " " + co.Copropietario.ApellidosCopropietario).Contains(pagination.Filter) ||
+                                            (co.NombreCopropiedad.Contains(pagination.Filter)))
                                       : EmptyFilter,
                                       sorter, includes);
             return copropiedades;
@@ -70,7 +72,8 @@ namespace PropiedadHorizontal.Data.Repositories
 
         public bool ExistsCopropiedadNombre(string copropiedadNombre, int idCopropiedad)
         {
-            return _generalContext.Copropiedades.Any(co => co.NombreCopropiedad.Equals(copropiedadNombre) && co.IdCopropiedad != idCopropiedad);
+            return _generalContext.Copropiedades.Any(co => co.NombreCopropiedad.ToUpper().Equals(copropiedadNombre.ToUpper())
+                && co.IdCopropiedad != idCopropiedad);
         }
     }
 }

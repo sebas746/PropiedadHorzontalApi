@@ -72,18 +72,6 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="skip"></param>
-        /// <param name="take"></param>
-        /// <param name="filter"></param>
-        /// <param name="ordersBy"></param>
-        /// <param name="includes"></param>
-        /// <returns></returns>
-        IList<TEntity> GetPaginated(int skip, int take, Expression<Func<TEntity, bool>> filter = null
-            , IList<Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>> ordersBy = null, params Expression<Func<TEntity, object>>[] includes);
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="entity"></param>
         void Insert(TEntity entity);
 

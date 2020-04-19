@@ -25,18 +25,22 @@ namespace PropiedadHorizontal.Api.Mapping
                 .ForMember(co => co.IdDocumentoResidente, map => map.MapFrom(m => m.IdDocumentoResidente))
                 .ForMember(co => co.IdDocumentoResidente, map => map.MapFrom(m => m.IdDocumentoResidente))
                 .ForMember(co => co.DescripcionTipoCopropiedad, map => map.MapFrom(m => m.TipoCopropiedad.DescripcionTipoCopropiedad));
-
             CreateMap<CopropiedadesDto, Copropiedades>()
                 .ForMember(co => co.Copropietario, map => map.MapFrom(m => m.Copropietario))
                 .ForMember(co => co.Residente, map => map.Ignore())
                 .ForMember(co => co.TipoCopropiedad, map => map.Ignore())
                 .ForMember(co => co.PropiedadHorizontal, map => map.Ignore());
 
-
             CreateMap<PropiedadesHorizontales, PropiedadHorizontalDto>();
+            
             CreateMap<TipoDocumentos, TipoDocumentosDto>();
+            
             CreateMap<TipoCopropiedades, TipoCopropiedadesDto>();
-            CreateMap<Copropietarios, CopropietariosDto>();
+
+            CreateMap<Copropietarios, CopropietariosDto>()
+                .IgnoreAllSourcePropertiesWithAnInaccessibleSetter()
+                .ForMember(co => co.DescripcionTipoDocumento, map => map.MapFrom(m => m.TipoDocumento.DescripcionTipoDocumento))
+                .ForMember(co => co.TipoDocumento, map => map.Ignore());
             CreateMap<CopropietariosDto, Copropietarios>();
 
         }

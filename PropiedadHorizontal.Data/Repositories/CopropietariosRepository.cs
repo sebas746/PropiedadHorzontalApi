@@ -1,7 +1,9 @@
-﻿using PropiedadHorizontal.Data.Context;
+﻿using PropiedadHorizontal.Core.DTO;
+using PropiedadHorizontal.Data.Context;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -15,6 +17,27 @@ namespace PropiedadHorizontal.Data.Repositories
         public CopropietariosRepository(IBaseContext context, PropiedadHorizontalContext generalContext) : base(context)
         {
             _generalContext = generalContext;
+        }
+
+        ///<see cref="ICopropietariosRepository.GetAllCopropietarios(PaginationDto)"/>
+        public IEnumerable<Copropietarios> GetAllCopropietarios(PaginationDto pagination)
+        {
+            var sorter = Utils.Utils.OrderByFunc<Copropietarios>(pagination.OrderBy, string.IsNullOrEmpty(pagination.SortOrder)
+                                                                               || pagination.SortOrder.Equals("desc", StringComparison.CurrentCultureIgnoreCase));
+
+            var take = pagination.PageSize;
+
+            var includes = new Expression<Func<Copropietarios, object>>[] { co => co.Copropiedades, co => co.TipoDocumento, co => co.Copropiedades.Select(co => co.TipoCopropiedad) };
+
+            var copropietarios = GetPaginated(pagination.Skip, take,
+                                      !string.IsNullOrEmpty(pagination.Filter) ?
+                                      (co => co.IdDocumentoCopropietario != "" &&
+                                      (co.NombresCopropietario + " " + co.ApellidosCopropietario).Contains(pagination.Filter) ||
+                                      (co.IdDocumentoCopropietario.Contains(pagination.Filter)))
+                                      : EmptyFilter,
+                                      sorter, includes);
+
+            return copropietarios;
         }
 
         ///<see cref="ICopropietariosRepository.InsertCopropietario(Copropietarios)"/>

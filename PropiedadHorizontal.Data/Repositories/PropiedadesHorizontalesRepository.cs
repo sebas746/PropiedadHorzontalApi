@@ -30,25 +30,15 @@ namespace PropiedadHorizontal.Data.Repositories
             var sorter = Utils.Utils.OrderByFunc<PropiedadesHorizontales>(currentSort, string.IsNullOrEmpty(sortOrder)
                                                                                || sortOrder.Equals("desc", StringComparison.CurrentCultureIgnoreCase));
 
-            var sorterList = new List<Func<IQueryable<PropiedadesHorizontales>, IOrderedQueryable<PropiedadesHorizontales>>>();
-            if (currentSort != null && !currentSort.Equals("NombrePropiedadHorizontal"))
-            {
-                //Default second sorter
-                var defaultSorter = Utils.Utils.OrderByFunc<PropiedadesHorizontales>("Nit");
-                sorterList.Add(defaultSorter);
-            }
-
-            sorterList.Add(sorter);
-
             var includes = new Expression<Func<PropiedadesHorizontales, object>>[] { ph => ph.Municipio };
 
             var propiedades = GetPaginated(skip, take,
                                       !string.IsNullOrEmpty(searchString) ?
                                       (dr => dr.NitPropiedadHorizontal != "" &&
-                                             (dr.EmailPropiedadHorizontal.Contains(searchString, StringComparison.CurrentCultureIgnoreCase) ||
-                                              dr.NombrePropiedadHorizontal.Contains(searchString, StringComparison.CurrentCultureIgnoreCase)))
+                                             (dr.EmailPropiedadHorizontal.Contains(searchString) ||
+                                              dr.NombrePropiedadHorizontal.Contains(searchString)))
                                       : EmptyFilter,
-                                      sorterList, includes);
+                                      sorter, includes);
             return propiedades;
         }
     }
