@@ -16,6 +16,7 @@ namespace PropiedadHorizontal.Api.Mapping
                 .IgnoreAllSourcePropertiesWithAnInaccessibleSetter()
                 .ForMember(co => co.IdCopropiedad, map => map.MapFrom(m => m.IdCopropiedad))
                 .ForMember(co => co.Copropietario, map => map.MapFrom(m => m.Copropietario))
+                .ForMember(co => co.Residente, map => map.MapFrom(m => m.Residente))
                 .ForMember(co => co.IdDocumentoCopropietario, map => map.MapFrom(m => m.IdDocumentoCopropietario))
                 .ForMember(co => co.NitPropiedadHorizontal, map => map.MapFrom(m => m.NitPropiedadHorizontal))
                 .ForMember(co => co.CoeficienteCopropiedad, map => map.MapFrom(m => m.CoeficienteCopropiedad))
@@ -23,16 +24,18 @@ namespace PropiedadHorizontal.Api.Mapping
                 .ForMember(co => co.IdDocumentoCopropietario, map => map.MapFrom(m => m.IdDocumentoCopropietario))
                 .ForMember(co => co.IdTipoCopropiedad, map => map.MapFrom(m => m.IdTipoCopropiedad))
                 .ForMember(co => co.IdDocumentoResidente, map => map.MapFrom(m => m.IdDocumentoResidente))
-                .ForMember(co => co.IdDocumentoResidente, map => map.MapFrom(m => m.IdDocumentoResidente))
                 .ForMember(co => co.DescripcionTipoCopropiedad, map => map.MapFrom(m => m.TipoCopropiedad.DescripcionTipoCopropiedad));
             CreateMap<CopropiedadesDto, Copropiedades>()
                 .ForMember(co => co.Copropietario, map => map.MapFrom(m => m.Copropietario))
-                .ForMember(co => co.Residente, map => map.Ignore())
+                .ForMember(co => co.Residente, map => map.MapFrom(m => m.Residente))
                 .ForMember(co => co.TipoCopropiedad, map => map.Ignore())
                 .ForMember(co => co.PropiedadHorizontal, map => map.Ignore());
 
             CreateMap<PropiedadesHorizontales, PropiedadHorizontalDto>();
-            
+
+            CreateMap<Residentes, ResidentesDto>();
+            CreateMap<ResidentesDto, Residentes>();
+
             CreateMap<TipoDocumentos, TipoDocumentosDto>();
             
             CreateMap<TipoCopropiedades, TipoCopropiedadesDto>();

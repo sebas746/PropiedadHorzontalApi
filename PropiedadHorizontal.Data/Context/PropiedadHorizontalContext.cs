@@ -395,7 +395,7 @@ namespace PropiedadHorizontal.Data.Context
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ApellidoResidente)
+                entity.Property(e => e.ApellidosResidente)
                     .IsRequired()
                     .HasMaxLength(200)
                     .IsUnicode(false);
@@ -410,12 +410,12 @@ namespace PropiedadHorizontal.Data.Context
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.NombreResidente)
+                entity.Property(e => e.NombresResidente)
                     .IsRequired()
                     .HasMaxLength(200)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.IdTipoDocumentoResidenteNavigation)
+                entity.HasOne(d => d.TipoDocumento)
                     .WithMany(p => p.Residentes)
                     .HasForeignKey(d => d.IdTipoDocumentoResidente)
                     .OnDelete(DeleteBehavior.ClientSetNull)

@@ -15,6 +15,8 @@ namespace PropiedadHorizontal.Core.DTO
         public decimal CuotaAdministracionCopropiedad { get; set; }
         public string CodigoParqueaderoCopropiedad { get; set; }
         public string DescripcionTipoCopropiedad { get; set; }
+        public bool? EsResidenteCopropietario { get; set; }
         public CopropietariosDto Copropietario { get; set; }
+        public ResidentesDto Residente { get; set; }
     }
 }

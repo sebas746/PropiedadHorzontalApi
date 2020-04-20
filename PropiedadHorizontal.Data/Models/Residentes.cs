@@ -12,12 +12,13 @@ namespace PropiedadHorizontal.Data.Models
 
         public string IdDocumentoResidente { get; set; }
         public int IdTipoDocumentoResidente { get; set; }
-        public string NombreResidente { get; set; }
-        public string ApellidoResidente { get; set; }
+        public string NombresResidente { get; set; }
+        public string ApellidosResidente { get; set; }
         public string CelularResidente { get; set; }
         public string EmailResidente { get; set; }
+        public string GeneroResidente { get; set; }
 
-        public virtual TipoDocumentos IdTipoDocumentoResidenteNavigation { get; set; }
+        public virtual TipoDocumentos TipoDocumento { get; set; }
         public virtual ICollection<Copropiedades> Copropiedades { get; set; }
     }
 }

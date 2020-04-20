@@ -57,7 +57,7 @@ namespace PropiedadHorizontal.Data.Repositories
         ///<see cref="ICopropiedadesRepository.GetCopropiedadById(int)"/>
         public Copropiedades GetCopropiedadById(int copropiedadId)
         {
-            var includes = new Expression<Func<Copropiedades, object>>[] { co => co.PropiedadHorizontal, co => co.TipoCopropiedad, co => co.Copropietario };
+            var includes = new Expression<Func<Copropiedades, object>>[] { co => co.PropiedadHorizontal, co => co.TipoCopropiedad, co => co.Copropietario, co => co.Residente };
             return Get(co => co.IdCopropiedad.Equals(copropiedadId), includes: includes).FirstOrDefault();
         }
 

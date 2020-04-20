@@ -13,6 +13,7 @@ namespace PropiedadHorizontal.Data.Models
         public string IdDocumentoResidente { get; set; }
         public decimal? CuotaAdministracionCopropiedad { get; set; }
         public string CodigoParqueaderoCopropiedad { get; set; }
+        public bool? EsResidenteCopropietario { get; set; }
 
         public virtual Copropietarios Copropietario { get; set; }
         public virtual Residentes Residente { get; set; }

@@ -13,7 +13,6 @@ namespace PropiedadHorizontal.Core.DTO
         public string CelularCopropietario { get; set; }
         public string EmailCopropietario { get; set; }
         public string GeneroCopropietario { get; set; }
-        public bool? EsResidenteCopropietario { get; set; }
         public TipoDocumentosDto TipoDocumento { get; set; }
         public ICollection<CopropiedadesDto> Copropiedades { get; set; }
     }

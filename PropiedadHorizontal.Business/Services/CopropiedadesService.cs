@@ -15,12 +15,17 @@ namespace PropiedadHorizontal.Business.Services
     {
         private readonly ICopropiedadesRepository _copropiedadesRepository;
         private readonly ICopropietariosRepository _copropietariosRepository;
+        private readonly IResidentesRepository _residentesRepository;
         private readonly IMapper _mapper;
 
-        public CopropiedadesService(ICopropiedadesRepository copropiedadesRepository, ICopropietariosRepository copropietariosRepository, IMapper mapper)
+        public CopropiedadesService(ICopropiedadesRepository copropiedadesRepository
+            , ICopropietariosRepository copropietariosRepository
+            , IResidentesRepository residentesRepository
+            , IMapper mapper)
         {
             _copropiedadesRepository = copropiedadesRepository;
             _copropietariosRepository = copropietariosRepository;
+            _residentesRepository = residentesRepository;
             _mapper = mapper;
         }
 
@@ -55,6 +60,11 @@ namespace PropiedadHorizontal.Business.Services
                 if(!_copropietariosRepository.ExistsCopropietario(copropiedadDto.IdDocumentoCopropietario))
                 {
                     _copropietariosRepository.InsertCopropietario(copropiedad.Copropietario);
+                }
+
+                if (!_residentesRepository.ExistsResidente(copropiedad.IdDocumentoResidente))
+                {
+                    _residentesRepository.InsertResidente(copropiedad.Residente);
                 }
 
                 copropiedad.Copropietario = null;
