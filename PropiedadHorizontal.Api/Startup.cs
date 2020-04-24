@@ -9,6 +9,7 @@ using PropiedadHorizontal.Data.Context;
 using AutoMapper;
 using PropiedadHorizontal.Api.Mapping;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 
 namespace PropiedadHorizontal.Api
 {
@@ -45,12 +46,19 @@ namespace PropiedadHorizontal.Api
             //    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             //});
 
+            IdentityHelper.ConfigureDependencies(services, Configuration);
+
             SwaggerHelper.ConfigureService(services);
             CorsHelper.ConfigureService(services);
             DependencyInjectionHelper.ConfigureDependencies(services);
 
 
             services.AddAutoMapper(typeof(AutoMapping));
+
+            services.AddMvc(options =>
+            {
+                options.EnableEndpointRouting = false;
+            }).SetCompatibilityVersion(CompatibilityVersion.Latest);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +72,9 @@ namespace PropiedadHorizontal.Api
             {
                 app.UseExceptionHandler("/error");
             }
+
+            app.UseStaticFiles();
+            app.UseIdentityServer();
 
             app.UseCors("CorsPolicy");
 
@@ -84,6 +95,13 @@ namespace PropiedadHorizontal.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

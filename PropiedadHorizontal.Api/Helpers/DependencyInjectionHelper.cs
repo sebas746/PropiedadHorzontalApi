@@ -11,6 +11,10 @@ namespace PropiedadHorizontal.Api.Helpers
     {
         protected DependencyInjectionHelper() { }
 
+        /// <summary>
+        /// Method to configure dependency injection.
+        /// </summary>
+        /// <param name="services"></param>
         public static void ConfigureDependencies(IServiceCollection services)
         {
             //Dependency Injection
