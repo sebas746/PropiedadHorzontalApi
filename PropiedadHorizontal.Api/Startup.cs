@@ -8,9 +8,9 @@ using PropiedadHorizontal.Api.Helpers;
 using PropiedadHorizontal.Data.Context;
 using AutoMapper;
 using PropiedadHorizontal.Api.Mapping;
-using System.Text.Json;
 using PropiedadHorizontal.Data.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 
 namespace PropiedadHorizontal.Api
 {
@@ -32,29 +32,31 @@ namespace PropiedadHorizontal.Api
             services.AddDbContext<PropiedadHorizontalContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal")));
 
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            // Add ASP.NET Core Identity support
+            services.AddDefaultIdentity<ApplicationUser>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = true;
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequiredLength = 8;
+            })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<PropiedadHorizontalContext>();
-
-            services.AddAuthentication()
-               .AddIdentityServerJwt();
 
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, PropiedadHorizontalContext>();
+
+            services.AddAuthentication()
+                .AddIdentityServerJwt();
 
             // Add framework services.
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(
                 options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                     );
-            //.AddJsonOptions(options =>
-            //{
-            //    // set this option to TRUE to indent the JSON output
-            //    options.JsonSerializerOptions.WriteIndented = true;
-            //    // set this option to NULL to use PascalCase instead of
-            //    // camelCase (default)
-            //    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-            //    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            //});
+          
 
             SwaggerHelper.ConfigureService(services);
             CorsHelper.ConfigureService(services);
@@ -82,6 +84,8 @@ namespace PropiedadHorizontal.Api
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseIdentityServer();
             app.UseAuthorization();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
