@@ -9,6 +9,8 @@ using PropiedadHorizontal.Data.Context;
 using AutoMapper;
 using PropiedadHorizontal.Api.Mapping;
 using System.Text.Json;
+using PropiedadHorizontal.Data.Models;
+using Microsoft.AspNetCore.Authentication;
 
 namespace PropiedadHorizontal.Api
 {
@@ -29,6 +31,15 @@ namespace PropiedadHorizontal.Api
             // Entity Framework Configuration
             services.AddDbContext<PropiedadHorizontalContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal")));
+
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<PropiedadHorizontalContext>();
+
+            services.AddAuthentication()
+               .AddIdentityServerJwt();
+
+            services.AddIdentityServer()
+                .AddApiAuthorization<ApplicationUser, PropiedadHorizontalContext>();
 
             // Add framework services.
             services.AddControllersWithViews()
