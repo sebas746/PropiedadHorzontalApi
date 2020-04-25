@@ -11,6 +11,7 @@ using PropiedadHorizontal.Api.Mapping;
 using PropiedadHorizontal.Data.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 namespace PropiedadHorizontal.Api
 {
@@ -99,6 +100,7 @@ namespace PropiedadHorizontal.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapRazorPages();
             });
         }
     }
