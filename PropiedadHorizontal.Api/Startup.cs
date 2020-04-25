@@ -29,7 +29,7 @@ namespace PropiedadHorizontal.Api
             services.AddControllers();
 
             // Entity Framework Configuration
-            services.AddDbContext<PropiedadHorizontalContext>(
+            services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal")));
 
             // Add ASP.NET Core Identity support
@@ -43,10 +43,10 @@ namespace PropiedadHorizontal.Api
                 options.Password.RequiredLength = 8;
             })
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<PropiedadHorizontalContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, PropiedadHorizontalContext>();
+                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();

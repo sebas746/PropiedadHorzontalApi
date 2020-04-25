@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 
 namespace PropiedadHorizontal.Data.Context
 {
-    public partial class PropiedadHorizontalContext : ApiAuthorizationDbContext<ApplicationUser>, IBaseContext
+    public partial class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IBaseContext
     {  
 
-        public PropiedadHorizontalContext(
+        public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions)
             : base(options, operationalStoreOptions)

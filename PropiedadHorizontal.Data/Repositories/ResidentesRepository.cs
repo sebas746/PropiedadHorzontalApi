@@ -12,9 +12,9 @@ namespace PropiedadHorizontal.Data.Repositories
     public class ResidentesRepository : GenericRepository<Residentes>, IResidentesRepository
     {
         private readonly Expression<Func<Residentes, bool>> EmptyFilter = re => re.NombresResidente != "";
-        private readonly PropiedadHorizontalContext _generalContext;
+        private readonly ApplicationDbContext _generalContext;
 
-        public ResidentesRepository(IBaseContext context, PropiedadHorizontalContext generalContext) : base(context)
+        public ResidentesRepository(IBaseContext context, ApplicationDbContext generalContext) : base(context)
         {
             _generalContext = generalContext;
         }
