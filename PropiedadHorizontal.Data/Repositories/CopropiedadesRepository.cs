@@ -13,8 +13,8 @@ namespace PropiedadHorizontal.Data.Repositories
     public class CopropiedadesRepository : GenericRepository<Copropiedades>, ICopropiedadesRepository
     {
         private readonly Expression<Func<Copropiedades, bool>> EmptyFilter = ph => ph.NombreCopropiedad != "";
-        private readonly PropiedadHorizontalContext _generalContext;
-        public CopropiedadesRepository(IBaseContext context, PropiedadHorizontalContext generalContext) : base(context)
+        private readonly ApplicationDbContext _generalContext;
+        public CopropiedadesRepository(IBaseContext context, ApplicationDbContext generalContext) : base(context)
         {
             _generalContext = generalContext;
         }
