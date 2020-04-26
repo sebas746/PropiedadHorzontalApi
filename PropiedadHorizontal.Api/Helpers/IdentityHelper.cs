@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,12 +10,10 @@ namespace PropiedadHorizontal.Api.Helpers
 {
     public class IdentityHelper
     {
-        public static void ConfigureDependencies(IServiceCollection services, IConfiguration Configuration)
+        public static void ConfigureIdentity(IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal")));
-
             services.AddIdentity<ApplicationUser, IdentityRole>()
-              .AddEntityFrameworkStores<AppIdentityDbContext>()
+              .AddEntityFrameworkStores<ApplicationDbContext>()
               .AddDefaultTokenProviders();
 
             services.AddIdentityServer().AddDeveloperSigningCredential()
@@ -22,10 +21,10 @@ namespace PropiedadHorizontal.Api.Helpers
                .AddOperationalStore(options =>
                {
                    options.ConfigureDbContext = builder => builder.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal"));
-          // this enables automatic token cleanup. this is optional.
-          options.EnableTokenCleanup = true;
+                   // this enables automatic token cleanup. this is optional.
+                   options.EnableTokenCleanup = true;
                    options.TokenCleanupInterval = 30; // interval in seconds
-      })
+                })
                .AddInMemoryIdentityResources(Config.GetIdentityResources())
                .AddInMemoryApiResources(Config.GetApiResources())
                .AddInMemoryClients(Config.GetClients())

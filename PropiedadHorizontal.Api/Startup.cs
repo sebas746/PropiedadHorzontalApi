@@ -9,6 +9,11 @@ using PropiedadHorizontal.Data.Context;
 using AutoMapper;
 using PropiedadHorizontal.Api.Mapping;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
+using PropiedadHorizontal.Api.Extensions;
+using Microsoft.AspNetCore.Http;
+using Serilog;
 
 namespace PropiedadHorizontal.Api
 {
@@ -35,17 +40,8 @@ namespace PropiedadHorizontal.Api
                 .AddNewtonsoftJson(
                 options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                     );
-            //.AddJsonOptions(options =>
-            //{
-            //    // set this option to TRUE to indent the JSON output
-            //    options.JsonSerializerOptions.WriteIndented = true;
-            //    // set this option to NULL to use PascalCase instead of
-            //    // camelCase (default)
-            //    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-            //    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            //});
-
-            IdentityHelper.ConfigureDependencies(services, Configuration);
+           
+            IdentityHelper.ConfigureIdentity(services, Configuration);
 
             SwaggerHelper.ConfigureService(services);
             CorsHelper.ConfigureService(services);
@@ -72,15 +68,15 @@ namespace PropiedadHorizontal.Api
                 app.UseExceptionHandler("/error");
             }
 
-            app.UseStaticFiles();
-            app.UseIdentityServer();
-
             app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseStaticFiles();
+            app.UseIdentityServer();
             app.UseAuthorization();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
