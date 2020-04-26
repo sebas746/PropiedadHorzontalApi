@@ -37,7 +37,6 @@ namespace PropiedadHorizontal.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = Constants.Roles.Consumer, NormalizedName = Constants.Roles.Consumer.ToUpper() });
             modelBuilder.Entity<Administradores>(entity =>
             {
                 entity.HasKey(e => e.IdDocumentoAdministrador);
