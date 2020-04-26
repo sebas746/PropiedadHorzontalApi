@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PropiedadHorizontal.Core.DTO
+namespace PropiedadHorizontal.Core.ViewModel
 {
     public class LoginInputModel
     {

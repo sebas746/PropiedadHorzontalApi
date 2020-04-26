@@ -7,17 +7,17 @@ using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
-using PropiedadHorizontal.Core.DTO;
 using PropiedadHorizontal.Data.Constants;
+using PropiedadHorizontal.Data.Models;
 
 namespace PropiedadHorizontal.Business.Services
 {
     public class IdentityClaimsProfileService : IProfileService
     {
-        private readonly IUserClaimsPrincipalFactory<AppUser> _claimsFactory;
-        private readonly UserManager<AppUser> _userManager;
+        private readonly IUserClaimsPrincipalFactory<ApplicationUser> _claimsFactory;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public IdentityClaimsProfileService(UserManager<AppUser> userManager, IUserClaimsPrincipalFactory<AppUser> claimsFactory)
+        public IdentityClaimsProfileService(UserManager<ApplicationUser> userManager, IUserClaimsPrincipalFactory<ApplicationUser> claimsFactory)
         {
             _userManager = userManager;
             _claimsFactory = claimsFactory;

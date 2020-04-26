@@ -19,7 +19,7 @@ namespace PropiedadHorizontal.Api.Helpers
         {
             //Dependency Injection
             services.AddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor, Microsoft.AspNetCore.Http.HttpContextAccessor>();
-            services.AddScoped<IBaseContext, PropiedadHorizontalContext>();
+            services.AddScoped<IBaseContext, ApplicationDbContext>();
             services.AddScoped<IPropiedadesHorizontalesRepository, PropiedadesHorizontalesRepository>();
             services.AddScoped<IPropiedadesHorizontalesService, PropiedadesHorizontalesService>();
             services.AddScoped<ICopropiedadesRepository, CopropiedadesRepository>();

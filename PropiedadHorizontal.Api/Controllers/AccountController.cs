@@ -13,21 +13,26 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Api.Extensions;
-using PropiedadHorizontal.Core.DTO;
 using PropiedadHorizontal.Data.Constants;
+using PropiedadHorizontal.Core.ViewModel;
 
 namespace PropiedadHorizontal.Api.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly SignInManager<AppUser> _signInManager;
-        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IClientStore _clientStore;
         private readonly IEventService _events;
 
-        public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IIdentityServerInteractionService interaction, IAuthenticationSchemeProvider schemeProvider, IClientStore clientStore, IEventService events)
+        public AccountController(SignInManager<ApplicationUser> signInManager, 
+            UserManager<ApplicationUser> userManager, 
+            IIdentityServerInteractionService interaction, 
+            IAuthenticationSchemeProvider schemeProvider, 
+            IClientStore clientStore, 
+            IEventService events)
         {
             _userManager = userManager;
             _interaction = interaction;
@@ -165,7 +170,7 @@ namespace PropiedadHorizontal.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new AppUser { UserName = model.Email, Name = model.Name, Email = model.Email };
+            var user = new ApplicationUser { UserName = model.Email, Name = model.Name, Email = model.Email };
 
             var result = await _userManager.CreateAsync(user, model.Password);
 

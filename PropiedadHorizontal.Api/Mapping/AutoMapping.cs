@@ -1,6 +1,7 @@
 ﻿
 using PropiedadHorizontal.Core.DTO;
 using PropiedadHorizontal.Data.Models;
+using PropiedadHorizontal.Data.Utils;
 
 namespace PropiedadHorizontal.Api.Mapping
 {
@@ -46,6 +47,7 @@ namespace PropiedadHorizontal.Api.Mapping
                 .ForMember(co => co.TipoDocumento, map => map.Ignore());
             CreateMap<CopropietariosDto, Copropietarios>();
 
+            CreateMap<PaginationDto, Pagination>();
         }
     }
 }

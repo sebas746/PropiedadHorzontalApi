@@ -1,16 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using IdentityServer4.EntityFramework.Options;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using PropiedadHorizontal.Data.Models;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.AspNetCore.Identity;
 
 namespace PropiedadHorizontal.Data.Context
 {
-    public partial class PropiedadHorizontalContext : DbContext, IBaseContext
+    public partial class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IBaseContext
     {
-        public PropiedadHorizontalContext()
-        {
-        }
 
-        public PropiedadHorizontalContext(DbContextOptions<PropiedadHorizontalContext> options)
-            : base(options)
+        public ApplicationDbContext(
+            DbContextOptions options,
+            IOptions<OperationalStoreOptions> operationalStoreOptions)
+            : base(options, operationalStoreOptions)
         {
         }
 
@@ -33,6 +36,8 @@ namespace PropiedadHorizontal.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = Constants.Roles.Consumer, NormalizedName = Constants.Roles.Consumer.ToUpper() });
             modelBuilder.Entity<Administradores>(entity =>
             {
                 entity.HasKey(e => e.IdDocumentoAdministrador);
@@ -522,7 +527,6 @@ namespace PropiedadHorizontal.Data.Context
                     .IsUnicode(false);
             });
 
-            OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

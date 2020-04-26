@@ -8,7 +8,6 @@ using PropiedadHorizontal.Api.Helpers;
 using PropiedadHorizontal.Data.Context;
 using AutoMapper;
 using PropiedadHorizontal.Api.Mapping;
-using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PropiedadHorizontal.Api
@@ -28,7 +27,7 @@ namespace PropiedadHorizontal.Api
             services.AddControllers();
 
             // Entity Framework Configuration
-            services.AddDbContext<PropiedadHorizontalContext>(
+            services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal")));
 
             // Add framework services.

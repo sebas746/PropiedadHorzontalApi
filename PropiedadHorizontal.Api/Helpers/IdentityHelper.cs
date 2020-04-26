@@ -2,8 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PropiedadHorizontal.Core.DTO;
 using PropiedadHorizontal.Data.Context;
+using PropiedadHorizontal.Data.Models;
 
 namespace PropiedadHorizontal.Api.Helpers
 {
@@ -13,7 +13,7 @@ namespace PropiedadHorizontal.Api.Helpers
         {
             services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal")));
 
-            services.AddIdentity<AppUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
               .AddEntityFrameworkStores<AppIdentityDbContext>()
               .AddDefaultTokenProviders();
 
@@ -29,7 +29,7 @@ namespace PropiedadHorizontal.Api.Helpers
                .AddInMemoryIdentityResources(Config.GetIdentityResources())
                .AddInMemoryApiResources(Config.GetApiResources())
                .AddInMemoryClients(Config.GetClients())
-               .AddAspNetIdentity<AppUser>();
+               .AddAspNetIdentity<ApplicationUser>();
         }
     }
 }

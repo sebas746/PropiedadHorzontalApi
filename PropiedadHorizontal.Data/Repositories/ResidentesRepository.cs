@@ -1,7 +1,7 @@
-﻿using PropiedadHorizontal.Core.DTO;
-using PropiedadHorizontal.Data.Context;
+﻿using PropiedadHorizontal.Data.Context;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
+using PropiedadHorizontal.Data.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +12,15 @@ namespace PropiedadHorizontal.Data.Repositories
     public class ResidentesRepository : GenericRepository<Residentes>, IResidentesRepository
     {
         private readonly Expression<Func<Residentes, bool>> EmptyFilter = re => re.NombresResidente != "";
-        private readonly PropiedadHorizontalContext _generalContext;
+        private readonly ApplicationDbContext _generalContext;
 
-        public ResidentesRepository(IBaseContext context, PropiedadHorizontalContext generalContext) : base(context)
+        public ResidentesRepository(IBaseContext context, ApplicationDbContext generalContext) : base(context)
         {
             _generalContext = generalContext;
         }
 
         ///<see cref="IResidentesRepository.GetAllResidentes(PaginationDto)"/>
-        public IEnumerable<Residentes> GetAllResidentes(PaginationDto pagination)
+        public IEnumerable<Residentes> GetAllResidentes(Pagination pagination)
         {
             var sorter = Utils.Utils.OrderByFunc<Residentes>(pagination.OrderBy, string.IsNullOrEmpty(pagination.SortOrder)
                                                                                || pagination.SortOrder.Equals("desc", StringComparison.CurrentCultureIgnoreCase));

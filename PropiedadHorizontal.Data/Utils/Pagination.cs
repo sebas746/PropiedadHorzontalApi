@@ -1,7 +1,6 @@
-﻿
-namespace PropiedadHorizontal.Core.DTO
+﻿namespace PropiedadHorizontal.Data.Utils
 {
-    public class PaginationDto
+    public class Pagination
     {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }

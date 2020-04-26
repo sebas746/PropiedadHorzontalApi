@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using PropiedadHorizontal.Data.Constants;
-using PropiedadHorizontal.Core.DTO;
+using PropiedadHorizontal.Data.Models;
 
 namespace PropiedadHorizontal.Data.Context
 {
-    public class AppIdentityDbContext : IdentityDbContext<AppUser>
+    public class AppIdentityDbContext : IdentityDbContext<ApplicationUser>
     {
         public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options) : base(options)
         {

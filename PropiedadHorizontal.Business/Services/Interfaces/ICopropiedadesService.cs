@@ -11,7 +11,7 @@ namespace PropiedadHorizontal.Business.Services.Interfaces
         /// </summary>
         /// <param name="pagination">Pagination object.</param>
         /// <returns>List of Copropiedad objects.</returns>
-        IEnumerable<CopropiedadesDto> GetAllCopropiedades(PaginationDto pagination);
+        IEnumerable<CopropiedadesDto> GetAllCopropiedades(PaginationDto paginationDto);
 
         /// <summary>
         /// Get a copropiedad by id.

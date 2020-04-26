@@ -1,4 +1,4 @@
-﻿namespace PropiedadHorizontal.Core.DTO
+﻿namespace PropiedadHorizontal.Core.ViewModel
 {
     public class ExternalProvider
     {
