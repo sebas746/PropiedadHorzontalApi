@@ -9,7 +9,7 @@
             Entry point into the login workflow
             </summary>
         </member>
-        <member name="M:PropiedadHorizontal.Api.Controllers.AccountController.Login(PropiedadHorizontal.Core.ViewModel.LoginInputModel,System.String)">
+        <member name="M:PropiedadHorizontal.Api.Controllers.AccountController.Login(PropiedadHorizontal.Core.DTO.LoginInputModel,System.String)">
             <summary>
             Handle postback from username/password login
             </summary>
