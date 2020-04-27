@@ -115,7 +115,7 @@ namespace PropiedadHorizontal.Api.Controllers
                             IsPersistent = true,
                             ExpiresUtc = DateTimeOffset.UtcNow.Add(AccountOptions.RememberMeLoginDuration)
                         };
-                    };
+                    }
 
                     // issue authentication cookie with subject ID and username
                     await HttpContext.SignInAsync(user.Id, user.UserName, props);

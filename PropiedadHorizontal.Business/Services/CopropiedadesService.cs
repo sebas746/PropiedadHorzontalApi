@@ -65,7 +65,7 @@ namespace PropiedadHorizontal.Business.Services
                     _copropietariosRepository.InsertCopropietario(copropiedad.Copropietario);
                 }
 
-                if (!_residentesRepository.ExistsResidente(copropiedad.IdDocumentoResidente))
+                if (!_residentesRepository.ExistsResidente(copropiedad.IdDocumentoResidente) && copropiedad.IdDocumentoResidente != null)
                 {
                     _residentesRepository.InsertResidente(copropiedad.Residente);
                 }
