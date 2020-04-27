@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Diagnostics;
 using PropiedadHorizontal.Api.Extensions;
 using Microsoft.AspNetCore.Http;
 using Serilog;
+using PropiedadHorizontal.Data.Models;
+using Microsoft.AspNetCore.Authentication;
 
 namespace PropiedadHorizontal.Api
 {
@@ -40,8 +42,17 @@ namespace PropiedadHorizontal.Api
                 .AddNewtonsoftJson(
                 options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                     );
-           
-            IdentityHelper.ConfigureIdentity(services, Configuration);
+
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentityServer()
+                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
+            services.AddAuthentication()
+                .AddIdentityServerJwt();
+
+            // IdentityHelper.ConfigureIdentity(services, Configuration);
 
             SwaggerHelper.ConfigureService(services);
             CorsHelper.ConfigureService(services);
