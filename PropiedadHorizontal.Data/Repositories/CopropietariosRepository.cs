@@ -1,7 +1,7 @@
-﻿using PropiedadHorizontal.Core.DTO;
-using PropiedadHorizontal.Data.Context;
+﻿using PropiedadHorizontal.Data.Context;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
+using PropiedadHorizontal.Data.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +12,15 @@ namespace PropiedadHorizontal.Data.Repositories
     public class CopropietariosRepository : GenericRepository<Copropietarios>, ICopropietariosRepository
     {
         private readonly Expression<Func<Copropietarios, bool>> EmptyFilter = co => co.NombresCopropietario != "";
-        private readonly PropiedadHorizontalContext _generalContext;
+        private readonly ApplicationDbContext _generalContext;
 
-        public CopropietariosRepository(IBaseContext context, PropiedadHorizontalContext generalContext) : base(context)
+        public CopropietariosRepository(IBaseContext context, ApplicationDbContext generalContext) : base(context)
         {
             _generalContext = generalContext;
         }
 
-        ///<see cref="ICopropietariosRepository.GetAllCopropietarios(PaginationDto)"/>
-        public IEnumerable<Copropietarios> GetAllCopropietarios(PaginationDto pagination)
+        ///<see cref="ICopropietariosRepository.GetAllCopropietarios(Pagination)"/>
+        public IEnumerable<Copropietarios> GetAllCopropietarios(Pagination pagination)
         {
             var sorter = Utils.Utils.OrderByFunc<Copropietarios>(pagination.OrderBy, string.IsNullOrEmpty(pagination.SortOrder)
                                                                                || pagination.SortOrder.Equals("desc", StringComparison.CurrentCultureIgnoreCase));

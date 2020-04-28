@@ -1,6 +1,6 @@
 ﻿
-using PropiedadHorizontal.Core.DTO;
 using PropiedadHorizontal.Data.Models;
+using PropiedadHorizontal.Data.Utils;
 using System.Collections.Generic;
 
 namespace PropiedadHorizontal.Data.Repositories.Interfaces
@@ -12,7 +12,7 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         /// </summary>
         /// <param name="pagination">Pagination object.</param>
         /// <returns></returns>
-        IEnumerable<Copropiedades> GetAllCopropiedades(PaginationDto pagination);
+        IEnumerable<Copropiedades> GetAllCopropiedades(Pagination pagination);
 
         /// <summary>
         /// Get all copropiedades from a copropietario.

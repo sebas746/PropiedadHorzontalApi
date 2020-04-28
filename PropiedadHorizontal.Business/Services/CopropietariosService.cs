@@ -4,9 +4,9 @@ using PropiedadHorizontal.Business.Utils;
 using PropiedadHorizontal.Core.DTO;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
+using PropiedadHorizontal.Data.Utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace PropiedadHorizontal.Business.Services
 {
@@ -24,14 +24,16 @@ namespace PropiedadHorizontal.Business.Services
             _mapper = mapper;
         }
 
-        public IEnumerable<CopropietariosDto> GetAllCopropietarios(PaginationDto pagination)
+        public IEnumerable<CopropietariosDto> GetAllCopropietarios(PaginationDto paginationDto)
         {
             try
             {
-                if (!GenericUtils<Copropietarios>.IsValidProperty(pagination.OrderBy, false))
+                if (!GenericUtils<Copropietarios>.IsValidProperty(paginationDto.OrderBy, false))
                 {
-                    pagination.OrderBy = "NombresCopropietario";
+                    paginationDto.OrderBy = "NombresCopropietario";
                 }
+
+                var pagination = _mapper.Map<Pagination>(paginationDto);
 
                 var copropietarios = _copropietariosRepository.GetAllCopropietarios(pagination);
 

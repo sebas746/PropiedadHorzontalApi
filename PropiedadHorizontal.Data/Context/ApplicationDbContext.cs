@@ -3,13 +3,13 @@ using PropiedadHorizontal.Data.Models;
 
 namespace PropiedadHorizontal.Data.Context
 {
-    public partial class PropiedadHorizontalContext : DbContext, IBaseContext
+    public partial class ApplicationDbContext : DbContext, IBaseContext
     {
-        public PropiedadHorizontalContext()
+        public ApplicationDbContext()
         {
         }
 
-        public PropiedadHorizontalContext(DbContextOptions<PropiedadHorizontalContext> options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }

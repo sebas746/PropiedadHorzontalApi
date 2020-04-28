@@ -6,6 +6,7 @@ using PropiedadHorizontal.Business.Utils;
 using PropiedadHorizontal.Core.DTO;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
+using PropiedadHorizontal.Data.Utils;
 using System;
 using System.Collections.Generic;
 
@@ -30,14 +31,16 @@ namespace PropiedadHorizontal.Business.Services
         }
 
         ///<see cref="ICopropiedadesService.GetAllCopropiedades(PaginationDto)"/>
-        public IEnumerable<CopropiedadesDto> GetAllCopropiedades(PaginationDto pagination)
+        public IEnumerable<CopropiedadesDto> GetAllCopropiedades(PaginationDto paginationDto)
         {
             try
             {
-                if (!GenericUtils<Copropiedades>.IsValidProperty(pagination.OrderBy, false))
+                if (!GenericUtils<Copropiedades>.IsValidProperty(paginationDto.OrderBy, false))
                 {
-                    pagination.OrderBy = "NombreCopropiedad";
+                    paginationDto.OrderBy = "NombreCopropiedad";
                 }
+
+                var pagination = _mapper.Map<Pagination>(paginationDto);
 
                 var copropiedades = _copropiedadesRepository.GetAllCopropiedades(pagination);
 
@@ -62,7 +65,7 @@ namespace PropiedadHorizontal.Business.Services
                     _copropietariosRepository.InsertCopropietario(copropiedad.Copropietario);
                 }
 
-                if (!_residentesRepository.ExistsResidente(copropiedad.IdDocumentoResidente))
+                if (!_residentesRepository.ExistsResidente(copropiedad.IdDocumentoResidente) && copropiedad.IdDocumentoResidente != null)
                 {
                     _residentesRepository.InsertResidente(copropiedad.Residente);
                 }

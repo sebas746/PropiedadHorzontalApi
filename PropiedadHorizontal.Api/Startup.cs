@@ -27,7 +27,7 @@ namespace PropiedadHorizontal.Api
             services.AddControllers();
 
             // Entity Framework Configuration
-            services.AddDbContext<PropiedadHorizontalContext>(
+            services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal")));
 
             // Add framework services.
