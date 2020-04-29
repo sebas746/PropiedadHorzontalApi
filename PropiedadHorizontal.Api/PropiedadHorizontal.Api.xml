@@ -4,6 +4,16 @@
         <name>PropiedadHorizontal.Api</name>
     </assembly>
     <members>
+        <member name="M:PropiedadHorizontal.Api.Controllers.AccountController.Login(System.String)">
+            <summary>
+            Entry point into the login workflow
+            </summary>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.AccountController.Login(PropiedadHorizontal.Core.IdentityModels.LoginInputModel,System.String)">
+            <summary>
+            Handle postback from username/password login
+            </summary>
+        </member>
         <member name="M:PropiedadHorizontal.Api.Controllers.CopropiedadesController.GetCopropiedades(PropiedadHorizontal.Core.DTO.PaginationDto)">
             <summary>
             Get a list of copropiedades
@@ -85,6 +95,14 @@
             <param name="searchString"></param>
             <param name="skipRows"></param>
             <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Extensions.Extensions.IsPkceClientAsync(IdentityServer4.Stores.IClientStore,System.String)">
+            <summary>
+            Determines whether the client is configured to use PKCE.
+            </summary>
+            <param name="store">The store.</param>
+            <param name="client_id">The client identifier.</param>
             <returns></returns>
         </member>
         <member name="M:PropiedadHorizontal.Api.Mapping.AutoMapping.#ctor">

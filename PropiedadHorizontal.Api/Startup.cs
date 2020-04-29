@@ -9,6 +9,11 @@ using PropiedadHorizontal.Data.Context;
 using AutoMapper;
 using PropiedadHorizontal.Api.Mapping;
 using System.Text.Json;
+using PropiedadHorizontal.Data.Models;
+using Microsoft.AspNetCore.Identity;
+using IdentityServer4.Services;
+using PropiedadHorizontal.Business.Services.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace PropiedadHorizontal.Api
 {
@@ -27,8 +32,41 @@ namespace PropiedadHorizontal.Api
             services.AddControllers();
 
             // Entity Framework Configuration
-            services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal")));
+
+            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+               .AddEntityFrameworkStores<AppIdentityDbContext>()
+               .AddDefaultTokenProviders();
+
+            services.AddIdentityServer()
+                .AddDeveloperSigningCredential()
+                // this adds the operational data from DB (codes, tokens, consents)
+                .AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = builder => builder.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal"));
+                    // this enables automatic token cleanup. this is optional.
+                    options.EnableTokenCleanup = true;
+                    options.TokenCleanupInterval = 30; // interval in seconds
+                })
+                //.AddInMemoryPersistedGrants()
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryApiResources(Config.GetApiResources())
+                .AddInMemoryClients(Config.GetClients())
+                .AddAspNetIdentity<ApplicationUser>();
+
+            /* We'll play with this down the road... 
+                services.AddAuthentication()
+                .AddGoogle("Google", options =>
+                {
+                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+
+                    options.ClientId = "<insert here>";
+                    options.ClientSecret = "<insert here>";
+                });*/
+
+            services.AddTransient<IProfileService, IdentityClaimsProfileService>();
 
             // Add framework services.
             services.AddControllersWithViews()
@@ -44,6 +82,15 @@ namespace PropiedadHorizontal.Api
             //    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
             //    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             //});
+
+            services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader()));
+
+            services.AddMvc(options =>
+            {
+                options.EnableEndpointRouting = false;
+            }).SetCompatibilityVersion(CompatibilityVersion.Latest);
 
             SwaggerHelper.ConfigureService(services);
             CorsHelper.ConfigureService(services);
@@ -65,8 +112,11 @@ namespace PropiedadHorizontal.Api
                 app.UseExceptionHandler("/error");
             }
 
-            app.UseCors("CorsPolicy");
+            app.UseStaticFiles();
+            app.UseCors("AllowAll");
+            app.UseIdentityServer();
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -79,6 +129,13 @@ namespace PropiedadHorizontal.Api
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web API V1");
                 c.RoutePrefix = "";
+            });
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
 
             app.UseEndpoints(endpoints =>
