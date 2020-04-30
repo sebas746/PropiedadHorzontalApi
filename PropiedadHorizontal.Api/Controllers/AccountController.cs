@@ -16,6 +16,9 @@ using PropiedadHorizontal.Core.Constants;
 
 namespace PropiedadHorizontal.Api.Controllers
 {
+    /// <summary>
+    /// Account controller for authentication actions.
+    /// </summary>
     public class AccountController : Controller
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
