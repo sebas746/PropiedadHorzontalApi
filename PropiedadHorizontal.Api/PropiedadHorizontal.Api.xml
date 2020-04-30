@@ -4,6 +4,11 @@
         <name>PropiedadHorizontal.Api</name>
     </assembly>
     <members>
+        <member name="T:PropiedadHorizontal.Api.Controllers.AccountController">
+            <summary>
+            Account controller for authentication actions.
+            </summary>
+        </member>
         <member name="M:PropiedadHorizontal.Api.Controllers.AccountController.Login(System.String)">
             <summary>
             Entry point into the login workflow
