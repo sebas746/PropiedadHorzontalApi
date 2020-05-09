@@ -29,6 +29,16 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         Copropiedades InsertCopropiedad(Copropiedades copropiedad);
 
         /// <summary>
+        /// Bulk copropietarios insert.
+        /// </summary>
+        /// <param name="copropiedades">Copropiedades List.</param>
+        /// <returns>
+        /// True: In case successful save.
+        /// False: In case error save.
+        /// </returns>
+        bool InsertBulkCopropiedades(List<Copropiedades> copropiedades);
+
+        /// <summary>
         /// Get a copropiedad by id.
         /// </summary>
         /// <param name="copropiedadId">Copropiedad id.</param>
@@ -53,5 +63,13 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         Copropiedades UpdateCopropiedad(Copropiedades copropiedad);
 
         bool ExistsCopropiedadNombre(string copropiedadNombre, int idCopropiedad);
+
+        /// <summary>
+        /// Get non existent copropiedades in database.
+        /// </summary>
+        /// <param name="copropiedadesList">Copropiedades list.</param>
+        /// <param name="nitCopropiedad">Nit Copropiedad.</param>
+        /// <returns></returns>
+        ICollection<Copropiedades> GetNonExistentCopropiedades(ICollection<Copropiedades> copropiedadesList, string nitCopropiedad);
     }
 }

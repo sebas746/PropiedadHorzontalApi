@@ -9,6 +9,7 @@ using PropiedadHorizontal.Data.Repositories.Interfaces;
 using PropiedadHorizontal.Data.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PropiedadHorizontal.Business.Services
 {
@@ -80,6 +81,29 @@ namespace PropiedadHorizontal.Business.Services
             }
         }
 
+        public bool CreateCopropiedades(List<CopropiedadesDto> copropiedadesDto)
+        {
+            try
+            {
+                var copropiedades = _mapper.Map<List<Copropiedades>>(copropiedadesDto);
+
+                //Get the nit copropiedad
+                var nitCopropiedad = copropiedades.FirstOrDefault().NitPropiedadHorizontal;
+
+                //Get non existent copropietarios to insert them in Database
+                var nonExistentCopropietarios = _copropietariosRepository.GetNonExistentCopropietarios(copropiedades.Select(co => co.Copropietario).ToList(), nitCopropiedad).ToList();
+                _copropietariosRepository.InsertBulkCopropietarios(nonExistentCopropietarios);
+
+                //Get non existent copropietarios to insert them in Database
+                var nonExistentCopropiedades = _copropiedadesRepository.GetNonExistentCopropiedades(copropiedades, nitCopropiedad).ToList();
+                return _copropiedadesRepository.InsertBulkCopropiedades(nonExistentCopropiedades);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         ///<see cref="ICopropiedadesService.GetCopropiedadById(int)"/>
         public CopropiedadesDto GetCopropiedadById(int copropiedadId)
         {
@@ -100,6 +124,11 @@ namespace PropiedadHorizontal.Business.Services
             try
             {
                 var copropiedad = _mapper.Map<Copropiedades>(copropiedadDto);
+                if(copropiedad.Residente != null && !_residentesRepository.ExistsResidente(copropiedad.IdDocumentoResidente))
+                {
+                    _residentesRepository.InsertResidente(copropiedad.Residente);
+                }
+
                 var resultDto = _mapper.Map<CopropiedadesDto>(_copropiedadesRepository.UpdateCopropiedad(copropiedad));
                 return resultDto;
             }

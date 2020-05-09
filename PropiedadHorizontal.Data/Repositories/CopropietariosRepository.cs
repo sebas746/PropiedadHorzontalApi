@@ -1,4 +1,5 @@
-﻿using PropiedadHorizontal.Data.Context;
+﻿using EFCore.BulkExtensions;
+using PropiedadHorizontal.Data.Context;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
 using PropiedadHorizontal.Data.Utils;
@@ -48,6 +49,12 @@ namespace PropiedadHorizontal.Data.Repositories
             return copropietario;
         }
 
+        public bool InsertBulkCopropietarios(List<Copropietarios> copropietarios)
+        {
+            _generalContext.BulkInsert(copropietarios);
+            return true;
+        }
+
         ///<see cref="ICopropietariosRepository.UpdateCopropietario(Copropietarios)"/>
         public Copropietarios UpdateCopropietario(Copropietarios copropietario)
         {
@@ -75,6 +82,15 @@ namespace PropiedadHorizontal.Data.Repositories
         public bool ExistsCopropietario(string idDocumentoCopropietario)
         {
             return _generalContext.Copropietarios.Any(co => co.IdDocumentoCopropietario.Equals(idDocumentoCopropietario));
+        }
+
+        public ICollection<Copropietarios> GetNonExistentCopropietarios(ICollection<Copropietarios> copropietariosList, string nitCopropiedad)
+        {
+            var idsCopropietarios = copropietariosList.Select(co => co.IdDocumentoCopropietario).ToList();
+            var existent = _generalContext.Copropietarios.Where(co => idsCopropietarios.Contains(co.IdDocumentoCopropietario))
+                .Select(co => co.IdDocumentoCopropietario).ToList();
+
+            return copropietariosList.Where(co => !existent.Contains(co.IdDocumentoCopropietario)).ToList();
         }
     }
 }

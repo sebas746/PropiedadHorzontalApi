@@ -52,5 +52,9 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         /// <param name="copropietario">Copropietario model object.</param>
         /// <returns></returns>
         Copropietarios InsertCopropietario(Copropietarios copropietario);
+
+        bool InsertBulkCopropietarios(List<Copropietarios> copropietarios);
+
+        ICollection<Copropietarios> GetNonExistentCopropietarios(ICollection<Copropietarios> copropietariosList, string nitCopropiedad);
     }
 }

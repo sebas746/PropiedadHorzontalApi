@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EFCore.BulkExtensions;
+using Microsoft.EntityFrameworkCore;
 using PropiedadHorizontal.Data.Context;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
@@ -54,6 +55,12 @@ namespace PropiedadHorizontal.Data.Repositories
             return copropiedad;
         }
 
+        public bool InsertBulkCopropiedades(List<Copropiedades> copropiedades)
+        {   
+            _generalContext.BulkInsert(copropiedades);
+            return true;
+        }
+
         ///<see cref="ICopropiedadesRepository.GetCopropiedadById(int)"/>
         public Copropiedades GetCopropiedadById(int copropiedadId)
         {
@@ -81,6 +88,15 @@ namespace PropiedadHorizontal.Data.Repositories
         {
             return _generalContext.Copropiedades.Any(co => co.NombreCopropiedad.ToUpper().Equals(copropiedadNombre.ToUpper())
                 && co.IdCopropiedad != idCopropiedad);
+        }
+
+        public ICollection<Copropiedades> GetNonExistentCopropiedades(ICollection<Copropiedades> copropiedadesList, string nitCopropiedad)
+        {
+            var nombresCopropiedades = copropiedadesList.Select(co => co.NombreCopropiedad).ToList();
+            var existent = _generalContext.Copropiedades.Where(co => nombresCopropiedades.Contains(co.NombreCopropiedad) && co.NitPropiedadHorizontal.Equals(nitCopropiedad))
+                .Select(co => co.NombreCopropiedad).ToList();
+
+            return copropiedadesList.Where(co => !existent.Contains(co.NombreCopropiedad)).ToList();
         }
     }
 }

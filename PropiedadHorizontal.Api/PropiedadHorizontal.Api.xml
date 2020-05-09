@@ -46,6 +46,13 @@
             <param name="copropiedadDto">Copropiedad DTO object.</param>
             <returns>Copropiedad DTO object created.</returns>
         </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.CopropiedadesController.CreateCopropiedades(System.Collections.Generic.List{PropiedadHorizontal.Core.DTO.CopropiedadesDto})">
+            <summary>
+            Create a new copropiedad.
+            </summary>
+            <param name="copropiedadesDto">Copropiedades list DTO object.</param>
+            <returns>Copropiedad DTO object created.</returns>
+        </member>
         <member name="M:PropiedadHorizontal.Api.Controllers.CopropiedadesController.UpdateCopropiedad(PropiedadHorizontal.Core.DTO.CopropiedadesDto)">
             <summary>
             Update a copropiedad.

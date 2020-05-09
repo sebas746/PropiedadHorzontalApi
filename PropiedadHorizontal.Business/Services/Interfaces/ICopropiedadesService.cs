@@ -28,6 +28,13 @@ namespace PropiedadHorizontal.Business.Services.Interfaces
         CopropiedadesDto CreateCopropiedad(CopropiedadesDto copropiedadDto);
 
         /// <summary>
+        /// Bulk create of copropiedades.
+        /// </summary>
+        /// <param name="copropiedadesDto"></param>
+        /// <returns></returns>
+        bool CreateCopropiedades(List<CopropiedadesDto> copropiedadesDto);
+
+        /// <summary>
         /// Update a copropiedad.
         /// </summary>
         /// <param name="copropiedadDto">Copropiedad DTO object.</param>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PropiedadHorizontal.Business.Services.Interfaces;
 using PropiedadHorizontal.Core.DTO;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PropiedadHorizontal.Api.Controllers
@@ -84,6 +85,25 @@ namespace PropiedadHorizontal.Api.Controllers
             }
             return BadRequest(ModelState);
         }
+
+        /// <summary>
+        /// Create a new copropiedad.
+        /// </summary>
+        /// <param name="copropiedadesDto">Copropiedades list DTO object.</param>
+        /// <returns>Copropiedad DTO object created.</returns>
+        [Route("CreateCopropiedades")]
+        [HttpPost]
+        public ActionResult<bool> CreateCopropiedades(List<CopropiedadesDto> copropiedadesDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            if (copropiedadesDto != null)
+            {
+                return _copropiedadesService.CreateCopropiedades(copropiedadesDto);
+            }
+            return BadRequest(ModelState);
+        }
+
 
         /// <summary>
         /// Update a copropiedad.
