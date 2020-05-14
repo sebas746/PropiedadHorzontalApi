@@ -163,5 +163,10 @@ namespace PropiedadHorizontal.Business.Services
                 throw;
             }
         }
+
+        public int Count()
+        {
+            return _copropiedadesRepository.Count();
+        }
     }
 }

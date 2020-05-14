@@ -71,5 +71,7 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         /// <param name="nitCopropiedad">Nit Copropiedad.</param>
         /// <returns></returns>
         ICollection<Copropiedades> GetNonExistentCopropiedades(ICollection<Copropiedades> copropiedadesList, string nitCopropiedad);
+
+        int Count();
     }
 }

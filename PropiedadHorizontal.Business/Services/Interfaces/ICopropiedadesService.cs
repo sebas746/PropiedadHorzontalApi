@@ -59,5 +59,7 @@ namespace PropiedadHorizontal.Business.Services.Interfaces
         /// <returns></returns>
         bool ExistsCopropiedadNombre(string copropiedadNombre, int idCopropiedad);
 
+        int Count();
+
     }
 }

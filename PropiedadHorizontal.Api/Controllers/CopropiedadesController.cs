@@ -37,7 +37,7 @@ namespace PropiedadHorizontal.Api.Controllers
             pagination.OrderBy = pagination.OrderBy ?? "NombreCopropiedad";
 
             var copropiedades = _copropiedadesService.GetAllCopropiedades(pagination);
-            var data = new PaginationResponse<CopropiedadesDto>(pagination, copropiedades.Count())
+            var data = new PaginationResponse<CopropiedadesDto>(pagination, _copropiedadesService.Count())
             {   
                 Content = copropiedades
             };
