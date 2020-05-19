@@ -19,7 +19,7 @@ namespace PropiedadHorizontal.Data.Models
         public string EmailPropiedadHorizontal { get; set; }
         public string LogoPropiedadHorizontal { get; set; }
         public long? IdMunicipio { get; set; }
-        public int? IdTipoPropiedadHorizontal { get; set; }
+        public string CodigoTipoPropiedadHorizontal { get; set; }
         public string IdDocumentoAdministrador { get; set; }
         public string IdDocumentoContador { get; set; }
         public decimal? AreaTotalLotePropiedadHorizontal { get; set; }
@@ -27,14 +27,12 @@ namespace PropiedadHorizontal.Data.Models
         public decimal? AreaTotalCesionPropiedadHorizontal { get; set; }
         public bool? IsActive { get; set; }
         public string NombreBancoPropiedadHorizontal { get; set; }
-        public int? IdTipoCuentaPropiedadHorizontal { get; set; }
+        public string CodigoTipoCuentaPropiedadHorizontal { get; set; }
         public string NumeroCuentaPropiedadHorizontal { get; set; }
 
-        public virtual Administradores IdDocumentoAdministradorNavigation { get; set; }
-        public virtual Contadores IdDocumentoContadorNavigation { get; set; }
+        public virtual Administradores Administrador { get; set; }
+        public virtual Contadores Contador { get; set; }
         public virtual Municipios Municipio { get; set; }
-        public virtual TiposCuentasBancarias TipoCuentaBancaria { get; set; }
-        public virtual TiposPropiedadesHorizontales TipoPropiedadHorizontal { get; set; }
         public virtual ICollection<AreasComunes> AreasComunes { get; set; }
         public virtual ICollection<Copropiedades> Copropiedades { get; set; }
         public virtual ICollection<Proveedores> Proveedores { get; set; }

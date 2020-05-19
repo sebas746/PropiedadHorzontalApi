@@ -1,4 +1,5 @@
 ﻿using EFCore.BulkExtensions;
+using Microsoft.EntityFrameworkCore;
 using PropiedadHorizontal.Data.Context;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace PropiedadHorizontal.Data.Repositories
 {
@@ -28,7 +30,7 @@ namespace PropiedadHorizontal.Data.Repositories
 
             var take = pagination.PageSize;
 
-            var includes = new Expression<Func<Copropietarios, object>>[] { co => co.Copropiedades, co => co.TipoDocumento };
+            var includes = new Expression<Func<Copropietarios, object>>[] { co => co.Copropiedades };
 
             var copropietarios = GetPaginated(pagination.Skip, take,
                                       !string.IsNullOrEmpty(pagination.Filter) ?
@@ -49,9 +51,12 @@ namespace PropiedadHorizontal.Data.Repositories
             return copropietario;
         }
 
-        public bool InsertBulkCopropietarios(List<Copropietarios> copropietarios)
+        public async Task<bool> InsertBulkCopropietarios(List<Copropietarios> copropietarios)
         {
-            _generalContext.BulkInsert(copropietarios);
+            // await _generalContext.BulkInsertAsync(copropietarios);
+            await _generalContext.AddRangeAsync(copropietarios);
+            await _generalContext.SaveChangesAsync();
+           
             return true;
         }
 
@@ -74,7 +79,7 @@ namespace PropiedadHorizontal.Data.Repositories
         ///<see cref="ICopropietariosRepository.GetCopropietarioById(string)"/>
         public Copropietarios GetCopropietarioById(string idDocumentoCopropietario)
         {
-            var includes = new Expression<Func<Copropietarios, object>>[] { co => co.TipoDocumento, co => co.Copropiedades };
+            var includes = new Expression<Func<Copropietarios, object>>[] { co => co.Copropiedades };
             return Get(co => co.IdDocumentoCopropietario.Equals(idDocumentoCopropietario), includes: includes).FirstOrDefault();
         }
 

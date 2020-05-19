@@ -20,13 +20,11 @@ namespace PropiedadHorizontal.Api.Helpers
             services.AddScoped<IPropiedadesHorizontalesService, PropiedadesHorizontalesService>();
             services.AddScoped<ICopropiedadesRepository, CopropiedadesRepository>();
             services.AddScoped<ICopropiedadesService, CopropiedadesService>();
-            services.AddScoped<ITipoDocumentosRepository, TipoDocumentosRepository>();
-            services.AddScoped<ITipoDocumentosService, TipoDocumentosService>();
-            services.AddScoped<ITipoCopropiedadesRepository, TipoCopropiedadesRepository>();
-            services.AddScoped<ITipoCopropiedadesService, TipoCopropiedadesService>();
             services.AddScoped<ICopropietariosRepository, CopropietariosRepository>();
             services.AddScoped<ICopropietariosService, CopropietariosService>();
             services.AddScoped<IResidentesRepository, ResidentesRepository>();
+            services.AddScoped<IItemsComunesService, ItemsComunesService>();
+            services.AddScoped<IItemsComunesRepository, ItemsComunesRepository>();
         }
     }
 }

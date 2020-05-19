@@ -23,28 +23,20 @@ namespace PropiedadHorizontal.Api.Mapping
                 .ForMember(co => co.CoeficienteCopropiedad, map => map.MapFrom(m => m.CoeficienteCopropiedad))
                 .ForMember(co => co.AreaCopropiedad, map => map.MapFrom(m => m.AreaCopropiedad))
                 .ForMember(co => co.IdDocumentoCopropietario, map => map.MapFrom(m => m.IdDocumentoCopropietario))
-                .ForMember(co => co.IdTipoCopropiedad, map => map.MapFrom(m => m.IdTipoCopropiedad))
-                .ForMember(co => co.IdDocumentoResidente, map => map.MapFrom(m => m.IdDocumentoResidente))
-                .ForMember(co => co.DescripcionTipoCopropiedad, map => map.MapFrom(m => m.TipoCopropiedad.DescripcionTipoCopropiedad));
+                .ForMember(co => co.IdDocumentoResidente, map => map.MapFrom(m => m.IdDocumentoResidente));
             CreateMap<CopropiedadesDto, Copropiedades>()
                 .ForMember(co => co.Copropietario, map => map.MapFrom(m => m.Copropietario))
                 .ForMember(co => co.Residente, map => map.MapFrom(m => m.Residente))
-                .ForMember(co => co.TipoCopropiedad, map => map.Ignore())
                 .ForMember(co => co.PropiedadHorizontal, map => map.Ignore());
 
             CreateMap<PropiedadesHorizontales, PropiedadHorizontalDto>();
-
+            CreateMap<ItemsComunes, ItemsComunesDto>();
             CreateMap<Residentes, ResidentesDto>();
             CreateMap<ResidentesDto, Residentes>();
 
-            CreateMap<TipoDocumentos, TipoDocumentosDto>();
-            
-            CreateMap<TipoCopropiedades, TipoCopropiedadesDto>();
-
             CreateMap<Copropietarios, CopropietariosDto>()
-                .IgnoreAllSourcePropertiesWithAnInaccessibleSetter()
-                .ForMember(co => co.DescripcionTipoDocumento, map => map.MapFrom(m => m.TipoDocumento.DescripcionTipoDocumento))
-                .ForMember(co => co.TipoDocumento, map => map.Ignore());
+                .IgnoreAllSourcePropertiesWithAnInaccessibleSetter();
+                
             CreateMap<CopropietariosDto, Copropietarios>();
             CreateMap<PaginationDto, Pagination>();
         }

@@ -7,6 +7,7 @@ using PropiedadHorizontal.Data.Repositories.Interfaces;
 using PropiedadHorizontal.Data.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PropiedadHorizontal.Business.Services
 {
@@ -91,6 +92,21 @@ namespace PropiedadHorizontal.Business.Services
             {
                 throw new Exception(exc.Message);
             }
+        }
+
+        public List<Copropiedades> CleanDuplicatedCopropietarios(List<Copropietarios> copropietarios)
+        {
+            var cop = copropietarios.Select(co => co.IdDocumentoCopropietario).Distinct();
+                .GroupBy(x => x)
+                .Where(g => g.Count() > 1)
+                .Select(y => new { Element = y.Key, Counter = y.Count() })
+                .ToList();
+
+
+
+
+
+            return false;
         }
     }
 }

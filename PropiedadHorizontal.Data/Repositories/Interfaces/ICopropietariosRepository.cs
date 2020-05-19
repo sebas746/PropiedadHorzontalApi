@@ -1,6 +1,7 @@
 ﻿using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Utils;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PropiedadHorizontal.Data.Repositories.Interfaces
 {
@@ -53,7 +54,7 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         /// <returns></returns>
         Copropietarios InsertCopropietario(Copropietarios copropietario);
 
-        bool InsertBulkCopropietarios(List<Copropietarios> copropietarios);
+        Task<bool> InsertBulkCopropietarios(List<Copropietarios> copropietarios);
 
         ICollection<Copropietarios> GetNonExistentCopropietarios(ICollection<Copropietarios> copropietariosList, string nitCopropiedad);
     }

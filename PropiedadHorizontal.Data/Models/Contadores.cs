@@ -11,14 +11,13 @@ namespace PropiedadHorizontal.Data.Models
         }
 
         public string IdDocumentoContador { get; set; }
-        public int IdTipoDocumentoContador { get; set; }
+        public string CodigoTipoDocumentoContador { get; set; }
         public string NombreContador { get; set; }
         public string ApellidoContador { get; set; }
         public string CelularContador { get; set; }
         public string EmailContador { get; set; }
         public bool? IsActive { get; set; }
 
-        public virtual TipoDocumentos IdTipoDocumentoContadorNavigation { get; set; }
         public virtual ICollection<PropiedadesHorizontales> PropiedadesHorizontales { get; set; }
     }
 }

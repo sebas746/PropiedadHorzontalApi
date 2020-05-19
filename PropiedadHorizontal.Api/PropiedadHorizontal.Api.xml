@@ -98,6 +98,20 @@
             <param name="copropietarioDto">Copropietario DTO object.</param>
             <returns>Copropietario DTO updated object.</returns>
         </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.ItemsComunesController.GetItemsComunesByCodigoAgrupador(System.String)">
+            <summary>
+            Get a copropiedad by id.
+            </summary>
+            <param name="codigoAgrupador">Codigo Agrupador</param>
+            <returns>List of Items comunes.</returns>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.ItemsComunesController.GetAllItemsComunes">
+            <summary>
+            Get a copropiedad by id.
+            </summary>
+            <param name="codigoAgrupador">Codigo Agrupador</param>
+            <returns>List of Items comunes.</returns>
+        </member>
         <member name="M:PropiedadHorizontal.Api.Controllers.PropiedadHorizontalController.GetPropiedadesHorizontales(PropiedadHorizontal.Core.DTO.PaginationDto)">
             <summary>
             Get Vehicle List

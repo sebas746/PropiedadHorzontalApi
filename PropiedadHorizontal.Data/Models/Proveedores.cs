@@ -9,16 +9,15 @@ namespace PropiedadHorizontal.Data.Models
         public string NombreProveedor { get; set; }
         public string TelefonoProveedor { get; set; }
         public string EmailProveedor { get; set; }
-        public int IdTipoServicioProveedor { get; set; }
+        public string CodigoTipoServicioProveedor { get; set; }
         public string NitPropiedadHorizontal { get; set; }
-        public int? IdTipoDocumentoProveedor { get; set; }
+        public string CodigoTipoDocumentoProveedor { get; set; }
         public string NombreBancoProveedor { get; set; }
-        public int? IdTipoCuentaProveedor { get; set; }
+        public string CodigoTipoCuentaProveedor { get; set; }
         public string NumeroCuentaProveedor { get; set; }
+        public string RutProveedor { get; set; }
+        public string CodigoTipoPersonaTributaria { get; set; }
 
-        public virtual TiposCuentasBancarias IdTipoCuentaProveedorNavigation { get; set; }
-        public virtual TipoDocumentos IdTipoDocumentoProveedorNavigation { get; set; }
-        public virtual TipoServicio IdTipoServicioProveedorNavigation { get; set; }
         public virtual PropiedadesHorizontales NitPropiedadHorizontalNavigation { get; set; }
     }
 }

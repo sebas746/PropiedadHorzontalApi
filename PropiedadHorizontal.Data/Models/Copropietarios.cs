@@ -11,7 +11,7 @@ namespace PropiedadHorizontal.Data.Models
         }
 
         public string IdDocumentoCopropietario { get; set; }
-        public int IdTipoDocumentoCopropietario { get; set; }
+        public string CodigoTipoDocumentoCopropietario { get; set; }
         public string NombresCopropietario { get; set; }
         public string ApellidosCopropietario { get; set; }
         public string CelularCopropietario { get; set; }
@@ -19,7 +19,6 @@ namespace PropiedadHorizontal.Data.Models
         public string GeneroCopropietario { get; set; }
         public DateTime? FechaNacimientoCopropietario { get; set; }
 
-        public virtual TipoDocumentos TipoDocumento { get; set; }
         public virtual ICollection<Copropiedades> Copropiedades { get; set; }
     }
 }

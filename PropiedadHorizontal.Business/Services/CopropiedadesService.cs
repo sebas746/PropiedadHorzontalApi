@@ -10,6 +10,8 @@ using PropiedadHorizontal.Data.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 
 namespace PropiedadHorizontal.Business.Services
 {
@@ -17,14 +19,17 @@ namespace PropiedadHorizontal.Business.Services
     {
         private readonly ICopropiedadesRepository _copropiedadesRepository;
         private readonly ICopropietariosRepository _copropietariosRepository;
+        private readonly ICopropietariosService _copropietariosService;
         private readonly IResidentesRepository _residentesRepository;
         private readonly IMapper _mapper;
 
         public CopropiedadesService(ICopropiedadesRepository copropiedadesRepository
             , ICopropietariosRepository copropietariosRepository
+            , ICopropietariosService copropietariosService
             , IResidentesRepository residentesRepository
             , IMapper mapper)
         {
+            _copropietariosService = copropietariosService;
             _copropiedadesRepository = copropiedadesRepository;
             _copropietariosRepository = copropietariosRepository;
             _residentesRepository = residentesRepository;
@@ -81,7 +86,7 @@ namespace PropiedadHorizontal.Business.Services
             }
         }
 
-        public bool CreateCopropiedades(List<CopropiedadesDto> copropiedadesDto)
+        public async Task<bool> CreateCopropiedades(List<CopropiedadesDto> copropiedadesDto)
         {
             try
             {
@@ -90,9 +95,18 @@ namespace PropiedadHorizontal.Business.Services
                 //Get the nit copropiedad
                 var nitCopropiedad = copropiedades.FirstOrDefault().NitPropiedadHorizontal;
 
+                var result = CheckDuplicated(copropiedades);
+
                 //Get non existent copropietarios to insert them in Database
                 var nonExistentCopropietarios = _copropietariosRepository.GetNonExistentCopropietarios(copropiedades.Select(co => co.Copropietario).ToList(), nitCopropiedad).ToList();
-                _copropietariosRepository.InsertBulkCopropietarios(nonExistentCopropietarios);
+                await _copropietariosRepository.InsertBulkCopropietarios(nonExistentCopropietarios);
+
+                //foreach (var cop in nonExistentCopropietarios)
+                //{
+                //    _copropietariosRepository.InsertCopropietario(cop);
+                //}
+
+                
 
                 //Get non existent copropietarios to insert them in Database
                 var nonExistentCopropiedades = _copropiedadesRepository.GetNonExistentCopropiedades(copropiedades, nitCopropiedad).ToList();

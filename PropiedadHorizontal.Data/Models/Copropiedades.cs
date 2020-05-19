@@ -1,4 +1,6 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+
 namespace PropiedadHorizontal.Data.Models
 {
     public partial class Copropiedades
@@ -9,7 +11,7 @@ namespace PropiedadHorizontal.Data.Models
         public decimal AreaCopropiedad { get; set; }
         public string NitPropiedadHorizontal { get; set; }
         public string IdDocumentoCopropietario { get; set; }
-        public int IdTipoCopropiedad { get; set; }
+        public string CodigoTipoCopropiedad { get; set; }
         public string IdDocumentoResidente { get; set; }
         public decimal? CuotaAdministracionCopropiedad { get; set; }
         public string CodigoParqueaderoCopropiedad { get; set; }
@@ -17,7 +19,6 @@ namespace PropiedadHorizontal.Data.Models
 
         public virtual Copropietarios Copropietario { get; set; }
         public virtual Residentes Residente { get; set; }
-        public virtual TipoCopropiedades TipoCopropiedad { get; set; }
         public virtual PropiedadesHorizontales PropiedadHorizontal { get; set; }
     }
 }

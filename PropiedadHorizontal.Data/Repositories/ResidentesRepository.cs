@@ -27,7 +27,7 @@ namespace PropiedadHorizontal.Data.Repositories
 
             var take = pagination.PageSize;
 
-            var includes = new Expression<Func<Residentes, object>>[] { re => re.TipoDocumento };
+            var includes = new Expression<Func<Residentes, object>>[] { };
 
             var Residentes = GetPaginated(pagination.Skip, take,
                                       !string.IsNullOrEmpty(pagination.Filter) ?
@@ -67,7 +67,7 @@ namespace PropiedadHorizontal.Data.Repositories
         ///<see cref="IResidentesRepository.GetResidenteById(string)"/>
         public Residentes GetResidenteById(string idDocumentoResidente)
         {
-            var includes = new Expression<Func<Residentes, object>>[] { re => re.TipoDocumento, co => co.Copropiedades };
+            var includes = new Expression<Func<Residentes, object>>[] { co => co.Copropiedades };
             return Get(co => co.IdDocumentoResidente.Equals(idDocumentoResidente), includes: includes).FirstOrDefault();
         }
 

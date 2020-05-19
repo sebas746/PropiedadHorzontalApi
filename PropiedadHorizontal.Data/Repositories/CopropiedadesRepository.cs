@@ -28,12 +28,11 @@ namespace PropiedadHorizontal.Data.Repositories
             
             var take = pagination.PageSize;
 
-            var includes = new Expression<Func<Copropiedades, object>>[] { co => co.PropiedadHorizontal, co => co.TipoCopropiedad, co => co.Copropietario };
+            var includes = new Expression<Func<Copropiedades, object>>[] { co => co.PropiedadHorizontal, co => co.Copropietario };
 
             var copropiedades = GetPaginated(pagination.Skip, take,
                                       !string.IsNullOrEmpty(pagination.Filter) ?
                                       (co => co.IdCopropiedad != 0 &&
-                                            (co.TipoCopropiedad.DescripcionTipoCopropiedad.Contains(pagination.Filter)) ||
                                             (co.Copropietario.NombresCopropietario + " " + co.Copropietario.ApellidosCopropietario).Contains(pagination.Filter) ||
                                             (co.NombreCopropiedad.Contains(pagination.Filter)))
                                       : EmptyFilter,
@@ -44,7 +43,7 @@ namespace PropiedadHorizontal.Data.Repositories
         ///<see cref="ICopropiedadesRepository.GetAllCopropiedadesCopropietario(string)"/>
         public ICollection<Copropiedades> GetAllCopropiedadesCopropietario(string idDocumentoCopropietario)
         {
-            return _generalContext.Copropiedades.Include(co => co.TipoCopropiedad).Where(co => co.IdDocumentoCopropietario.Equals(idDocumentoCopropietario)).ToList();
+            return _generalContext.Copropiedades.Where(co => co.IdDocumentoCopropietario.Equals(idDocumentoCopropietario)).ToList();
         }
 
         ///<see cref="ICopropiedadesRepository.InsertCopropiedad(Copropiedades)"/>
@@ -64,7 +63,7 @@ namespace PropiedadHorizontal.Data.Repositories
         ///<see cref="ICopropiedadesRepository.GetCopropiedadById(int)"/>
         public Copropiedades GetCopropiedadById(int copropiedadId)
         {
-            var includes = new Expression<Func<Copropiedades, object>>[] { co => co.PropiedadHorizontal, co => co.TipoCopropiedad, co => co.Copropietario, co => co.Residente };
+            var includes = new Expression<Func<Copropiedades, object>>[] { co => co.PropiedadHorizontal, co => co.Copropietario, co => co.Residente };
             return Get(co => co.IdCopropiedad.Equals(copropiedadId), includes: includes).FirstOrDefault();
         }
 

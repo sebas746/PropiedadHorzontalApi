@@ -1,6 +1,7 @@
 ﻿
 using PropiedadHorizontal.Core.DTO;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PropiedadHorizontal.Business.Services.Interfaces
 {
@@ -32,7 +33,7 @@ namespace PropiedadHorizontal.Business.Services.Interfaces
         /// </summary>
         /// <param name="copropiedadesDto"></param>
         /// <returns></returns>
-        bool CreateCopropiedades(List<CopropiedadesDto> copropiedadesDto);
+        Task<bool> CreateCopropiedades(List<CopropiedadesDto> copropiedadesDto);
 
         /// <summary>
         /// Update a copropiedad.

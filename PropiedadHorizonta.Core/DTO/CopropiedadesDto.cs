@@ -10,7 +10,7 @@ namespace PropiedadHorizontal.Core.DTO
         public decimal CoeficienteCopropiedad { get; set; }
         public decimal AreaCopropiedad { get; set; }
         public string IdDocumentoCopropietario { get; set; }
-        public int IdTipoCopropiedad { get; set; }
+        public string CodigoTipoCopropiedad { get; set; }
         public string IdDocumentoResidente { get; set; }
         public decimal CuotaAdministracionCopropiedad { get; set; }
         public string CodigoParqueaderoCopropiedad { get; set; }
