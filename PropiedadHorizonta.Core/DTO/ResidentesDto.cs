@@ -3,7 +3,7 @@
     public class ResidentesDto
     {
         public string IdDocumentoResidente { get; set; }
-        public int IdTipoDocumentoResidente { get; set; }
+        public string CodigoTipoDocumentoResidente { get; set; }
         public string NombreTipoDocumento { get; set; }
         public string DescripcionTipoDocumento { get; set; }
         public string NombresResidente { get; set; }

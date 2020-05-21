@@ -1,4 +1,5 @@
 ﻿using PropiedadHorizontal.Core.DTO;
+using PropiedadHorizontal.Data.Models;
 using System.Collections.Generic;
 
 namespace PropiedadHorizontal.Business.Services.Interfaces
@@ -9,5 +10,7 @@ namespace PropiedadHorizontal.Business.Services.Interfaces
         CopropietariosDto GetCopropietarioById(string idDocumentoCopropietario);
         CopropietariosDto UpdateCopropiedad(CopropietariosDto copropietarioDto);
         bool ExistsCopropietario(string idDocumentoCopropietario);
+        bool InsertCopropietarios(List<CopropietariosDto> copropietariosDto);
+        CopropietariosDto InsertCopropietario(Copropietarios copropietario);
     }
 }

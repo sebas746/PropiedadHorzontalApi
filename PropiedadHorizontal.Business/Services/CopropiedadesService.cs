@@ -1,6 +1,4 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using PropiedadHorizontal.Business.Services.Interfaces;
 using PropiedadHorizontal.Business.Utils;
 using PropiedadHorizontal.Core.DTO;
@@ -9,9 +7,8 @@ using PropiedadHorizontal.Data.Repositories.Interfaces;
 using PropiedadHorizontal.Data.Utils;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
 
 namespace PropiedadHorizontal.Business.Services
 {
@@ -20,19 +17,19 @@ namespace PropiedadHorizontal.Business.Services
         private readonly ICopropiedadesRepository _copropiedadesRepository;
         private readonly ICopropietariosRepository _copropietariosRepository;
         private readonly ICopropietariosService _copropietariosService;
-        private readonly IResidentesRepository _residentesRepository;
+        private readonly IResidentesService _residentesService;
         private readonly IMapper _mapper;
 
         public CopropiedadesService(ICopropiedadesRepository copropiedadesRepository
             , ICopropietariosRepository copropietariosRepository
             , ICopropietariosService copropietariosService
-            , IResidentesRepository residentesRepository
+            , IResidentesService residentesService
             , IMapper mapper)
         {
             _copropietariosService = copropietariosService;
             _copropiedadesRepository = copropiedadesRepository;
             _copropietariosRepository = copropietariosRepository;
-            _residentesRepository = residentesRepository;
+            _residentesService = residentesService;
             _mapper = mapper;
         }
 
@@ -71,10 +68,7 @@ namespace PropiedadHorizontal.Business.Services
                     _copropietariosRepository.InsertCopropietario(copropiedad.Copropietario);
                 }
 
-                if (!_residentesRepository.ExistsResidente(copropiedad.IdDocumentoResidente) && copropiedad.IdDocumentoResidente != null)
-                {
-                    _residentesRepository.InsertResidente(copropiedad.Residente);
-                }
+                _residentesService.UpdateResidente(copropiedad.Residente);
 
                 copropiedad.Copropietario = null;
                 var resultDto = _mapper.Map<CopropiedadesDto>(_copropiedadesRepository.InsertCopropiedad(copropiedad));
@@ -86,31 +80,31 @@ namespace PropiedadHorizontal.Business.Services
             }
         }
 
-        public async Task<bool> CreateCopropiedades(List<CopropiedadesDto> copropiedadesDto)
+        public bool CreateCopropiedades(List<CopropiedadesDto> copropiedadesDto)
         {
             try
             {
                 var copropiedades = _mapper.Map<List<Copropiedades>>(copropiedadesDto);
 
+                if(ExistsDuplicatedCopropiedades(copropiedades))
+                {
+                    throw new ValidationException("Hay más de una copropiedad con el mismo nombre. Por favor revise la información.");
+                }
+
                 //Get the nit copropiedad
                 var nitCopropiedad = copropiedades.FirstOrDefault().NitPropiedadHorizontal;
 
-                var result = CheckDuplicated(copropiedades);
+                //Insert copropietarios in Database
+                var copResult = _copropietariosService.InsertCopropietarios(copropiedadesDto.Select(co => co.Copropietario).ToList());
 
-                //Get non existent copropietarios to insert them in Database
-                var nonExistentCopropietarios = _copropietariosRepository.GetNonExistentCopropietarios(copropiedades.Select(co => co.Copropietario).ToList(), nitCopropiedad).ToList();
-                await _copropietariosRepository.InsertBulkCopropietarios(nonExistentCopropietarios);
+                if(copResult)
+                {
+                    //Get non existent copropietarios to insert them in Database
+                    var nonExistentCopropiedades = _copropiedadesRepository.GetNonExistentCopropiedades(copropiedades, nitCopropiedad).ToList();
+                    return _copropiedadesRepository.InsertBulkCopropiedades(nonExistentCopropiedades);
+                }
 
-                //foreach (var cop in nonExistentCopropietarios)
-                //{
-                //    _copropietariosRepository.InsertCopropietario(cop);
-                //}
-
-                
-
-                //Get non existent copropietarios to insert them in Database
-                var nonExistentCopropiedades = _copropiedadesRepository.GetNonExistentCopropiedades(copropiedades, nitCopropiedad).ToList();
-                return _copropiedadesRepository.InsertBulkCopropiedades(nonExistentCopropiedades);
+                return false;
             }
             catch
             {
@@ -138,9 +132,12 @@ namespace PropiedadHorizontal.Business.Services
             try
             {
                 var copropiedad = _mapper.Map<Copropiedades>(copropiedadDto);
-                if(copropiedad.Residente != null && !_residentesRepository.ExistsResidente(copropiedad.IdDocumentoResidente))
+                
+                _residentesService.UpdateResidente(copropiedad.Residente);
+
+                if(copropiedad.Copropietario != null)
                 {
-                    _residentesRepository.InsertResidente(copropiedad.Residente);
+                    _copropietariosRepository.UpdateCopropietario(copropiedad.Copropietario);
                 }
 
                 var resultDto = _mapper.Map<CopropiedadesDto>(_copropiedadesRepository.UpdateCopropiedad(copropiedad));
@@ -181,6 +178,22 @@ namespace PropiedadHorizontal.Business.Services
         public int Count()
         {
             return _copropiedadesRepository.Count();
+        }
+
+        private bool ExistsDuplicatedCopropiedades(List<Copropiedades> copropiedades)
+        {
+            var cop = copropiedades.Select(co => co.NombreCopropiedad).Distinct()
+                    .GroupBy(x => x)
+                    .Where(g => g.Count() > 1)
+                    .Select(y => new { Element = y.Key, Counter = y.Count() })
+                    .ToList();
+
+            if(cop.Count > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

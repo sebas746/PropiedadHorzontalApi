@@ -99,7 +99,7 @@ namespace PropiedadHorizontal.Api.Controllers
 
             if (copropiedadesDto != null)
             {
-                return _copropiedadesService.CreateCopropiedades(copropiedadesDto).Result;
+                return _copropiedadesService.CreateCopropiedades(copropiedadesDto);
             }
             return BadRequest(ModelState);
         }

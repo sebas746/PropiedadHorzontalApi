@@ -33,7 +33,7 @@ namespace PropiedadHorizontal.Business.Services.Interfaces
         /// </summary>
         /// <param name="copropiedadesDto"></param>
         /// <returns></returns>
-        Task<bool> CreateCopropiedades(List<CopropiedadesDto> copropiedadesDto);
+        bool CreateCopropiedades(List<CopropiedadesDto> copropiedadesDto);
 
         /// <summary>
         /// Update a copropiedad.

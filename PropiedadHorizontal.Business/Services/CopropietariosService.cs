@@ -7,7 +7,7 @@ using PropiedadHorizontal.Data.Repositories.Interfaces;
 using PropiedadHorizontal.Data.Utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+
 
 namespace PropiedadHorizontal.Business.Services
 {
@@ -94,19 +94,47 @@ namespace PropiedadHorizontal.Business.Services
             }
         }
 
-        public List<Copropiedades> CleanDuplicatedCopropietarios(List<Copropietarios> copropietarios)
+        public CopropietariosDto InsertCopropietario(Copropietarios copropietario)
         {
-            var cop = copropietarios.Select(co => co.IdDocumentoCopropietario).Distinct();
-                .GroupBy(x => x)
-                .Where(g => g.Count() > 1)
-                .Select(y => new { Element = y.Key, Counter = y.Count() })
-                .ToList();
+            try
+            {
+                return _mapper.Map<CopropietariosDto>(_copropietariosRepository.InsertCopropietario(copropietario));
+            }
 
-
-
-
-
-            return false;
+            catch (Exception exc)
+            {
+                throw new Exception(exc.Message);
+            }
         }
+
+        public bool InsertCopropietarios(List<CopropietariosDto> copropietariosDto)
+        {
+            var copropietarios = _mapper.Map<List<Copropietarios>>(copropietariosDto);
+
+            foreach(var co in copropietarios)
+            {
+                if(!ExistsCopropietario(co.IdDocumentoCopropietario))
+                {
+                    _copropietariosRepository.InsertCopropietario(co);
+                }
+            }
+
+            return true;
+        }
+
+        //public List<Copropiedades> CleanDuplicatedCopropietarios(List<Copropietarios> copropietarios)
+        //{
+        //    var cop = copropietarios.Select(co => co.IdDocumentoCopropietario).Distinct();
+        //        .GroupBy(x => x)
+        //        .Where(g => g.Count() > 1)
+        //        .Select(y => new { Element = y.Key, Counter = y.Count() })
+        //        .ToList();
+
+
+
+
+
+        //    return false;
+        //}
     }
 }
