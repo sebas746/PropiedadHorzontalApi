@@ -26,11 +26,10 @@ namespace PropiedadHorizontal.Data.Repositories
             var sorter = Utils.Utils.OrderByFunc<Copropiedades>(pagination.OrderBy, string.IsNullOrEmpty(pagination.SortOrder)
                                                                                || pagination.SortOrder.Equals("desc", StringComparison.CurrentCultureIgnoreCase));
             
-            var take = pagination.PageSize;
 
             var includes = new Expression<Func<Copropiedades, object>>[] { co => co.PropiedadHorizontal, co => co.Copropietario, co => co.Residente };
 
-            var copropiedades = GetPaginated(pagination.Skip, take,
+            var copropiedades = GetPaginated(pagination.Skip, pagination.PageSize,
                                       !string.IsNullOrEmpty(pagination.Filter) ?
                                       (co => co.IdCopropiedad != 0 &&
                                             (co.Copropietario.NombresCopropietario + " " + co.Copropietario.ApellidosCopropietario).Contains(pagination.Filter) ||

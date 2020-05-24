@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using PropiedadHorizontal.Business.Services.Interfaces;
+using PropiedadHorizontal.Core.DTO;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PropiedadHorizontal.Business.Services
 {
@@ -14,6 +17,28 @@ namespace PropiedadHorizontal.Business.Services
         {
             _residentesRepository = residentesRepository;
             _mapper = mapper;
+        }
+
+        public bool CreateResidentes(List<CopropiedadesDto> copropiedadesDto)
+        {
+            try
+            {
+                foreach(var co in copropiedadesDto)
+                {
+                    if(co.EsResidenteCopropietario.Value)
+                    {
+                        co.Residente.ApellidosResidente = co.Copropietario.ApellidosCopropietario;
+                        co.Residente.CelularResidente = co.Copropietario.CelularCopropietario;
+                        co.Residente.CodigoTipoDocumentoResidente = co.Copropietario.CodigoTipoDocumentoCopropietario;
+                    }
+                }
+                return true;
+            }
+            catch
+            {
+                throw;
+            }
+            
         }
 
         ///<see cref="IResidentesService.UpdateResidente(Residentes)"/>
