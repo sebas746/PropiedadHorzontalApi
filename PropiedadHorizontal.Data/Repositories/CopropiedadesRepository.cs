@@ -34,6 +34,7 @@ namespace PropiedadHorizontal.Data.Repositories
                                       !string.IsNullOrEmpty(pagination.Filter) ?
                                       (co => co.IdCopropiedad != 0 &&
                                             (co.Copropietario.NombresCopropietario + " " + co.Copropietario.ApellidosCopropietario).Contains(pagination.Filter) ||
+                                            (co.CoeficienteCopropiedad.ToString().Contains(pagination.Filter)) ||
                                             (co.NombreCopropiedad.Contains(pagination.Filter)))
                                       : EmptyFilter,
                                       sorter, includes);
