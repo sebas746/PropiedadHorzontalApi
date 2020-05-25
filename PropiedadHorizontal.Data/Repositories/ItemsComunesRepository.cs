@@ -51,5 +51,10 @@ namespace PropiedadHorizontal.Data.Repositories
         {
             return _generalContext.ItemsComunes.Where(ic => ic.CodigoAgrupador.Equals(codigoAgrupador)).ToList();
         }
+
+        public ICollection<ItemsComunes> GetItemsComunesByNombreAgrupador(string filter)
+        {
+            return _generalContext.ItemsComunes.Where(ic => ic.NombreItem.ToUpper().Contains(filter)).ToList();
+        }
     }
 }

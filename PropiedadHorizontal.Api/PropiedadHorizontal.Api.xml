@@ -91,10 +91,11 @@
             </param>
             <returns></returns>
         </member>
-        <member name="M:PropiedadHorizontal.Api.Controllers.CopropietariosController.UpdateCopropiedad(PropiedadHorizontal.Core.DTO.CopropietariosDto)">
+        <member name="M:PropiedadHorizontal.Api.Controllers.CopropietariosController.UpdateCopropietario(System.String,PropiedadHorizontal.Core.DTO.CopropietariosDto)">
             <summary>
             Update a copropietario.
             </summary>
+            <param name="numeroDocumento">Last Número documento.</param>
             <param name="copropietarioDto">Copropietario DTO object.</param>
             <returns>Copropietario DTO updated object.</returns>
         </member>

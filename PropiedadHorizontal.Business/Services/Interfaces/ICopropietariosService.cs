@@ -8,9 +8,10 @@ namespace PropiedadHorizontal.Business.Services.Interfaces
     {
         IEnumerable<CopropietariosDto> GetAllCopropietarios(PaginationDto paginationDto);
         CopropietariosDto GetCopropietarioById(string idDocumentoCopropietario);
-        CopropietariosDto UpdateCopropiedad(CopropietariosDto copropietarioDto);
+        CopropietariosDto UpdateCopropiedad(string numeroDocumento, CopropietariosDto copropietarioDto);
         bool ExistsCopropietario(string idDocumentoCopropietario);
         bool InsertCopropietarios(List<CopropietariosDto> copropietariosDto);
         CopropietariosDto InsertCopropietario(Copropietarios copropietario);
+        int Count();
     }
 }

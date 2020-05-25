@@ -1,5 +1,4 @@
-﻿using EFCore.BulkExtensions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PropiedadHorizontal.Data.Context;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
@@ -16,10 +15,14 @@ namespace PropiedadHorizontal.Data.Repositories
     {
         private readonly Expression<Func<Copropietarios, bool>> EmptyFilter = co => co.NombresCopropietario != "";
         private readonly ApplicationDbContext _generalContext;
+        private readonly IItemsComunesRepository _itemsComunesRepository;
 
-        public CopropietariosRepository(IBaseContext context, ApplicationDbContext generalContext) : base(context)
+        public CopropietariosRepository(IBaseContext context
+            , ApplicationDbContext generalContext
+            , IItemsComunesRepository itemsComunesRepository) : base(context)
         {
             _generalContext = generalContext;
+            _itemsComunesRepository = itemsComunesRepository;
         }
 
         ///<see cref="ICopropietariosRepository.GetAllCopropietarios(Pagination)"/>
@@ -28,6 +31,7 @@ namespace PropiedadHorizontal.Data.Repositories
             var sorter = Utils.Utils.OrderByFunc<Copropietarios>(pagination.OrderBy, string.IsNullOrEmpty(pagination.SortOrder)
                                                                                || pagination.SortOrder.Equals("desc", StringComparison.CurrentCultureIgnoreCase));
 
+            var itemsComunes = _itemsComunesRepository.GetItemsComunesByNombreAgrupador(pagination.Filter).Select(ic => ic.CodigoItem).ToList();
 
             var includes = new Expression<Func<Copropietarios, object>>[] { co => co.Copropiedades };
 
@@ -35,9 +39,14 @@ namespace PropiedadHorizontal.Data.Repositories
                                       !string.IsNullOrEmpty(pagination.Filter) ?
                                       (co => co.IdDocumentoCopropietario != "" &&
                                       (co.NombresCopropietario + " " + co.ApellidosCopropietario).Contains(pagination.Filter) ||
+                                      (itemsComunes.Contains(co.CodigoTipoDocumentoCopropietario)) ||
+                                      (co.CelularCopropietario.Contains(pagination.Filter)) ||
+                                      (co.EmailCopropietario.Contains(pagination.Filter)) ||
                                       (co.IdDocumentoCopropietario.Contains(pagination.Filter)))
                                       : EmptyFilter,
                                       sorter, includes);
+
+            
 
             return copropietarios;
         }
@@ -95,6 +104,11 @@ namespace PropiedadHorizontal.Data.Repositories
                 .Select(co => co.IdDocumentoCopropietario).ToList();
 
             return copropietariosList.Where(co => !existent.Contains(co.IdDocumentoCopropietario)).ToList();
+        }
+
+        public int Count()
+        {
+            return _generalContext.Copropietarios.Count();
         }
     }
 }

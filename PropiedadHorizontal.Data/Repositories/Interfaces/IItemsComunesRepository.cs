@@ -23,7 +23,14 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         /// <summary>
         /// Get all the items comunes.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of items.</returns>
         IEnumerable<ItemsComunes> GetAllItemsComunes();
+
+        /// <summary>
+        /// Look for the items comunes that contains the nombre agrupador.
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns>List of items.</returns>
+        ICollection<ItemsComunes> GetItemsComunesByNombreAgrupador(string filter);
     }
 }

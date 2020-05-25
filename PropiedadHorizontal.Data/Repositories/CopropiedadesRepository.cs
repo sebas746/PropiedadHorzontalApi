@@ -1,5 +1,4 @@
 ﻿using EFCore.BulkExtensions;
-using Microsoft.EntityFrameworkCore;
 using PropiedadHorizontal.Data.Context;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
@@ -15,9 +14,11 @@ namespace PropiedadHorizontal.Data.Repositories
     {
         private readonly Expression<Func<Copropiedades, bool>> EmptyFilter = ph => ph.NombreCopropiedad != "";
         private readonly ApplicationDbContext _generalContext;
-        public CopropiedadesRepository(IBaseContext context, ApplicationDbContext generalContext) : base(context)
+        private readonly IItemsComunesRepository _itemsComunesRepository;
+        public CopropiedadesRepository(IBaseContext context, ApplicationDbContext generalContext, IItemsComunesRepository itemsComunesRepository) : base(context)
         {
             _generalContext = generalContext;
+            _itemsComunesRepository = itemsComunesRepository;
         }
 
         ///<see cref="ICopropiedadesRepository.GetAllCopropiedades(Pagination)"/>
@@ -25,7 +26,8 @@ namespace PropiedadHorizontal.Data.Repositories
         {
             var sorter = Utils.Utils.OrderByFunc<Copropiedades>(pagination.OrderBy, string.IsNullOrEmpty(pagination.SortOrder)
                                                                                || pagination.SortOrder.Equals("desc", StringComparison.CurrentCultureIgnoreCase));
-            
+
+            var itemsComunes = _itemsComunesRepository.GetItemsComunesByNombreAgrupador(pagination.Filter).Select(ic => ic.CodigoItem).ToList();
 
             var includes = new Expression<Func<Copropiedades, object>>[] { co => co.PropiedadHorizontal, co => co.Copropietario, co => co.Residente };
 
@@ -34,6 +36,7 @@ namespace PropiedadHorizontal.Data.Repositories
                                       (co => co.IdCopropiedad != 0 &&
                                             (co.Copropietario.NombresCopropietario + " " + co.Copropietario.ApellidosCopropietario).Contains(pagination.Filter) ||
                                             (co.CoeficienteCopropiedad.ToString().Contains(pagination.Filter)) ||
+                                            (itemsComunes.Contains(co.CodigoTipoCopropiedad)) ||
                                             (co.NombreCopropiedad.Contains(pagination.Filter)))
                                       : EmptyFilter,
                                       sorter, includes);

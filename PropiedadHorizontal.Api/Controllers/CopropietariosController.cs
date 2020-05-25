@@ -36,7 +36,7 @@ namespace PropiedadHorizontal.Api.Controllers
             pagination.OrderBy = pagination.OrderBy ?? "NombresCopropietario";
 
             var copropietarios = _copropietariosService.GetAllCopropietarios(pagination);
-            var data = new PaginationResponse<CopropietariosDto>(pagination, copropietarios.Count())
+            var data = new PaginationResponse<CopropietariosDto>(pagination, _copropietariosService.Count())
             {
                 Content = copropietarios
             };
@@ -54,16 +54,17 @@ namespace PropiedadHorizontal.Api.Controllers
         /// <summary>
         /// Update a copropietario.
         /// </summary>
+        /// <param name="numeroDocumento">Last Número documento.</param>
         /// <param name="copropietarioDto">Copropietario DTO object.</param>
         /// <returns>Copropietario DTO updated object.</returns>
-        [Route("Update")]
+        [Route("Update/{numeroDocumento}")]
         [HttpPut]
-        public ActionResult<CopropietariosDto> UpdateCopropiedad(CopropietariosDto copropietarioDto)
+        public ActionResult<CopropietariosDto> UpdateCopropietario(string numeroDocumento, CopropietariosDto copropietarioDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (copropietarioDto != null)
             {
-                return _copropietariosService.UpdateCopropiedad(copropietarioDto);
+                return _copropietariosService.UpdateCopropiedad(numeroDocumento, copropietarioDto);
             }
             return BadRequest(ModelState);
         }

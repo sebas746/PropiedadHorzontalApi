@@ -57,5 +57,6 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         Task<bool> InsertBulkCopropietarios(List<Copropietarios> copropietarios);
 
         ICollection<Copropietarios> GetNonExistentCopropietarios(ICollection<Copropietarios> copropietariosList, string nitCopropiedad);
+        int Count();
     }
 }

@@ -7,6 +7,7 @@ using PropiedadHorizontal.Data.Repositories.Interfaces;
 using PropiedadHorizontal.Data.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 
 namespace PropiedadHorizontal.Business.Services
@@ -67,12 +68,34 @@ namespace PropiedadHorizontal.Business.Services
         }
 
         
-        public CopropietariosDto UpdateCopropiedad(CopropietariosDto copropietarioDto)
+        public CopropietariosDto UpdateCopropiedad(string numeroDocumento, CopropietariosDto copropietarioDto)
         {
             try
             {
+                CopropietariosDto resultDto = null;
                 var copropietario = _mapper.Map<Copropietarios>(copropietarioDto);
-                var resultDto = _mapper.Map<CopropietariosDto>(_copropietariosRepository.UpdateCopropietario(copropietario));
+
+                if(numeroDocumento != copropietario.IdDocumentoCopropietario)
+                {
+                    var copropiedadesCopropietario = _copropiedadesRepository.GetAllCopropiedadesCopropietario(numeroDocumento);
+                    
+                    resultDto = _mapper.Map<CopropietariosDto>(_copropietariosRepository.InsertCopropietario(copropietario));
+
+                    foreach(var copropiedad in copropiedadesCopropietario)
+                    {
+                        copropiedad.IdDocumentoCopropietario = copropietario.IdDocumentoCopropietario;
+                        copropiedad.Copropietario = copropietario;
+                        _copropiedadesRepository.UpdateCopropiedad(copropiedad);
+                    }
+
+                    _copropietariosRepository.DeleteCopropietario(numeroDocumento);
+                }
+
+                else
+                {
+                    resultDto = _mapper.Map<CopropietariosDto>(_copropietariosRepository.UpdateCopropietario(copropietario));
+                }
+                
                 return resultDto;
             }
             catch
@@ -120,6 +143,11 @@ namespace PropiedadHorizontal.Business.Services
             }
 
             return true;
+        }
+
+        public int Count()
+        {
+            return _copropietariosRepository.Count();
         }
 
         //public List<Copropiedades> CleanDuplicatedCopropietarios(List<Copropietarios> copropietarios)
