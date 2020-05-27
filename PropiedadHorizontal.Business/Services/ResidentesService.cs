@@ -48,6 +48,11 @@ namespace PropiedadHorizontal.Business.Services
             {
                 if (residente != null)
                 {
+                    if(!IsValidResidente(residente))
+                    {
+                        return false;
+                    }
+
                     if (!_residentesRepository.ExistsResidente(residente.IdDocumentoResidente))
                     {
                         _residentesRepository.InsertResidente(residente);
@@ -64,6 +69,18 @@ namespace PropiedadHorizontal.Business.Services
             {
                 throw;
             }
+        }
+
+        private bool IsValidResidente(Residentes residente)
+        {
+
+            if(string.IsNullOrEmpty(residente.IdDocumentoResidente) || string.IsNullOrEmpty(residente.CodigoTipoDocumentoResidente) || string.IsNullOrEmpty(residente.NombresResidente)
+                || string.IsNullOrEmpty(residente.ApellidosResidente))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

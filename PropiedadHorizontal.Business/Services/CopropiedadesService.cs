@@ -71,6 +71,7 @@ namespace PropiedadHorizontal.Business.Services
                 if(string.IsNullOrEmpty(copropiedad.IdDocumentoResidente))
                 {
                     copropiedad.IdDocumentoResidente = null;
+                    copropiedad.Residente = null;
                 }
 
                 _residentesService.UpdateResidente(copropiedad.Residente);
