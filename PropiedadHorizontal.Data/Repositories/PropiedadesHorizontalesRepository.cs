@@ -12,8 +12,10 @@ namespace PropiedadHorizontal.Data.Repositories
     public class PropiedadesHorizontalesRepository : GenericRepository<PropiedadesHorizontales>, IPropiedadesHorizontalesRepository
     {
         private readonly Expression<Func<PropiedadesHorizontales, bool>> EmptyFilter = ph => ph.NitPropiedadHorizontal != "";
-        public PropiedadesHorizontalesRepository(IBaseContext context) : base(context)
+        private readonly ApplicationDbContext _generalContext;
+        public PropiedadesHorizontalesRepository(IBaseContext context, ApplicationDbContext generalContext) : base(context)
         {
+            _generalContext = generalContext;
         }
 
         ///<see cref="IPropiedadesHorizontalesRepository.GetPropiedadesHorizontalesByNombres(int, int, string[])"/>
@@ -40,6 +42,27 @@ namespace PropiedadHorizontal.Data.Repositories
                                       : EmptyFilter,
                                       sorter, includes);
             return propiedades;
+        }
+
+        public InfoGeneralCopropiedades GetInformacionCopropiedades(string nitPropiedadHorizontal)
+        {
+            var copropiedadesInfo = _generalContext.Copropiedades.Where(co => co.NitPropiedadHorizontal.Equals(nitPropiedadHorizontal))
+                            .Select(res => 
+                                new InfoGeneralCopropiedades()
+                                {
+                                    SumatoriaAreasPrivadas = res.AreaCopropiedad,
+                                    SumatoriaCoeficientes = res.CoeficienteCopropiedad
+                                }
+                            );
+
+            var result = new InfoGeneralCopropiedades()
+            {
+                SumatoriaAreasPrivadas = copropiedadesInfo.Sum(co => co.SumatoriaAreasPrivadas),
+                SumatoriaCoeficientes = copropiedadesInfo.Sum(co => co.SumatoriaCoeficientes),
+            };
+
+
+            return result;
         }
     }
 }

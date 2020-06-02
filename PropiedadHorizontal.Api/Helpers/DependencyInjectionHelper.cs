@@ -23,9 +23,9 @@ namespace PropiedadHorizontal.Api.Helpers
             services.AddScoped<ICopropietariosRepository, CopropietariosRepository>();
             services.AddScoped<ICopropietariosService, CopropietariosService>();
             services.AddScoped<IResidentesRepository, ResidentesRepository>();
+            services.AddScoped<IResidentesService, ResidentesService>();
             services.AddScoped<IItemsComunesService, ItemsComunesService>();
             services.AddScoped<IItemsComunesRepository, ItemsComunesRepository>();
-            services.AddScoped<IResidentesService, ResidentesService>();
         }
     }
 }

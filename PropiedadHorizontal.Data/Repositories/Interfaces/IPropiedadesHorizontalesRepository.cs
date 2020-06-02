@@ -24,5 +24,12 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         /// <param name="currentSort"></param>
         /// <returns></returns>
         IEnumerable<PropiedadesHorizontales> GetAllPropiedadesHorizontales(int skip, int take, string searchString, string sortOrder, string currentSort);
+
+        /// <summary>
+        /// Get general information propiedad horizontal
+        /// </summary>
+        /// <param name="nitPropiedadHorizontal"></param>
+        /// <returns></returns>
+        InfoGeneralCopropiedades GetInformacionCopropiedades(string nitPropiedadHorizontal);
     }
 }

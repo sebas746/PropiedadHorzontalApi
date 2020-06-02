@@ -42,6 +42,19 @@ namespace PropiedadHorizontal.Api.Controllers
             return Ok(data);
         }
 
+        /// <summary>
+        /// Get información general de copropiedades.
+        /// </summary>
+        /// <param name="nitPropiedadHorizontal">Nit propiedad horizontal</param>
+        /// <returns>Sumatoria de coeficientes y de áreas privadas.</returns>
+        [Route("GetInformacionCopropiedades/nitPropiedadHorizontal")]
+        [HttpGet]
+        public ActionResult<InfoGeneralCopropiedadesDto> GetInformacionCopropiedades(string nitPropiedadHorizontal)
+        {
+            var result = _propiedadesHorizontalesService.GetInformacionCopropiedades(nitPropiedadHorizontal);
+            return Ok(result);
+        }
+
         private static string GetValidateSortNameColumns(string currentSort)
         {
             currentSort = currentSort ?? "NombrePropiedadHorizontal";

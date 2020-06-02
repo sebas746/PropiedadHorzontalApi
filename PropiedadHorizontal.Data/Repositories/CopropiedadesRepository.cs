@@ -101,6 +101,7 @@ namespace PropiedadHorizontal.Data.Repositories
             return copropiedadesList.Where(co => !existent.Contains(co.NombreCopropiedad)).ToList();
         }
 
+
         public int Count()
         {
             return _generalContext.Copropiedades.Count();

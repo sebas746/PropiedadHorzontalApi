@@ -39,6 +39,9 @@ namespace PropiedadHorizontal.Api.Mapping
                 
             CreateMap<CopropietariosDto, Copropietarios>();
             CreateMap<PaginationDto, Pagination>();
+
+            CreateMap<InfoGeneralCopropiedadesDto, InfoGeneralCopropiedades>();
+            CreateMap<InfoGeneralCopropiedades, InfoGeneralCopropiedadesDto>();
         }
     }
 }

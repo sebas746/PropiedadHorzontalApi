@@ -124,6 +124,13 @@
             <param name="pageSize"></param>
             <returns></returns>
         </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.PropiedadHorizontalController.GetInformacionCopropiedades(System.String)">
+            <summary>
+            Get información general de copropiedades.
+            </summary>
+            <param name="nitPropiedadHorizontal">Nit propiedad horizontal</param>
+            <returns>Sumatoria de coeficientes y de áreas privadas.</returns>
+        </member>
         <member name="M:PropiedadHorizontal.Api.Extensions.Extensions.IsPkceClientAsync(IdentityServer4.Stores.IClientStore,System.String)">
             <summary>
             Determines whether the client is configured to use PKCE.
