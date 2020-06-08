@@ -59,6 +59,7 @@ namespace PropiedadHorizontal.Data.Repositories
             {
                 SumatoriaAreasPrivadas = copropiedadesInfo.Sum(co => co.SumatoriaAreasPrivadas),
                 SumatoriaCoeficientes = copropiedadesInfo.Sum(co => co.SumatoriaCoeficientes),
+                TotalCopropiedades = copropiedadesInfo.Count()
             };
 
 

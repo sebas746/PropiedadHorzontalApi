@@ -1,5 +1,6 @@
 ﻿
 using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using PropiedadHorizontal.Business.Services.Interfaces;
 using PropiedadHorizontal.Business.Utils;
 using PropiedadHorizontal.Core.DTO;
@@ -65,7 +66,20 @@ namespace PropiedadHorizontal.Business.Services
         {
             try
             {
-                return _mapper.Map<InfoGeneralCopropiedadesDto>(_propiedadesHorizontalesRepository.GetInformacionCopropiedades(nitPropiedadHorizontal));
+                var response = _mapper.Map<InfoGeneralCopropiedadesDto>(_propiedadesHorizontalesRepository.GetInformacionCopropiedades(nitPropiedadHorizontal));
+
+                if (response.SumatoriaCoeficientes > 100 || response.SumatoriaCoeficientes < 99)
+                {
+                    response.IsPropiedadHorizontalCompleted = false;
+                    response.PropiedadHorizontaMessage = "Por favor verifique las copropiedades";
+                }
+                else
+                {
+                    response.IsPropiedadHorizontalCompleted = true;
+                    response.PropiedadHorizontaMessage = "Copropiedades correctamente diligenciadas";
+                }
+
+                return response;
             }
 
             catch

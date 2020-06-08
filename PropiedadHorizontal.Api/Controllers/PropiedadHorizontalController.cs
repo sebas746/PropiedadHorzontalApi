@@ -47,7 +47,7 @@ namespace PropiedadHorizontal.Api.Controllers
         /// </summary>
         /// <param name="nitPropiedadHorizontal">Nit propiedad horizontal</param>
         /// <returns>Sumatoria de coeficientes y de áreas privadas.</returns>
-        [Route("GetInformacionCopropiedades/nitPropiedadHorizontal")]
+        [Route("GetInformacionCopropiedades/{nitPropiedadHorizontal}")]
         [HttpGet]
         public ActionResult<InfoGeneralCopropiedadesDto> GetInformacionCopropiedades(string nitPropiedadHorizontal)
         {
