@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using PropiedadHorizontal.Business.Services.Interfaces;
+using PropiedadHorizontal.Business.Utils;
 using PropiedadHorizontal.Core.DTO;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
+using PropiedadHorizontal.Data.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +20,28 @@ namespace PropiedadHorizontal.Business.Services
         {
             _residentesRepository = residentesRepository;
             _mapper = mapper;
+        }
+
+        public IEnumerable<ResidentesDto> GetAllResidentes(PaginationDto paginationDto)
+        {
+            try
+            {
+                if (!GenericUtils<Residentes>.IsValidProperty(paginationDto.OrderBy, false))
+                {
+                    paginationDto.OrderBy = "NombresResidente";
+                }
+
+                var pagination = _mapper.Map<Pagination>(paginationDto);
+
+                var residentes = _residentesRepository.GetAllResidentes(pagination);
+
+                return _mapper.Map<List<ResidentesDto>>(residentes);
+            }
+
+            catch (Exception exc)
+            {
+                throw new Exception(exc.Message);
+            }
         }
 
         public bool CreateResidentes(List<CopropiedadesDto> copropiedadesDto)

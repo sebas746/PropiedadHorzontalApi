@@ -1,4 +1,6 @@
-﻿namespace PropiedadHorizontal.Core.DTO
+﻿using System.Collections.Generic;
+
+namespace PropiedadHorizontal.Core.DTO
 {
     public class ResidentesDto
     {
@@ -12,5 +14,6 @@
         public string EmailResidente { get; set; }
         public string GeneroResidente { get; set; }
         public TipoDocumentosDto TipoDocumento { get; set; }
+        public ICollection<CopropiedadesDto> Copropiedades { get; set; }
     }
 }

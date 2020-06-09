@@ -27,7 +27,7 @@ namespace PropiedadHorizontal.Data.Repositories
 
             var take = pagination.PageSize;
 
-            var includes = new Expression<Func<Residentes, object>>[] { };
+            var includes = new Expression<Func<Residentes, object>>[] { re => re.Copropiedades };
 
             var Residentes = GetPaginated(pagination.Skip, take,
                                       !string.IsNullOrEmpty(pagination.Filter) ?
