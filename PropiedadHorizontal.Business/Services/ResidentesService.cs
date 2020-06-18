@@ -44,6 +44,21 @@ namespace PropiedadHorizontal.Business.Services
             }
         }
 
+        public Residentes CreateResidente(ResidentesDto residenteDto)
+        {
+            try
+            {
+                var residente = _mapper.Map<Residentes>(residenteDto);
+                _residentesRepository.InsertResidente(residente);
+                return residente;
+            }
+            catch
+            {
+                throw;
+            }
+
+        }
+
         public bool CreateResidentes(List<CopropiedadesDto> copropiedadesDto)
         {
             try
@@ -73,6 +88,7 @@ namespace PropiedadHorizontal.Business.Services
             {
                 if (residente != null)
                 {
+
                     if(!IsValidResidente(residente))
                     {
                         return false;
@@ -89,6 +105,35 @@ namespace PropiedadHorizontal.Business.Services
                 }
 
                 return true;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public bool DeleteResidente(string idDocumentoResidente)
+        {
+            try
+            {
+                if (idDocumentoResidente != null)
+                {
+                    return _residentesRepository.DeleteResidente(idDocumentoResidente);
+                }
+
+                return false;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public bool ExistsResidente(string idDocumentoResidente)
+        {
+            try
+            {
+                return _residentesRepository.ExistsResidente(idDocumentoResidente);
             }
             catch
             {

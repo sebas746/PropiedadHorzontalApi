@@ -64,7 +64,7 @@ namespace PropiedadHorizontal.Data.Repositories
         }
 
         ///<see cref="ICopropiedadesRepository.GetCopropiedadById(int)"/>
-        public Copropiedades GetCopropiedadById(int copropiedadId)
+        public Copropiedades GetCopropiedadById(long copropiedadId)
         {
             var includes = new Expression<Func<Copropiedades, object>>[] { co => co.PropiedadHorizontal, co => co.Copropietario, co => co.Residente };
             return Get(co => co.IdCopropiedad.Equals(copropiedadId), includes: includes).FirstOrDefault();
@@ -101,6 +101,11 @@ namespace PropiedadHorizontal.Data.Repositories
             return copropiedadesList.Where(co => !existent.Contains(co.NombreCopropiedad)).ToList();
         }
 
+        ///<see cref="ICopropiedadesRepository.GetCopropiedadesResidente(string)"/>
+        public IEnumerable<Copropiedades> GetCopropiedadesResidente(string idDocumentoResidente)
+        {
+            return _generalContext.Copropiedades.Where(co => co.IdDocumentoResidente.Equals(idDocumentoResidente));
+        }
 
         public int Count()
         {

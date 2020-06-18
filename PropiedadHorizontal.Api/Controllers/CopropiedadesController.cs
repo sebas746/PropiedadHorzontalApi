@@ -123,6 +123,23 @@ namespace PropiedadHorizontal.Api.Controllers
         }
 
         /// <summary>
+        /// Update a residente from copropiedad.
+        /// </summary>
+        /// <param name="copropiedadDto">Copropiedad DTO object.</param>
+        /// <returns>Copropiedad DTO updated object.</returns>
+        [Route("UpdateResidenteCopropiedad")]
+        [HttpPut]
+        public ActionResult<CopropiedadesDto> UpdateResidenteCopropiedad(CopropiedadesDto copropiedadDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (copropiedadDto != null)
+            {
+                return _copropiedadesService.UpdateResidenteCopropiedad(copropiedadDto);
+            }
+            return BadRequest(ModelState);
+        }
+
+        /// <summary>
         /// Deletes a copropiedad.
         /// </summary>
         /// <param name="copropiedadId">Copropiedad id.</param>

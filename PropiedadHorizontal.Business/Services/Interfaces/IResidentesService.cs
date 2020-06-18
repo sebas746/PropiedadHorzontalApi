@@ -19,5 +19,27 @@ namespace PropiedadHorizontal.Business.Services.Interfaces
         /// </summary>
         /// <param name="paginationDto">Pagination object.</param>
         IEnumerable<ResidentesDto> GetAllResidentes(PaginationDto paginationDto);
+
+        /// <summary>
+        /// Deletes a residente.
+        /// </summary>
+        /// <param name="idDocumentoResidente"></param>
+        /// <returns></returns>
+        bool DeleteResidente(string idDocumentoResidente);
+
+        /// <summary>
+        /// Veriry if exists a residente.
+        /// </summary>
+        /// <param name="idDocumentoResidente">Id documento residente.</param>
+        /// <returns></returns>
+        bool ExistsResidente(string idDocumentoResidente);
+
+        /// <summary>
+        /// Creates a new residente.
+        /// </summary>
+        /// <param name="residenteDto">Residente DTO.</param>
+        /// <returns></returns>
+        Residentes CreateResidente(ResidentesDto residenteDto);
+
     }
 }

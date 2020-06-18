@@ -60,6 +60,12 @@ namespace PropiedadHorizontal.Business.Services.Interfaces
         /// <returns></returns>
         bool ExistsCopropiedadNombre(string copropiedadNombre, int idCopropiedad);
 
+        /// <summary>
+        /// Update residente from copropiedad.
+        /// </summary>
+        /// <param name="copropiedadDto">Copropiedad DTO objetc.</param>
+        /// <returns></returns>
+        CopropiedadesDto UpdateResidenteCopropiedad(CopropiedadesDto copropiedadDto);
         int Count();
 
     }

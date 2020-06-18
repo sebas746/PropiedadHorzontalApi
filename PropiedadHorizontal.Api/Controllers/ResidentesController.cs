@@ -19,7 +19,13 @@ namespace PropiedadHorizontal.Api.Controllers
             _residentesService = residentesService;
         }
 
+        /// <summary>
+        /// Get residentes for pagination
+        /// </summary>
+        /// <param name="pagination">Pagination object.</param>
+        /// <returns>Residentes List.</returns>
         [HttpGet]
+        [Route("GetResidentes/{nitPropiedadHorizontal}")]
         public ActionResult<PaginationResponse<ResidentesDto>> GetResidentes([FromQuery]PaginationDto pagination)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);

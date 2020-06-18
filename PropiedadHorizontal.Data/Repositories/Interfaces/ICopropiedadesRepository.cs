@@ -43,7 +43,7 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         /// </summary>
         /// <param name="copropiedadId">Copropiedad id.</param>
         /// <returns></returns>
-        Copropiedades GetCopropiedadById(int copropiedadId);
+        Copropiedades GetCopropiedadById(long copropiedadId);
 
         /// <summary>
         /// Deletes a copropiedad.
@@ -72,6 +72,12 @@ namespace PropiedadHorizontal.Data.Repositories.Interfaces
         /// <returns></returns>
         ICollection<Copropiedades> GetNonExistentCopropiedades(ICollection<Copropiedades> copropiedadesList, string nitCopropiedad);
 
+        /// <summary>
+        /// Get the copropiedades associated to a residente
+        /// </summary>
+        /// <param name="idDocumentoResidente">Id documento residente.</param>
+        /// <returns></returns>
+        IEnumerable<Copropiedades> GetCopropiedadesResidente(string idDocumentoResidente);
         int Count();
     }
 }

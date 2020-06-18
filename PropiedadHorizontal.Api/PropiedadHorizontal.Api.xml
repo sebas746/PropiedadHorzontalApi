@@ -60,6 +60,13 @@
             <param name="copropiedadDto">Copropiedad DTO object.</param>
             <returns>Copropiedad DTO updated object.</returns>
         </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.CopropiedadesController.UpdateResidenteCopropiedad(PropiedadHorizontal.Core.DTO.CopropiedadesDto)">
+            <summary>
+            Update a residente from copropiedad.
+            </summary>
+            <param name="copropiedadDto">Copropiedad DTO object.</param>
+            <returns>Copropiedad DTO updated object.</returns>
+        </member>
         <member name="M:PropiedadHorizontal.Api.Controllers.CopropiedadesController.DeleteCopropiedad(System.Int32)">
             <summary>
             Deletes a copropiedad.
@@ -130,6 +137,13 @@
             </summary>
             <param name="nitPropiedadHorizontal">Nit propiedad horizontal</param>
             <returns>Sumatoria de coeficientes y de áreas privadas.</returns>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.ResidentesController.GetResidentes(PropiedadHorizontal.Core.DTO.PaginationDto)">
+            <summary>
+            Get residentes for pagination
+            </summary>
+            <param name="pagination">Pagination object.</param>
+            <returns>Residentes List.</returns>
         </member>
         <member name="M:PropiedadHorizontal.Api.Extensions.Extensions.IsPkceClientAsync(IdentityServer4.Stores.IClientStore,System.String)">
             <summary>

@@ -155,6 +155,70 @@ namespace PropiedadHorizontal.Business.Services
             }
         }
 
+        public CopropiedadesDto UpdateResidenteCopropiedad(CopropiedadesDto copropiedadDto)
+        {
+            try
+            {
+                var copropiedad = _mapper.Map<Copropiedades>(copropiedadDto);
+                var currentCopropiedad = _copropiedadesRepository.GetCopropiedadById(copropiedad.IdCopropiedad);
+
+                currentCopropiedad.EsResidenteCopropietario = copropiedad.EsResidenteCopropietario;
+
+                //if(!copropiedad.EsResidenteCopropietario.Value && currentCopropiedad.Residente == null)
+                //{
+                    
+                //}
+
+                // El copropietario es el residente de la copropiedad
+                if(copropiedad.EsResidenteCopropietario.Value)
+                {
+                    currentCopropiedad.EsResidenteCopropietario = true;
+                    currentCopropiedad.IdDocumentoResidente = null;
+                    currentCopropiedad.Residente = null;
+
+                    var totalCopropiedadesResidente = 0;
+                    if (currentCopropiedad.IdDocumentoResidente != null)
+                    {
+                        //Get total copropiedades associated to the residente
+                        totalCopropiedadesResidente = _copropiedadesRepository.GetCopropiedadesResidente(currentCopropiedad.IdDocumentoResidente).Count();
+                    }
+
+                    copropiedadDto = _mapper.Map<CopropiedadesDto>(_copropiedadesRepository.UpdateCopropiedad(currentCopropiedad));
+
+                    if (totalCopropiedadesResidente == 1)
+                    {   
+                        _residentesService.DeleteResidente(currentCopropiedad.IdDocumentoResidente);
+                    }
+
+                    return copropiedadDto;
+                }
+                else
+                {
+                    currentCopropiedad.IdDocumentoResidente = copropiedad.Residente.IdDocumentoResidente;
+                    currentCopropiedad.Residente = copropiedad.Residente;
+                    if(!_residentesService.ExistsResidente(copropiedad.Residente.IdDocumentoResidente))
+                    {
+                        _residentesService.CreateResidente(copropiedadDto.Residente);
+                    }
+                }
+
+                if(currentCopropiedad.IdDocumentoResidente != copropiedad.IdDocumentoResidente)
+                {
+                    currentCopropiedad.IdDocumentoResidente = copropiedad.IdDocumentoResidente;
+                    
+                }
+
+                // _residentesService.UpdateResidente(currentCopropiedad.Residente);
+
+                var resultDto = _mapper.Map<CopropiedadesDto>(_copropiedadesRepository.UpdateCopropiedad(currentCopropiedad));
+                return resultDto;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         ///<see cref="ICopropiedadesService.DeleteCopropiedad(int)"/>
         public bool DeleteCopropiedad(int copropiedadId)
         {
