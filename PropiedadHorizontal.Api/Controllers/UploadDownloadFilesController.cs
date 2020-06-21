@@ -6,17 +6,29 @@ using System.Threading.Tasks;
 
 namespace PropiedadHorizontal.Api.Controllers
 {
+    /// <summary>
+    /// Class for upload and download files.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class UploadDownloadFilesController : ControllerBase
     {
         private readonly IHostingEnvironment _hostingEnvironment;
         private const string fileName = "Plantilla_Carga_Masiva_Copropiedades.xlsx";
+        
+        /// <summary>
+        /// UploadDownload controller constructor.
+        /// </summary>
+        /// <param name="environment">Environment variable.</param>
         public UploadDownloadFilesController(IHostingEnvironment environment)
         {
             _hostingEnvironment = environment;
         }
 
+        /// <summary>
+        /// Download plantilla for bulk load.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("downloadPlantillaCopropietarios")]
         public async Task<IActionResult> DownloadPlantillaCopropietarios()

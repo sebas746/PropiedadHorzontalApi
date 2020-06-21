@@ -1,7 +1,6 @@
 ﻿
 using PropiedadHorizontal.Core.DTO;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PropiedadHorizontal.Business.Services.Interfaces
 {

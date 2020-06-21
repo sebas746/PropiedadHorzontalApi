@@ -1,14 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AuthServer.Views.Consent
 {
+    /// <summary>
+    /// IndexModel class.
+    /// </summary>
     public class IndexModel : PageModel
     {
+        /// <summary>
+        /// On get.
+        /// </summary>
         public void OnGet()
         {
         }

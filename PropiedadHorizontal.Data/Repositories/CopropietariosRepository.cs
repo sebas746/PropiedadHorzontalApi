@@ -60,8 +60,7 @@ namespace PropiedadHorizontal.Data.Repositories
         }
 
         public async Task<bool> InsertBulkCopropietarios(List<Copropietarios> copropietarios)
-        {
-            // await _generalContext.BulkInsertAsync(copropietarios);
+        {   
             await _generalContext.AddRangeAsync(copropietarios);
             await _generalContext.SaveChangesAsync();
            

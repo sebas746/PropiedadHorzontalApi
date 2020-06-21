@@ -8,7 +8,6 @@ using PropiedadHorizontal.Api.Helpers;
 using PropiedadHorizontal.Data.Context;
 using AutoMapper;
 using PropiedadHorizontal.Api.Mapping;
-using System.Text.Json;
 using PropiedadHorizontal.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using IdentityServer4.Services;

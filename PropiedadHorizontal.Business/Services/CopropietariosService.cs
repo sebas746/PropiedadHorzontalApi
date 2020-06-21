@@ -5,10 +5,9 @@ using PropiedadHorizontal.Core.DTO;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
 using PropiedadHorizontal.Data.Utils;
+using Serilog;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-
 
 namespace PropiedadHorizontal.Business.Services
 {
@@ -46,10 +45,10 @@ namespace PropiedadHorizontal.Business.Services
                 
                 return _mapper.Map<List<CopropietariosDto>>(copropietarios);
             }
-
             catch (Exception exc)
             {
-                throw new Exception(exc.Message);
+                Log.Error("Error GetAllCopropietarios: " + exc.Message);
+                throw;
             }
         }
 
@@ -60,10 +59,10 @@ namespace PropiedadHorizontal.Business.Services
                 var copropietario = _copropietariosRepository.GetCopropietarioById(idDocumentoCopropietario);
                 return _mapper.Map<CopropietariosDto>(copropietario);
             }
-
             catch (Exception exc)
             {
-                throw new Exception(exc.Message);
+                Log.Error("Error UpdateCopropiedad: " + exc.Message);
+                throw;
             }
         }
 
@@ -98,8 +97,9 @@ namespace PropiedadHorizontal.Business.Services
                 
                 return resultDto;
             }
-            catch
+            catch(Exception exc)
             {
+                Log.Error("Error UpdateCopropiedad: " + exc.Message);
                 throw;
             }
         }
@@ -110,10 +110,10 @@ namespace PropiedadHorizontal.Business.Services
             {   
                 return _copropietariosRepository.ExistsCopropietario(idDocumentoCopropietario);
             }
-
             catch (Exception exc)
             {
-                throw new Exception(exc.Message);
+                Log.Error("Error UpdateCopropiedad: " + exc.Message);
+                throw;
             }
         }
 
@@ -123,46 +123,47 @@ namespace PropiedadHorizontal.Business.Services
             {
                 return _mapper.Map<CopropietariosDto>(_copropietariosRepository.InsertCopropietario(copropietario));
             }
-
             catch (Exception exc)
             {
-                throw new Exception(exc.Message);
+                Log.Error("Error InsertCopropietario: " + exc.Message);
+                throw;
             }
         }
 
         public bool InsertCopropietarios(List<CopropietariosDto> copropietariosDto)
         {
-            var copropietarios = _mapper.Map<List<Copropietarios>>(copropietariosDto);
-
-            foreach(var co in copropietarios)
+            try
             {
-                if(!ExistsCopropietario(co.IdDocumentoCopropietario))
-                {
-                    _copropietariosRepository.InsertCopropietario(co);
-                }
-            }
+                var copropietarios = _mapper.Map<List<Copropietarios>>(copropietariosDto);
 
-            return true;
+                foreach (var co in copropietarios)
+                {
+                    if (!ExistsCopropietario(co.IdDocumentoCopropietario))
+                    {
+                        _copropietariosRepository.InsertCopropietario(co);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception exc)
+            {
+                Log.Error("Error InsertCopropietarios: " + exc.Message);
+                throw;
+            }
         }
 
         public int Count()
         {
-            return _copropietariosRepository.Count();
+            try
+            {
+                return _copropietariosRepository.Count();
+            }
+            catch (Exception exc)
+            {
+                Log.Error("Error Count Copropietarios: " + exc.Message);
+                throw;
+            }
         }
-
-        //public List<Copropiedades> CleanDuplicatedCopropietarios(List<Copropietarios> copropietarios)
-        //{
-        //    var cop = copropietarios.Select(co => co.IdDocumentoCopropietario).Distinct();
-        //        .GroupBy(x => x)
-        //        .Where(g => g.Count() > 1)
-        //        .Select(y => new { Element = y.Key, Counter = y.Count() })
-        //        .ToList();
-
-
-
-
-
-        //    return false;
-        //}
     }
 }

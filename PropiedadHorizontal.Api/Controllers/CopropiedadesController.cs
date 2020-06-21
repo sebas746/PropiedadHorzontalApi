@@ -2,16 +2,22 @@
 using PropiedadHorizontal.Business.Services.Interfaces;
 using PropiedadHorizontal.Core.DTO;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace PropiedadHorizontal.Api.Controllers
 {
+    /// <summary>
+    /// Controller for copropiedades.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class CopropiedadesController : ControllerBase
     {
         private readonly ICopropiedadesService _copropiedadesService;
 
+        /// <summary>
+        /// Copropiedades constructor class.
+        /// </summary>
+        /// <param name="copropiedadesService"></param>
         public CopropiedadesController(ICopropiedadesService copropiedadesService)
         {
             _copropiedadesService = copropiedadesService;

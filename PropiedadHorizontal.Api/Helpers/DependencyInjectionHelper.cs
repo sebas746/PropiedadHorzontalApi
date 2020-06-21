@@ -7,10 +7,20 @@ using PropiedadHorizontal.Data.Repositories.Interfaces;
 
 namespace PropiedadHorizontal.Api.Helpers
 {
+    /// <summary>
+    /// Dependency Injection helper class.
+    /// </summary>
     public class DependencyInjectionHelper
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         protected DependencyInjectionHelper() { }
 
+        /// <summary>
+        /// Static class to configure dependency injection.
+        /// </summary>
+        /// <param name="services">Services collection.</param>
         public static void ConfigureDependencies(IServiceCollection services)
         {
             //Dependency Injection

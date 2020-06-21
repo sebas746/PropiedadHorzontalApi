@@ -5,6 +5,9 @@ using PropiedadHorizontal.Data.Utils;
 
 namespace PropiedadHorizontal.Api.Mapping
 {
+    /// <summary>
+    /// Class for automapping.
+    /// </summary>
     public class AutoMapping : AutoMapper.Profile
     {
 

@@ -5,25 +5,28 @@ using System.Linq;
 
 namespace PropiedadHorizontal.Api.Controllers
 {
+    /// <summary>
+    /// Controller for propiedades horizontales.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class PropiedadHorizontalController : ControllerBase
     {   
         private readonly IPropiedadesHorizontalesService _propiedadesHorizontalesService;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="propiedadesHorizontalesService"></param>
         public PropiedadHorizontalController(IPropiedadesHorizontalesService propiedadesHorizontalesService)
         {
             _propiedadesHorizontalesService = propiedadesHorizontalesService;
         }
 
         /// <summary>
-        /// Get Vehicle List
+        /// Get propiedades horizontales.
         /// </summary>
-        /// <param name="sortOrder"></param>
-        /// <param name="currentSort"></param>
-        /// <param name="searchString"></param>
-        /// <param name="skipRows"></param>
-        /// <param name="pageSize"></param>
+        /// <param name="pagination">Pagination object.</param>
         /// <returns></returns>
         [Route("GetPropiedadesHorizontales/{tenantId}")]
         [HttpGet]

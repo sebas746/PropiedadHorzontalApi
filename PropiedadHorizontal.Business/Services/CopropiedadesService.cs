@@ -5,6 +5,7 @@ using PropiedadHorizontal.Core.DTO;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
 using PropiedadHorizontal.Data.Utils;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -49,10 +50,10 @@ namespace PropiedadHorizontal.Business.Services
 
                  return _mapper.Map<List<CopropiedadesDto>>(copropiedades);
             }
-
-            catch(Exception exc)
+            catch (Exception exc)
             {
-                throw new Exception(exc.Message);
+                Log.Error("Error GetAllCopropiedades: " + exc.Message);
+                throw;
             }
         }
 
@@ -80,8 +81,9 @@ namespace PropiedadHorizontal.Business.Services
                 var resultDto = _mapper.Map<CopropiedadesDto>(_copropiedadesRepository.InsertCopropiedad(copropiedad));
                 return resultDto;
             }
-            catch
+            catch (Exception exc)
             {
+                Log.Error("Error CreateCopropiedad: " + exc.Message);
                 throw;
             }
         }
@@ -112,8 +114,9 @@ namespace PropiedadHorizontal.Business.Services
 
                 return false;
             }
-            catch
+            catch (Exception exc)
             {
+                Log.Error("Error CreateCopropiedades: " + exc.Message);
                 throw;
             }
         }
@@ -126,8 +129,9 @@ namespace PropiedadHorizontal.Business.Services
                 var copropiedad = _copropiedadesRepository.GetCopropiedadById(copropiedadId);
                 return _mapper.Map<CopropiedadesDto>(copropiedad);
             }
-            catch
+            catch (Exception exc)
             {
+                Log.Error("Error GetCopropiedadById: " + exc.Message);
                 throw;
             }
         }
@@ -149,8 +153,9 @@ namespace PropiedadHorizontal.Business.Services
                 var resultDto = _mapper.Map<CopropiedadesDto>(_copropiedadesRepository.UpdateCopropiedad(copropiedad));
                 return resultDto;
             }
-            catch
+            catch (Exception exc)
             {
+                Log.Error("Error UpdateCopropiedad: " + exc.Message);
                 throw;
             }
         }
@@ -163,11 +168,6 @@ namespace PropiedadHorizontal.Business.Services
                 var currentCopropiedad = _copropiedadesRepository.GetCopropiedadById(copropiedad.IdCopropiedad);
 
                 currentCopropiedad.EsResidenteCopropietario = copropiedad.EsResidenteCopropietario;
-
-                //if(!copropiedad.EsResidenteCopropietario.Value && currentCopropiedad.Residente == null)
-                //{
-                    
-                //}
 
                 // El copropietario es el residente de la copropiedad
                 if(copropiedad.EsResidenteCopropietario.Value)
@@ -208,13 +208,12 @@ namespace PropiedadHorizontal.Business.Services
                     
                 }
 
-                // _residentesService.UpdateResidente(currentCopropiedad.Residente);
-
                 var resultDto = _mapper.Map<CopropiedadesDto>(_copropiedadesRepository.UpdateCopropiedad(currentCopropiedad));
                 return resultDto;
             }
-            catch
+            catch (Exception exc)
             {
+                Log.Error("Error UpdateResidenteCopropiedad: " + exc.Message);
                 throw;
             }
         }
@@ -226,8 +225,9 @@ namespace PropiedadHorizontal.Business.Services
             {
                 return _copropiedadesRepository.DeleteCopropiedad(copropiedadId);
             }
-            catch
+            catch (Exception exc)
             {
+                Log.Error("Error DeleteCopropiedad: " + exc.Message);
                 throw;
             }
         }
@@ -239,8 +239,9 @@ namespace PropiedadHorizontal.Business.Services
             {
                 return _copropiedadesRepository.ExistsCopropiedadNombre(copropiedadNombre, idCopropiedad);
             }
-            catch
+            catch (Exception exc)
             {
+                Log.Error("Error ExistsCopropiedadNombre: " + exc.Message);
                 throw;
             }
         }
@@ -252,18 +253,26 @@ namespace PropiedadHorizontal.Business.Services
 
         private bool ExistsDuplicatedCopropiedades(List<Copropiedades> copropiedades)
         {
-            var cop = copropiedades.Select(co => co.NombreCopropiedad).Distinct()
-                    .GroupBy(x => x)
-                    .Where(g => g.Count() > 1)
-                    .Select(y => new { Element = y.Key, Counter = y.Count() })
-                    .ToList();
-
-            if(cop.Count > 0)
+            try
             {
-                return true;
-            }
+                var cop = copropiedades.Select(co => co.NombreCopropiedad).Distinct()
+                        .GroupBy(x => x)
+                        .Where(g => g.Count() > 1)
+                        .Select(y => new { Element = y.Key, Counter = y.Count() })
+                        .ToList();
 
-            return false;
+                if (cop.Count > 0)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception exc)
+            {
+                Log.Error("Error ExistsDuplicatedCopropiedades: " + exc.Message);
+                throw;
+            }
         }
     }
 }

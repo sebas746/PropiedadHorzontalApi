@@ -1,11 +1,12 @@
 ﻿
 using AutoMapper;
-using Microsoft.AspNetCore.Builder;
 using PropiedadHorizontal.Business.Services.Interfaces;
 using PropiedadHorizontal.Business.Utils;
 using PropiedadHorizontal.Core.DTO;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
+using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -55,9 +56,9 @@ namespace PropiedadHorizontal.Business.Services
 
                 return new List<PropiedadHorizontalDto>();
             }
-
-            catch
+            catch (Exception exc)
             {
+                Log.Error("Error GetAllPropiedadesHorizontales: " + exc.Message);
                 throw;
             }
         }
@@ -81,9 +82,9 @@ namespace PropiedadHorizontal.Business.Services
 
                 return response;
             }
-
-            catch
+            catch (Exception exc)
             {
+                Log.Error("Error GetInformacionCopropiedades: " + exc.Message);
                 throw;
             }
         }

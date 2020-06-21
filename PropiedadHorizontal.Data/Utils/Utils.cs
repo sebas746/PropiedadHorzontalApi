@@ -37,34 +37,6 @@ namespace PropiedadHorizontal.Data.Utils
             return func;
         }
 
-        public static LambdaExpression CreateExpression(Type type, string propertyName, bool ascending = true)
-        {
-            var param = Expression.Parameter(type, "x");
-            var item = Expression.Parameter(type, "item");
-
-            var prop = propertyName.Split('.').Aggregate((Expression)param, Expression.Property);
-            Expression expre = param;
-            foreach (var member in propertyName.Split('.'))
-            {
-                expre = Expression.PropertyOrField(expre, member);
-            }
-
-            var member2 = Expression.Property(prop, propertyName);
-            var selector = Expression.Quote(Expression.Lambda(expre, item));
-
-            var body = Expression.Call(
-                typeof(Queryable), ascending ? "OrderBy" : "OrderByDescending",
-                new[] { prop.Type, expre.Type },
-                param, selector);
-
-            //var body = Expression.Call(
-            //    typeof(Queryable), ascending ? "OrderBy" : "OrderByDescending",
-            //    new[] { item.Type, expre.Type },
-            //    source, selector);
-
-            return Expression.Lambda(expre, param);
-        }
-
         public static Expression<Func<TSource, bool>> GetAndOnlyParams<TSource>(Dictionary<string, string> parametersDictionary)
         {
             if (parametersDictionary == null) return null;

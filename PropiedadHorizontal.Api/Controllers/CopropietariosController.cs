@@ -1,16 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PropiedadHorizontal.Business.Services.Interfaces;
 using PropiedadHorizontal.Core.DTO;
-using System.Linq;
 
 namespace PropiedadHorizontal.Api.Controllers
 {
+    /// <summary>
+    /// Copropietarios controller class.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class CopropietariosController : ControllerBase
     {
         private readonly ICopropietariosService _copropietariosService;
 
+        /// <summary>
+        /// Copropietarios controller constructor.
+        /// </summary>
+        /// <param name="copropietariosService"></param>
         public CopropietariosController(ICopropietariosService copropietariosService)
         {
             _copropietariosService = copropietariosService;
@@ -44,6 +50,11 @@ namespace PropiedadHorizontal.Api.Controllers
             return Ok(data);
         }
 
+        /// <summary>
+        /// Get a copropietario by número de documento.
+        /// </summary>
+        /// <param name="numeroDocumento">Número de documento.</param>
+        /// <returns>Copropietario DTO object.</returns>
         [HttpGet]
         [Route("GetCopropietarioById/{numeroDocumento}")]
         public ActionResult<CopropietariosDto> GetCopropietarioById(string numeroDocumento)
@@ -69,6 +80,14 @@ namespace PropiedadHorizontal.Api.Controllers
             return BadRequest(ModelState);
         }
 
+        /// <summary>
+        /// Verify if a copropietario exists in Database.
+        /// </summary>
+        /// <param name="numeroDocumento">Numero de documento copropietario.</param>
+        /// <returns>
+        /// True: If the copropietario exists.
+        /// False: If the copropietario does not exist.
+        /// </returns>
         [HttpGet]
         [Route("ExistsCopropietario/{numeroDocumento}")]
         public bool ExistsCopropietario(string numeroDocumento)

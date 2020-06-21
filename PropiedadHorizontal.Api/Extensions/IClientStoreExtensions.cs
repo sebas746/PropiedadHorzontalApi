@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace PropiedadHorizontal.Api.Extensions
 {
+    /// <summary>
+    /// Extension methods class.
+    /// </summary>
     public static class Extensions
     {
         /// <summary>

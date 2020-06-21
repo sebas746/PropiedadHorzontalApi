@@ -1,14 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AuthServer.Views.Shared
 {
+    /// <summary>
+    /// ScopeListItemModel class.
+    /// </summary>
     public class _ScopeListItemModel : PageModel
     {
+        /// <summary>
+        /// On Get.
+        /// </summary>
         public void OnGet()
         {
         }

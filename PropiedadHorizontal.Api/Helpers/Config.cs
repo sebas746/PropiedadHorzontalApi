@@ -4,8 +4,15 @@ using IdentityServer4.Models;
 
 namespace PropiedadHorizontal.Api.Helpers
 {
+    /// <summary>
+    /// Config class for Identity server.
+    /// </summary>
     public class Config
     {
+        /// <summary>
+        /// Get Identity resources.
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<IdentityResource> GetIdentityResources()
         {
             return new List<IdentityResource>
@@ -16,6 +23,10 @@ namespace PropiedadHorizontal.Api.Helpers
             };
         }
 
+        /// <summary>
+        /// Get API resources.
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<ApiResource> GetApiResources()
         {
             return new List<ApiResource>
@@ -27,6 +38,11 @@ namespace PropiedadHorizontal.Api.Helpers
             };
         }
 
+        /// <summary>
+        /// Get client parameters.
+        /// TO DO: Migrato to appsettings.json
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<Client> GetClients()
         {
             return new[]

@@ -5,9 +5,9 @@ using PropiedadHorizontal.Core.DTO;
 using PropiedadHorizontal.Data.Models;
 using PropiedadHorizontal.Data.Repositories.Interfaces;
 using PropiedadHorizontal.Data.Utils;
+using Serilog;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace PropiedadHorizontal.Business.Services
 {
@@ -37,10 +37,10 @@ namespace PropiedadHorizontal.Business.Services
 
                 return _mapper.Map<List<ResidentesDto>>(residentes);
             }
-
             catch (Exception exc)
             {
-                throw new Exception(exc.Message);
+                Log.Error("Error GetAllResidentes: " + exc.Message);
+                throw;
             }
         }
 
@@ -52,8 +52,9 @@ namespace PropiedadHorizontal.Business.Services
                 _residentesRepository.InsertResidente(residente);
                 return residente;
             }
-            catch
+            catch (Exception exc)
             {
+                Log.Error("Error CreateResidente: " + exc.Message);
                 throw;
             }
 
@@ -74,11 +75,12 @@ namespace PropiedadHorizontal.Business.Services
                 }
                 return true;
             }
-            catch
+            catch (Exception exc)
             {
+                Log.Error("Error CreateResidentes: " + exc.Message);
                 throw;
             }
-            
+
         }
 
         ///<see cref="IResidentesService.UpdateResidente(Residentes)"/>
@@ -106,8 +108,9 @@ namespace PropiedadHorizontal.Business.Services
 
                 return true;
             }
-            catch
+            catch (Exception exc)
             {
+                Log.Error("Error UpdateResidente: " + exc.Message);
                 throw;
             }
         }
@@ -123,8 +126,9 @@ namespace PropiedadHorizontal.Business.Services
 
                 return false;
             }
-            catch
+            catch (Exception exc)
             {
+                Log.Error("Error DeleteResidente: " + exc.Message);
                 throw;
             }
         }
@@ -135,22 +139,30 @@ namespace PropiedadHorizontal.Business.Services
             {
                 return _residentesRepository.ExistsResidente(idDocumentoResidente);
             }
-            catch
+            catch (Exception exc)
             {
+                Log.Error("Error ExistsResidente: " + exc.Message);
                 throw;
             }
         }
 
         private bool IsValidResidente(Residentes residente)
         {
-
-            if(string.IsNullOrEmpty(residente.IdDocumentoResidente) || string.IsNullOrEmpty(residente.CodigoTipoDocumentoResidente) || string.IsNullOrEmpty(residente.NombresResidente)
-                || string.IsNullOrEmpty(residente.ApellidosResidente))
+            try
             {
-                return false;
-            }
+                if (string.IsNullOrEmpty(residente.IdDocumentoResidente) || string.IsNullOrEmpty(residente.CodigoTipoDocumentoResidente) || string.IsNullOrEmpty(residente.NombresResidente)
+                    || string.IsNullOrEmpty(residente.ApellidosResidente))
+                {
+                    return false;
+                }
 
-            return true;
+                return true;
+            }
+            catch (Exception exc)
+            {
+                Log.Error("Error IsValidResidente: " + exc.Message);
+                throw;
+            }
         }
     }
 }

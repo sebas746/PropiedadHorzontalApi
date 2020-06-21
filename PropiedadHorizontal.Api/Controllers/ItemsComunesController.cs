@@ -4,12 +4,19 @@ using PropiedadHorizontal.Core.DTO;
 
 namespace PropiedadHorizontal.Api.Controllers
 {
+    /// <summary>
+    /// Controller for ItemsComunes.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class ItemsComunesController : ControllerBase
     {
         private readonly IItemsComunesService _itemsComunesService;
 
+        /// <summary>
+        /// Constructor for items comunes.
+        /// </summary>
+        /// <param name="itemsComunesService"></param>
         public ItemsComunesController(IItemsComunesService itemsComunesService)
         {
             _itemsComunesService = itemsComunesService;
@@ -39,10 +46,9 @@ namespace PropiedadHorizontal.Api.Controllers
         }
 
         /// <summary>
-        /// Get a copropiedad by id.
+        /// Get all items comunes.
         /// </summary>
-        /// <param name="codigoAgrupador">Codigo Agrupador</param>
-        /// <returns>List of Items comunes.</returns>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetAllItemsComunes")]
         public ActionResult<ItemsComunesDto> GetAllItemsComunes()

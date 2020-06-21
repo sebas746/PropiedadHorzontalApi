@@ -19,6 +19,17 @@
             Handle postback from username/password login
             </summary>
         </member>
+        <member name="T:PropiedadHorizontal.Api.Controllers.CopropiedadesController">
+            <summary>
+            Controller for copropiedades.
+            </summary>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.CopropiedadesController.#ctor(PropiedadHorizontal.Business.Services.Interfaces.ICopropiedadesService)">
+            <summary>
+            Copropiedades constructor class.
+            </summary>
+            <param name="copropiedadesService"></param>
+        </member>
         <member name="M:PropiedadHorizontal.Api.Controllers.CopropiedadesController.GetCopropiedades(PropiedadHorizontal.Core.DTO.PaginationDto)">
             <summary>
             Get a list of copropiedades
@@ -85,6 +96,17 @@
             <param name="idCopropiedad">Id copropiedad in case one is being edited.</param>
             <returns></returns>
         </member>
+        <member name="T:PropiedadHorizontal.Api.Controllers.CopropietariosController">
+            <summary>
+            Copropietarios controller class.
+            </summary>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.CopropietariosController.#ctor(PropiedadHorizontal.Business.Services.Interfaces.ICopropietariosService)">
+            <summary>
+            Copropietarios controller constructor.
+            </summary>
+            <param name="copropietariosService"></param>
+        </member>
         <member name="M:PropiedadHorizontal.Api.Controllers.CopropietariosController.GetCopropietarios(PropiedadHorizontal.Core.DTO.PaginationDto)">
             <summary>
             Get a list of copropietarios
@@ -98,6 +120,13 @@
             </param>
             <returns></returns>
         </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.CopropietariosController.GetCopropietarioById(System.String)">
+            <summary>
+            Get a copropietario by número de documento.
+            </summary>
+            <param name="numeroDocumento">Número de documento.</param>
+            <returns>Copropietario DTO object.</returns>
+        </member>
         <member name="M:PropiedadHorizontal.Api.Controllers.CopropietariosController.UpdateCopropietario(System.String,PropiedadHorizontal.Core.DTO.CopropietariosDto)">
             <summary>
             Update a copropietario.
@@ -105,6 +134,27 @@
             <param name="numeroDocumento">Last Número documento.</param>
             <param name="copropietarioDto">Copropietario DTO object.</param>
             <returns>Copropietario DTO updated object.</returns>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.CopropietariosController.ExistsCopropietario(System.String)">
+            <summary>
+            Verify if a copropietario exists in Database.
+            </summary>
+            <param name="numeroDocumento">Numero de documento copropietario.</param>
+            <returns>
+            True: If the copropietario exists.
+            False: If the copropietario does not exist.
+            </returns>
+        </member>
+        <member name="T:PropiedadHorizontal.Api.Controllers.ItemsComunesController">
+            <summary>
+            Controller for ItemsComunes.
+            </summary>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.ItemsComunesController.#ctor(PropiedadHorizontal.Business.Services.Interfaces.IItemsComunesService)">
+            <summary>
+            Constructor for items comunes.
+            </summary>
+            <param name="itemsComunesService"></param>
         </member>
         <member name="M:PropiedadHorizontal.Api.Controllers.ItemsComunesController.GetItemsComunesByCodigoAgrupador(System.String)">
             <summary>
@@ -115,20 +165,26 @@
         </member>
         <member name="M:PropiedadHorizontal.Api.Controllers.ItemsComunesController.GetAllItemsComunes">
             <summary>
-            Get a copropiedad by id.
+            Get all items comunes.
             </summary>
-            <param name="codigoAgrupador">Codigo Agrupador</param>
-            <returns>List of Items comunes.</returns>
+            <returns></returns>
+        </member>
+        <member name="T:PropiedadHorizontal.Api.Controllers.PropiedadHorizontalController">
+            <summary>
+            Controller for propiedades horizontales.
+            </summary>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.PropiedadHorizontalController.#ctor(PropiedadHorizontal.Business.Services.Interfaces.IPropiedadesHorizontalesService)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="propiedadesHorizontalesService"></param>
         </member>
         <member name="M:PropiedadHorizontal.Api.Controllers.PropiedadHorizontalController.GetPropiedadesHorizontales(PropiedadHorizontal.Core.DTO.PaginationDto)">
             <summary>
-            Get Vehicle List
+            Get propiedades horizontales.
             </summary>
-            <param name="sortOrder"></param>
-            <param name="currentSort"></param>
-            <param name="searchString"></param>
-            <param name="skipRows"></param>
-            <param name="pageSize"></param>
+            <param name="pagination">Pagination object.</param>
             <returns></returns>
         </member>
         <member name="M:PropiedadHorizontal.Api.Controllers.PropiedadHorizontalController.GetInformacionCopropiedades(System.String)">
@@ -138,12 +194,45 @@
             <param name="nitPropiedadHorizontal">Nit propiedad horizontal</param>
             <returns>Sumatoria de coeficientes y de áreas privadas.</returns>
         </member>
+        <member name="T:PropiedadHorizontal.Api.Controllers.ResidentesController">
+            <summary>
+            Controller for residentes entity.
+            </summary>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.ResidentesController.#ctor(PropiedadHorizontal.Business.Services.Interfaces.IResidentesService)">
+            <summary>
+            Constructor for residentes controller.
+            </summary>
+            <param name="residentesService">Residentes service DI.</param>
+        </member>
         <member name="M:PropiedadHorizontal.Api.Controllers.ResidentesController.GetResidentes(PropiedadHorizontal.Core.DTO.PaginationDto)">
             <summary>
             Get residentes for pagination
             </summary>
             <param name="pagination">Pagination object.</param>
             <returns>Residentes List.</returns>
+        </member>
+        <member name="T:PropiedadHorizontal.Api.Controllers.UploadDownloadFilesController">
+            <summary>
+            Class for upload and download files.
+            </summary>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.UploadDownloadFilesController.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            UploadDownload controller constructor.
+            </summary>
+            <param name="environment">Environment variable.</param>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Controllers.UploadDownloadFilesController.DownloadPlantillaCopropietarios">
+            <summary>
+            Download plantilla for bulk load.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PropiedadHorizontal.Api.Extensions.Extensions">
+            <summary>
+            Extension methods class.
+            </summary>
         </member>
         <member name="M:PropiedadHorizontal.Api.Extensions.Extensions.IsPkceClientAsync(IdentityServer4.Stores.IClientStore,System.String)">
             <summary>
@@ -153,9 +242,101 @@
             <param name="client_id">The client identifier.</param>
             <returns></returns>
         </member>
+        <member name="T:PropiedadHorizontal.Api.Helpers.Config">
+            <summary>
+            Config class for Identity server.
+            </summary>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Helpers.Config.GetIdentityResources">
+            <summary>
+            Get Identity resources.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Helpers.Config.GetApiResources">
+            <summary>
+            Get API resources.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Helpers.Config.GetClients">
+            <summary>
+            Get client parameters.
+            TO DO: Migrato to appsettings.json
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PropiedadHorizontal.Api.Helpers.CorsHelper">
+            <summary>
+            Class for cors helper configuration.
+            </summary>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Helpers.CorsHelper.ConfigureService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Static method for configure cors.
+            </summary>
+            <param name="service">Service collection from Services.cs</param>
+        </member>
+        <member name="T:PropiedadHorizontal.Api.Helpers.DependencyInjectionHelper">
+            <summary>
+            Dependency Injection helper class.
+            </summary>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Helpers.DependencyInjectionHelper.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Helpers.DependencyInjectionHelper.ConfigureDependencies(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Static class to configure dependency injection.
+            </summary>
+            <param name="services">Services collection.</param>
+        </member>
+        <member name="T:PropiedadHorizontal.Api.Helpers.SwaggerHelper">
+            <summary>
+            Swagger helper class.
+            </summary>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Helpers.SwaggerHelper.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:PropiedadHorizontal.Api.Helpers.SwaggerHelper.ConfigureService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Static method to congfigure swagger.
+            </summary>
+            <param name="services">Services collection</param>
+        </member>
+        <member name="T:PropiedadHorizontal.Api.Mapping.AutoMapping">
+            <summary>
+            Class for automapping.
+            </summary>
+        </member>
         <member name="M:PropiedadHorizontal.Api.Mapping.AutoMapping.#ctor">
             <summary>
             Constructor
+            </summary>
+        </member>
+        <member name="T:AuthServer.Views.Consent.IndexModel">
+            <summary>
+            IndexModel class.
+            </summary>
+        </member>
+        <member name="M:AuthServer.Views.Consent.IndexModel.OnGet">
+            <summary>
+            On get.
+            </summary>
+        </member>
+        <member name="T:AuthServer.Views.Shared._ScopeListItemModel">
+            <summary>
+            ScopeListItemModel class.
+            </summary>
+        </member>
+        <member name="M:AuthServer.Views.Shared._ScopeListItemModel.OnGet">
+            <summary>
+            On Get.
             </summary>
         </member>
     </members>
