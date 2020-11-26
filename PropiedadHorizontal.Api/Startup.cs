@@ -8,11 +8,9 @@ using PropiedadHorizontal.Api.Helpers;
 using PropiedadHorizontal.Data.Context;
 using AutoMapper;
 using PropiedadHorizontal.Api.Mapping;
-using PropiedadHorizontal.Data.Models;
-using Microsoft.AspNetCore.Identity;
-using IdentityServer4.Services;
-using PropiedadHorizontal.Business.Services.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
+using System.IO;
 
 namespace PropiedadHorizontal.Api
 {
@@ -20,6 +18,7 @@ namespace PropiedadHorizontal.Api
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
 
@@ -30,71 +29,31 @@ namespace PropiedadHorizontal.Api
         {
             services.AddControllers();
 
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", opt =>
+                {
+                    opt.RequireHttpsMetadata = false;
+                    opt.Authority = "https://localhost:5005";
+                    opt.Audience = "companyApi";
+                });
+
+            services.AddControllers();
+
             // Entity Framework Configuration
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal")));
-
-            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal")));
-
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-               .AddEntityFrameworkStores<AppIdentityDbContext>()
-               .AddDefaultTokenProviders();
-
-            services.AddIdentityServer()
-                .AddDeveloperSigningCredential()
-                // this adds the operational data from DB (codes, tokens, consents)
-                .AddOperationalStore(options =>
-                {
-                    options.ConfigureDbContext = builder => builder.UseSqlServer(Configuration.GetConnectionString("PropiedadHorizontal"));
-                    // this enables automatic token cleanup. this is optional.
-                    options.EnableTokenCleanup = true;
-                    options.TokenCleanupInterval = 30; // interval in seconds
-                })
-                //.AddInMemoryPersistedGrants()
-                .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryClients(Config.GetClients())
-                .AddAspNetIdentity<ApplicationUser>();
-
-            /* We'll play with this down the road... 
-                services.AddAuthentication()
-                .AddGoogle("Google", options =>
-                {
-                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-
-                    options.ClientId = "<insert here>";
-                    options.ClientSecret = "<insert here>";
-                });*/
-
-            services.AddTransient<IProfileService, IdentityClaimsProfileService>();
-
-            // Add framework services.
-            services.AddControllersWithViews()
-                .AddNewtonsoftJson(
-                options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-                    );
-            //.AddJsonOptions(options =>
-            //{
-            //    // set this option to TRUE to indent the JSON output
-            //    options.JsonSerializerOptions.WriteIndented = true;
-            //    // set this option to NULL to use PascalCase instead of
-            //    // camelCase (default)
-            //    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-            //    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            //});
 
             services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
                .AllowAnyMethod()
                .AllowAnyHeader()));
 
-            services.AddMvc(options =>
-            {
-                options.EnableEndpointRouting = false;
-            }).SetCompatibilityVersion(CompatibilityVersion.Latest);
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             SwaggerHelper.ConfigureService(services);
             CorsHelper.ConfigureService(services);
             DependencyInjectionHelper.ConfigureDependencies(services);
-
 
             services.AddAutoMapper(typeof(AutoMapping));
         }
@@ -113,13 +72,12 @@ namespace PropiedadHorizontal.Api
 
             app.UseStaticFiles();
             app.UseCors("AllowAll");
-            app.UseIdentityServer();
-
-            app.UseAuthentication();
+           
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
@@ -129,14 +87,7 @@ namespace PropiedadHorizontal.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web API V1");
                 c.RoutePrefix = "";
             });
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
-
+        
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
